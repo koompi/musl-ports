@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "pi"
+  version: "0.1.0"
+  release: 0
+  description: KOOMPI Package Manager
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://github.com/koompi/pi
+  project_ownder:
+        - mrrbrilliant <mrrbrilliantwork@gmail.com>
+sources:
+  - address: "git://github.com/koompi/pi"
+    save_as: pi
+    extract: false
+    extract_to: ~
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+          - cd $SRCDIR/$PKGNAME
+          - cargo build --release --bin pi
+          - cargo build --release --bin bin-repo
+          - cargo build --release --bin server
+          - cargo build --release --bin source-repo
+          - mkdir -pv $PKGDIR/usr/bin
+          - install -Dm755 $SRCDIR/pi/target/release/pi $PKGDIR/usr/bin/pi
+          - install -Dm755 $SRCDIR/pi/target/release/bin-repo $PKGDIR/usr/bin/bin-repo
+          - install -Dm755 $SRCDIR/pi/target/release/server $PKGDIR/usr/bin/server
+          - install -Dm755 $SRCDIR/pi/target/release/source-repo $PKGDIR/usr/bin/source-repo
+deployment: ~

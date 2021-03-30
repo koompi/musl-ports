@@ -5,3 +5,7 @@ pi linux-headers binutils gcc musl  gperf elfutils
 	less gzip libmnl iproute2 kbd libpipeline make patch man-db tar texinfo vim procps-ng pcre2 util-linux e2fsprogs
 	sysklogd eudev dhcpcd libarchive curl httpup scratchpkg runit ca-certificates base linux-firmware fuse2 grub mkinitramfs
 efivar popt efibootmgr grub-efi links nnn lzo lz4 zstd squashfs-tools dosfstools pciutils networkmanager"
+
+
+
+note: runit-void, runit

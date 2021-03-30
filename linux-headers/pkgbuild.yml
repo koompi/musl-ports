@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "linux-headers"
+  version: "5.11.5"
+  release: 1
+  description: Expose the kernel's API for use by Musl libc
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://kernel.org
+  project_ownder:
+        - Linux Tovald
+sources:
+  - address: "http://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.11.5.tar.xz"
+    save_as: linux-5.11.5.tar.xz
+    extract: false
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/linux-$PKGVER
+        - make mrproper
+        - make INSTALL_HDR_PATH=dest headers_install
+        - find dest/include \( -name .install -o -name ..install.cmd \) -delete
+        - mkdir -p $PKGDIR/usr/include
+        - cp -rv dest/include/* $PKGDIR/usr/include
+deployment: ~
