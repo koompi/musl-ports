@@ -1,0 +1,46 @@
+---
+metadata:
+  name: "elfutils"
+  version: "0.183"
+  release: 1
+  description: utilities and libraries for handling ELF files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://sourceware.org/elfutils/
+  project_ownder:
+        - sourceware's team
+sources:
+  - address: "https://sourceware.org/ftp/elfutils/0.183/elfutils-0.183.tar.bz2"
+    save_as: elfutils-0.183.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - cp ../../files/error.h lib
+        - cp ../../files/error.h src
+        - for i in ../../patches/*.patch; do
+        -       patch -Np1 -i $i
+        - done
+        - autoreconf -if
+        - CFLAGs="-O2 -march=x86-64 -pipe -Wno-error" \
+        - ./configure --prefix=/usr --program-prefix="eu-" --disable-debugnfod --disable=nls
+        - for lib in lib libelf libdwfl libdwelf libebl libcpu backends libdw; do
+        -       make -C $lib
+        - done
+
+        - make -C libelf DESTDIR="PKGDIR" install
+        - make -C libdw DESTDIR="PKGDIR" install
+        - mkdir -pv $PKGDIR/usr/lib/pkgconfig
+
+        - cp config/libelf.pc $PKGDIR/usr/lib/pkgconfig
+        - cp config/libdw.pc $PKGDIR/usr/lib/pkgconfig
+deployment: ~
