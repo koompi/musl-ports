@@ -24,7 +24,7 @@ build: ~
 check: ~
 package:
   commands:
-        - cd $SRCDIR/files
+          #- cd $SRCDIR/files
         # - Root directorys
         - for d in dev proc sys run bin boot etc/opt home lib mnt opt sbin srv var run; do
         -         mkdir -pv $PKGDIR/$d
