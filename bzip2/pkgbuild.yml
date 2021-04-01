@@ -1,0 +1,51 @@
+---
+metadata:
+  name: "bzip2"
+  version: "1.0.8"
+  release: 1
+  description: Programs for compressing and decompressing files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http:/www.sourceware.org/
+  project_ownder:
+        - sourceware's team
+sources:
+    - address: "http://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz"
+      save_as: bzip2-1.0.8.tar.gz
+      extract: true
+      extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - CFLAGS="-O2 -march=x86-64 -pipe"
+        - AR="x86_64-linux-musl-ar"
+        - sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+        - sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
+        - sed -i "/^all:/s/ test//" Makefile
+        # -  use our optimization
+        - \[ ${CFLAGS} \] && sed -i "s|-O2|${CFLAGS}|g" Makefile
+        - \[ ${CFLAGS} \] && sed -i "s|-O2|${CFLAGS}|g" Makefile-libbz2_so
+
+        - make -f Makefile-libbz2_so
+        - make
+        - make PREFIX=$PKGDIR/usr install
+        - mkdir -pv $PKGDIR/bin $PKGDIR/lib $PKGDIR/usr/lib
+        - cp bzip2-shared $PKGDIR/bin/bzip2
+        - ln -s ../../lib/libbz2.so.1.8 $PKGDIR/usr/lib/libbz2.so
+
+        - rm $PKGDIR/usr/bin/bunzip2 \
+        -    $PKGDIR/usr/bin/bzcat \
+        -    $PKGDIR/usr/bin/bzip2
+        - ln -s bzip2 $PKGDIR/bin/bunzip2
+        - ln -s bzip2 $PKGDIR/bin/bzcat
+
+
+deployment: ~

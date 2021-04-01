@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "xz"
+  version: "5.2.2"
+  release: 1
+  description: Programs for compressing and decompressing files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http:/tukaani.org
+  project_ownder:
+        - The Tukaani Project
+sources:
+      - address: "https://github.com/xz-mirror/xz/releases/download/v5.2.2/xz-5.2.2.tar.gz"
+        save_as: xz-5.2.2.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-static --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -p $PKGDIR/lib $PKGDIR/bin
+        - mv -v $PKGDIR/usr/bin/lzma \
+        - $PKGDIR/usr/bin/unlzma \
+        - $PKGDIR/usr/bin/lzcat \
+        - $PKGDIR/usr/bin/xz \
+        - $PKGDIR/usr/bin/unxz \
+        - $PKGDIR/usr/bin/xzcat \
+        - $PKGDIR/bin
+        - mv -v $PKGDIR/usr/lib/liblzma.so.* $PKGDIR/lib
+        - ln -svf ../../lib/$(readlink $PKGDIR/usr/lib/liblzma.so) $PKGDIR/usr/lib/liblzma.so
+deployment: ~
