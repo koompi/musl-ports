@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "m4"
+  version: "1.4.18"
+  release: 1
+  description: The GNU macro processor
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - ftp.gnu.org
+  project_ownder:
+        - The Gnu Team
+sources:
+      - address: "http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz"
+        save_as: m4-1.4.18.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        # - # fixes required by glibc-2.28
+        - sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+        - echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~
