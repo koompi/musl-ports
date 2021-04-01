@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "acl"
+  version: "2.2.53"
+  release: 1
+  description: Utilities to administer the extended attributes on filesystem objects
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://savannah.nongnu.org/projects/attr
+  project_ownder:
+        - Andreas Gruenbacher
+        - Brandon Philips
+sources:
+      - address: "http://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz"
+        save_as: acl-2.2.53.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr    \
+        -             --bindir=/bin    \
+        -             --disable-static \
+        - 	      --disable-nls    \
+        -             --libexecdir=/usr/lib
+        - make
+        - make DESTDIR=$PKGDIR install
+        - chmod -v 755 $PKGDIR/usr/lib/libacl.so
+        - mkdir -p $PKGDIR/DIRlib
+        - mv -v $PKGDIR/usr/lib/libacl.so.* $PKGDIR/lib
+        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libacl.so) $PKGDIR/usr/lib/libacl.so
+deployment: ~

@@ -1,0 +1,64 @@
+---
+metadata:
+  name: "gcc"
+  version: "10.2.0"
+  release: 1
+  description: The GNU compiler collection, which includes the C and C++ compilers
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gcc.gnu.org/
+  project_ownder:
+        - Stallman
+sources:
+      - address: "http://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz"
+        save_as: gcc-10.2.0.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies:
+        run_dependencies:
+                - libmpc mpfr gmp zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - sed -e '/m64=/s/lib64/lib/' \
+        -    -i.orig gcc/config/i386/t-linux64
+
+        # -  Do not run fixincludes
+        - "sed -i 's@\\./fixinc\\.sh@-c true@' gcc/Makefile.in"
+
+        - mkdir build
+        - cd build
+
+        - SED=sed \
+        - ../configure \
+        -              --prefix=/usr \
+        -            --libexecdir=/usr/lib \
+        -              --enable-languages=c,c++ \
+        -              --disable-bootstrap \
+        -     --disable-libmpx \
+        -              --with-system-zlib \
+        -     --disable-nls \
+        -     --disable-multilib \
+        -     --disable-libsanitizer
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir $PKGDIR/lib
+        - ln -sv ../usr/bin/cpp $PKGDIR/lib/cpp
+        - ln -sv gcc $PKGDIR/usr/bin/cc
+        - install -v -dm755 $PKGDIR/usr/lib/bfd-plugins
+        - ln -sfv ../../lib/gcc/$($CC -dumpmachine)/$version/liblto_plugin.so \
+        -         $PKGDIR/usr/lib/bfd-plugins/
+        - mkdir -pv $PKGDIR/usr/share/gdb/auto-load/usr/lib
+        - mv -v $PKGDIR/usr/lib/*gdb.py $PKGDIR/usr/share/gdb/auto-load/usr/lib
+        - install -Dm755 ../../../files/c89 $PKGDIR/usr/bin/c89
+        - install -Dm755 ../../../files/c99 $PKGDIR/usr/bin/c99
+        - rm -fr $PKGDIR/usr/share/$PKGNAME-$PKGVER
+deployment: ~
