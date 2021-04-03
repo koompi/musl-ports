@@ -34,7 +34,7 @@ package:
         - make
         - make DESTDIR=$PKGDIR install
         - chmod -v 755 $PKGDIR/usr/lib/libacl.so
-        - mkdir -p $PKGDIR/DIRlib
+        - mkdir -p $PKGDIR/lib
         - mv -v $PKGDIR/usr/lib/libacl.so.* $PKGDIR/lib
         - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libacl.so) $PKGDIR/usr/lib/libacl.so
 deployment: ~

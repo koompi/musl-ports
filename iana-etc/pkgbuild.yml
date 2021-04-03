@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "iana-etc"
+  version: "2.30"
+  release: 1
+  description: Provides data for network services and protocols
+
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.iana.org/protocols
+  project_ownder:
+        - The Iana Team
+sources:
+      - address: "http://anduin.linuxfromscratch.org/LFS/iana-etc-2.30.tar.bz2"
+        save_as: iana-etc-2.30.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - set -e
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

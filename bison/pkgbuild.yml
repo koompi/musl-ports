@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "bison"
+  version: "3.7.5"
+  release: 1
+  description: A parser generator
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org
+  project_ownder:
+        - Stallman
+sources:
+      - address: "https://ftp.gnu.org/gnu/bison/bison-3.7.5.tar.xz"
+        save_as: bison-3.7.5.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - set -e
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        - rm -rf $PKGDIR/usr/share/{doc, info}
+deployment: ~

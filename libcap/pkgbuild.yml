@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "libcap"
+  version: "2.33"
+  release: 1
+  description: Implements the user-space interfaces to the POSIX 1003.1e capabilities available in Linux kernels
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://sites.google.com/site/fullycapable/
+  project_ownder:
+        - Martin Roesch
+sources:
+      - address: "http://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.33.tar.xz"
+        save_as: libcap-2.33.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        # - # use our buildflags
+        - sed -i "s/CFLAGS :=/CFLAGS += \$(CPPFLAGS) /" Make.Rules
+        - sed -i "s/LDFLAGS :=/LDFLAGS +=/" Make.Rules
+
+        - mkdir -pv $PKGDIR/usr/sbin
+        - mkdir -pv $PKGDIR/usr/bin
+        # - # Disable tests, as they cause cross-build failure
+        - sed -e '/test:/,/.sh/d' -e '/tests/d' -i Makefile
+
+        - make GOLANG=no RAISE_SETFCAP=no lib=lib prefix=/usr DESTDIR=$PKGDIR install
+
+        - chmod -v 755 $PKGDIR/usr/lib/libcap.so
+
+        - mkdir -p $PKGDIR/lib
+        - mv -v $PKGDIR/usr/lib/libcap.so.* $PKGDIR/lib
+        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libcap.so) $PKGDIR/usr/lib/libcap.so
+deployment: ~

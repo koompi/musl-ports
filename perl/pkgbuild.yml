@@ -1,0 +1,49 @@
+---
+metadata:
+  name: "perl"
+  version: "5.30.2"
+  release: 1
+  description: The Practical Extraction and Report Language
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.perl.org/
+  project_ownder:
+        - Larry Wall and others
+sources:
+      - address: "http://www.cpan.org/src/5.0/perl-5.30.2.tar.xz"
+        save_as: perl-5.30.2.tar.xz
+        extract: true
+        extract_to: ""
+      - address: "http://github.com/arsv/perl-cross/releases/download/1.3.2/perl-cross-1.3.2.tar.gz"
+        save_as: perl-cross-1.3.2.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - cp -f -r $SRCDIR/perl-cross-1.3.2/* .
+
+        - export BUILD_ZLIB=False
+        - export BUILD_BZIP2=0
+        - ./configure \
+        -  -Dprefix=/usr                 \
+        -                  -Dvendorprefix=/usr           \
+        -                 -Dprivlib=/usr/lib/perl5/${PKGVER%.*} \
+        -                  -Dsitelib=/usr/lib/perl5/site_perl/${PKGVER%.*} \
+        -                   -Dvendorlib=/usr/lib/perl5/site_perl/${PKGVER%.*} \
+        -                   -Dman1dir=/usr/share/man/man1 \
+        -                   -Dman3dir=/usr/share/man/man3 \
+        -                   -Dpager="/usr/bin/less -isR"  \
+        -                   -Duseshrplib                  \
+        -                  -Dusethreads
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

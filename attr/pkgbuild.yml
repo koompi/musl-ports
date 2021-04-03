@@ -25,11 +25,12 @@ build: ~
 check: ~
 package:
   commands:
+
         - cd $SRCDIR/$PKGNAME-$PKGVER
         - ./configure --prefix=/usr --bindir=/bin --disable-static --sysconfdir=/etc --disable-nls
         - make
         - make DESTDIR=$PKGDIR install
-        - chmod -v 755 $PKG/usr/lib/libattr.so
+        - chmod -v 755 $PKGDIR/usr/lib/libattr.so
 
         - mkdir -p $PKGDIR/lib
         - mv -v $PKGDIR/usr/lib/libattr.so.* $PKGDIR/lib

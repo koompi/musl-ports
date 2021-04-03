@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "kmod"
+  version: "27"
+  release: 1
+  description: Libraries and utilities for loading kernel modules
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://git.kernel.org/?p=utils/kernel/kmod/kmod.git;a=summary
+  project_ownder:
+        - Lucas De Marchi and others.
+sources:
+      - address: "http://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-27.tar.xz"
+        save_as: kmod-27.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure \
+        - 	    --prefix=/usr          \
+        -             --bindir=/bin          \
+        -             --sysconfdir=/etc      \
+        -             --with-rootlibdir=/lib \
+        -             --with-xz              \
+        -             --with-zlib
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -p $PKGDIR/sbin
+        - for target in depmod insmod lsmod modinfo modprobe rmmod; do
+        -   ln -sfv ../bin/kmod $PKGDIR/sbin/$target
+        - done
+        - ln -sfv kmod $PKGDIR/bin/lsmod
+deployment: ~

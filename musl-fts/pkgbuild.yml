@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "musl-fts"
+  version: "1.2.7"
+  release: 1
+  description: Implementation of fts for musl libc
+  architecture:
+        - x86_64
+  licenses:
+        - BSD3
+  project_url:
+        - http://github.com/pullmoll/musl-fts
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://github.com/pullmoll/musl-fts/archive/v1.2.7/musl-fts-1.2.7.tar.gz"
+        save_as: musl-fts-1.2.7.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./bootstrap.sh
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

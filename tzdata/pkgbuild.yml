@@ -1,7 +1,7 @@
 ---
 metadata:
   name: "tzdata"
-  version: "2021"
+  version: "2021a"
   release: 1
   description: Sources for time zone and daylight saving time data
   architecture:
@@ -12,11 +12,18 @@ metadata:
         - gnu.org
   project_ownder:
         - stallman
-sources:
-  - address: "https://www.ietf.org/timezones/tzdata-latest.tar.gz"
-    save_as: tzdata-2021.tar.gz
-    extract: true
-    extract_to: ""
+sources: ~
+  # - address: "https://data.iana.org/time-zones/releases/tzdb-2021a.tar.lz"
+  #   save_as: tzdb-2021a.tar.lz
+  #   extract: true
+  #   extract_to: ""
+
+  # - address: "https://www.iana.org/time-zones/repository/releases/tzcode2021a.tar.gz"
+  #   save_as: tzcode2021a.tar.gz
+  #   extract: true
+  #   extract_to: ""
+
+
 security: ~
 dependencies: ~
 prepare: ~
@@ -24,15 +31,18 @@ build: ~
 check: ~
 package:
   commands:
+        - cd $SRCDIR
+        - make
+        - make DESTDIR=$PKGDIR install
         - ZONEINFO=$PKGDIR/usr/share/zoneinfo
-        - mkdir -pv $ZONEINFO/{posix,right}
-        - "for tz in etcetera southamerica northamerica europe africa antarctica
-           asia australasia backward pacificnew systemv; do
-           zic -L /dev/null   -d $ZONEINFO       -y 'sh yearistype.sh' ${tz}
-           zic -L /dev/null   -d $ZONEINFO/posix -y 'sh yearistype.sh' ${tz}
-           zic -L leapseconds -d $ZONEINFO/right -y 'sh yearistype.sh' ${tz}
-            done"
-
+        - mkdir -pv $ZONEINFO/posix \
+        -           $ZONEINFO/right
+        - for tz in etcetera southamerica northamerica europe africa antarctica  \
+        -           asia australasia backward pacificnew systemv; do
+        -     ./zic -L /dev/null   -d $ZONEINFO       -y "sh yearistype.sh" ${tz}
+        -     ./zic -L /dev/null   -d $ZONEINFO/posix -y "sh yearistype.sh" ${tz}
+        -     ./zic -L leapseconds -d $ZONEINFO/right -y "sh yearistype.sh" ${tz}
+        - done
         - cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO
-        - zic -d $ZONEINFO -p America/New_York
+        - ./zic -d $ZONEINFO -p America/New_York
 deployment: ~

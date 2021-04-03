@@ -1,0 +1,10 @@
+#!/bin/bash
+
+CWD=$PWD
+
+dirs=($(ls))
+
+for((i=0;i<${#dirs[@]};i++)); do
+	cd $CWD/${dirs[$i]}
+	pi b -f pkgbuild.yml
+done

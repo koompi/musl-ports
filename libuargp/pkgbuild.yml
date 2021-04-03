@@ -1,0 +1,30 @@
+---
+metadata:
+  name: "libuargp"
+  version: "20190213"
+  release: 1
+  description: libuargp extracted from uclibc, modified lightly, intl-friendly
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/xhebox/libuargp
+  project_ownder:
+        - Xhebox
+sources:
+      - address: "git://github.com/xhebox/libuargp"
+        save_as: libuargp
+        extract: false
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

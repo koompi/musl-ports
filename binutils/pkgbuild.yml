@@ -12,11 +12,11 @@ metadata:
         - https://www.gnu.org/
   project_ownder:
         - Stallman
-sources: ~
-    # - address: https://sourceware.org/pub/binutils/releases/binutils-2.36.1.tar.xz
-    #   save_as: binutils-2.36.1.tar.xz
-    #   extract: false
-    #   extract_to: binutils
+sources:
+    - address: "https://sourceware.org/pub/binutils/releases/binutils-2.36.1.tar.xz"
+      save_as: binutils-2.36.1.tar.xz
+      extract: true
+      extract_to: ""
 security: ~
 dependencies: ~
 prepare: ~
@@ -24,8 +24,9 @@ build: ~
 check: ~
 package:
   commands:
+        - export MAKEFLAGS="j1"
         - cd $SRCDIR/$PKGNAME-$PKGVER
-        - sed -i '/^SUBDIRS/s/doc//' bfd/Makefile.in
+        - 'sed -i "/^SUBDIRS/s/doc//" bfd/Makefile.in'
         - mkdir -v build
         - cd build
         - ../configure --prefix=/usr --enable-gold --disable-nls --enable-ld=default --enable-plugins --enable-shared --disable-werror --with-system-zlib --disable-multilib --with-lib-path=/usr/lib:/lib
