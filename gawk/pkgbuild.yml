@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "gawk"
+  version: "5.0.1"
+  release: 1
+  description: Programs for manipulating text files
+
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - gnu.org
+  project_ownder:
+        - The Gnu Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/gawk/gawk-5.0.1.tar.xz"
+        save_as: gawk-5.0.1.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        # - # ensure some unneeded files are not installed
+        - sed -i 's/extras//' Makefie some unneele.in
+        - ./configure --prefix=/usr --libexecdir=/usr/lib --sysconfdir=/etc --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

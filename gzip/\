@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "gzip"
+  version: "1.10"
+  release: 1
+  description: Programs for compresssing and decompressing files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/gzip/
+  project_ownder:
+        - The GNU Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/gzip/gzip-1.10.tar.gz"
+        save_as: gzip-1.10.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --with-doc=no --with-uchardet=no
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -pv $PKGDIR/bin
+        - mv -v $PKGDIR/usr/bin/gzip $PKGDIR/bin
+deployment: ~

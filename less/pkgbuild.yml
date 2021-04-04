@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "less"
+  version: "551"
+  release: 1
+  description: A text file viewer
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.greenwoodsoftware.com/less
+  project_ownder:
+        - The Greenwordsoftware Team
+sources:
+      - address: "http://www.greenwoodsoftware.com/less/less-551.tar.gz"
+        save_as: less-551.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --sysconfdir=/etc
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

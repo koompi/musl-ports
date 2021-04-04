@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "findutils"
+  version: "4.7.0"
+  release: 1
+  description: Programs to find files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - www.gnu.org/software/findutils
+  project_ownder:
+        - The GNU Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/findutils/findutils-4.7.0.tar.xz"
+        save_as: findutils-4.7.0.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -pv $PKGDIR/bin
+        - mv -v $PKGDIR/usr/bin/find $PKGDIR/bin
+        - sed -i 's|find:=${BINDIR}|find:=/bin|' $PKGDIR/usr/bin/updatedb
+deployment: ~
