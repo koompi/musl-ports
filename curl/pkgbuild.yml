@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "curl"
+  version: "7.69.1"
+  release: 1
+  description: Utility and a library used for transferring files
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://curl.haxx.se/
+  project_ownder:
+        - Daniel Stenberg
+sources:
+      - address: "http://curl.haxx.se/download/curl-7.69.1.tar.xz"
+        save_as: curl-7.69.1.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-static --enable-threaded-resolver --with-ca-bundle=/etc/ssl/cert.pem ac_cv_sizeof_off_t=8
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

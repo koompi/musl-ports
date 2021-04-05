@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "libmnl"
+  version: "1.0.4"
+  release: 1
+  description: A minimalistic user-space library oriented to Netlink developers
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://www.netfilter.org/projects/libmnl/
+  project_ownder:
+        - The netfilter team
+sources:
+      - address: "http://github.com/hangsiahong/ports/releases/download/20210206/libmnl-1.0.4.tar.bz2"
+        save_as: libmnl-1.0.4.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

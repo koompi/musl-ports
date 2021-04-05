@@ -1,0 +1,51 @@
+---
+metadata:
+  name: "eudev"
+  version: "3.2.10"
+  release: 1
+  description: OpenRC compatible fork of systemd-udev
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://wiki.gentoo.org/wiki/Project:Eudev
+  project_ownder:
+        - Gentoo Team
+sources:
+      - address: "https://dev.gentoo.org/~blueness/eudev/eudev-3.2.10.tar.gz"
+        save_as: eudev-3.2.10.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - patch -Np1 -i ../../files/default-rules.patch
+        - patch -Np1 -i ../../files/load-fbcon.patch
+        - ./configure \
+        - --sysconfdir=/etc \
+        - --with-rootprefix= \
+        - --with-rootrundir=/run \
+        - --with-rootlibexecdir=/lib/udev \
+        - --libdir=/usr/lib \
+        - --enable-split-usr \
+        - --enable-manpages \
+        - --disable-hwdb \
+        - --enable-kmod \
+        - --exec-prefix=/ \
+        - --bindir=/bin
+        - make
+        - make DESTDIR="$PKGDIR" sharepkgconfigdir=/usr/lib/pkgconfig \
+        - install
+        - mkdir -pv $PKGDIR/sbin
+        - install -Dm755 ../../files/udev-postmount.initd \
+         $SRCDIR/$PKGNAME-$PKGVER/etc/init.d/udev-postmount
+        - install -Dm755 ../../files/setup-udev \
+        - $PKGDIR/sbin/setup-udev
+deployment: ~

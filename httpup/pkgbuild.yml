@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "httpup"
+  version: "0.5.0"
+  release: 1
+  description: One way sync over http
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://crux.nu/files/httpup-0.5.0.tar.xz"
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://crux.nu/files/httpup-0.5.0.tar.xz"
+        save_as: httpup-0.5.0.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - sed -i 's/Updating collection/Updating repository/' httpup.cpp
+        - make CXX=${CXX:-g++}
+        - make CXX=${CXX:-g++} DESTDIR=$PKGDIR prefix=/usr mandir=/usr/share/man install
+deployment: ~

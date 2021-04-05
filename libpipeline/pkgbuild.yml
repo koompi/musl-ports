@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "libpipeline"
+  version: "1.5.2"
+  release: 1
+  description: A library for manipulating pipelines of subprocesses in a flexible and convenient way
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://libpipeline.nongnu.org/
+  project_ownder:
+        - The Libpipeline Team
+sources:
+      - address: "http://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.2.tar.gz"
+        save_as: libpipeline-1.5.2.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

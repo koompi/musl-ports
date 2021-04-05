@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "libarchive"
+  version: "3.4.2"
+  release: 1
+  description: Reading/writing various compression formats
+  architecture:
+        - x86_64
+  licenses:
+        - BSD3
+  project_url:
+        - http://libarchive.org/
+  project_ownder:
+        - The Libarchive Community
+sources:
+      - address: "http://github.com/libarchive/libarchive/releases/download/v3.4.2/libarchive-3.4.2.tar.gz"
+        save_as: libarchive-3.4.2.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure  \
+        - --prefix=/usr \
+        - --without-xml2 \
+        - --without-nettle \
+        - --disable-static
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

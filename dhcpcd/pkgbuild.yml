@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "dhcpcd"
+  version: "8.1.6"
+  release: 1
+  description: An implementation of the DHCP client specified in RFC2131
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://roy.marples.name/projects/dhcpcd/
+  project_ownder:
+        - Ted Lemon
+sources:
+      - address: "http://roy.marples.name/downloads/dhcpcd/dhcpcd-8.1.6.tar.xz"
+        save_as: dhcpcd-8.1.6.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        -  ./configure  \
+        -    --libexecdir=/lib/dhcpcd \
+        -    --dbdir=/var/lib/dhcpcd
+        - make
+        - make DESTDIR=$PKGDIR install
+
+        # - # runit service
+        - install -Dm755 ../../files/run $PKGDIR/etc/sv/$PKGNAME/run
+        - install -Dm644 ../../files/conf $PKGDIR/etc/sv/$PKGNAME/conf
+        - ln -s /run/runit/supervise.$PKGNAME $PKGDIR/etc/sv/$PKGNAME/supervise
+deployment: ~

@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "pcre2"
+  version: "10.34"
+  release: 1
+  description: New generation of the Perl Compatible Regular Expression libraries
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.pcre.org
+  project_ownder:
+        - The Pcre Team
+sources:
+      - address: "http://ftp.pcre.org/pub/pcre/pcre2-10.34.tar.gz"
+        save_as: pcre2-10.34.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure \
+        -    --prefix=/usr                       \
+        -            --enable-unicode                    \
+        -    --enable-jit                        \
+        -            --enable-pcre2-16                   \
+        -            --enable-pcre2-32                   \
+        -            --enable-pcre2grep-libz             \
+        -            --enable-pcre2grep-libbz2           \
+        -            --enable-pcre2test-libreadline      \
+        -            --disable-static
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

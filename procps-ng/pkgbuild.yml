@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "procps-ng"
+  version: "3.3.16"
+  release: 1
+  description: Programs for monitoring processes
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gitlab.com/procps-ng/procps
+  project_ownder:
+        - The Procpes-Ng Team
+sources: ~
+      # - address: "https://gitlab.com/procps-ng/procps/-/archive/master/procps-master.tar.gz"
+      #   save_as: procps-master.tar.gz
+      #   extract: true
+      #   extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - set +e
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+          # - sed -i '/AC_FUNC_MALLOC/d' procps-master/configure.ac
+        - autoreconf -fiv
+        - ./configure \
+        -     --prefix=/usr \
+        -             --exec-prefix= \
+        -             --libdir=/usr/lib \
+        -             --disable-static \
+        -             --disable-kill \
+        -     --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -pv $PKGDIR/usr/lib
+        - mkdir -pv $PKGDIR/lib
+        - mv -v $PKGDIR/usr/lib/libprocps.so.* $PKGDIR/lib
+        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libprocps.so) $PKGDIR/usr/lib/libprocps.so
+deployment: ~
