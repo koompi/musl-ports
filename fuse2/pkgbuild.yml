@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "fuse2"
+  version: "2.9.9"
+  release: 1
+  description: Simple interface for userspace programs to export a virtual filesystem to the Linux kernel
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/libfuse/libfuse
+  project_ownder:
+        - LibFuse Developers
+sources:
+      - address: "http://github.com/libfuse/libfuse/releases/download/fuse-2.9.9/fuse-2.9.9.tar.gz"
+        save_as: fuse-2.9.9.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/fuse-$PKGVER
+        - ./configure \
+        -     --prefix=/usr    \
+        -             --disable-static \
+        -             INIT_D_PATH=/tmp/init.d
+        - make
+        - make DESTDIR=$PKGDIR install
+
+        - install -d $PKGDIR/lib
+        - mv -v   $PKGDIR/usr/lib/libfuse.so.* $PKGDIR/lib
+        - ln -sfv ../../lib/libfuse.so.2.9.9 $PKGDIR/usr/lib/libfuse.so
+        - rm -rf $PKGDIR/tmp $PKGDIR/dev
+        - install -Dm 644 ../../files/fuse.conf $PKGDIR/etc/fuse.conf
+deployment: ~

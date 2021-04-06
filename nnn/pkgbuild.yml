@@ -1,0 +1,29 @@
+---
+metadata:
+  name: "nnn"
+  version: "3.0"
+  release: 1
+  description: Free, fast, friendly file browser
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/jarun/nnn
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://github.com/jarun/nnn/archive/v3.0/nnn-3.0.tar.gz"
+        save_as: nnn-3.0.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - make DESTDIR=$PKGDIR PREFIX=/usr install
+deployment: ~

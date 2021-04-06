@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "linux-firmware"
+  version: "20200316"
+  release: 1
+  description: Firmware files for Linux
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://git.kernel.org/?p=linux/kernel/git/firmware/linux-firmware.git;a=summary
+  project_ownder:
+        - Josh Boyer and others
+sources:
+  - address: "http://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-20200316.tar.gz"
+    save_as: linux-firmware-20200316.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - sed -i 's/cp -d/cp/g' copy-firmware.sh
+
+        - make DESTDIR="$PKGDIR" FIRMWAREDIR=/usr/lib/firmware install
+deployment: ~

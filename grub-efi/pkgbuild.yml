@@ -1,0 +1,52 @@
+---
+metadata:
+  name: "grub-efi"
+  version: "2.04"
+  release: 1
+  description: The GRand Unified Bootloader (EFI)
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://ftp.gnu.org/gnu/grub/grub
+  project_ownder:
+        - The GNU Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/grub/grub-2.04.tar.xz"
+        save_as: grub-2.04.tar.xz
+        extract: true
+        extract_to: ""
+      - address: "http://ftp.gnu.org/gnu/unifont/unifont-12.1.02/unifont-12.1.02.bdf.gz"
+        save_as: Unifont-12.1.02.bdf.gz
+        extract: false
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/grub-$PKGVER
+
+        - gunzip $SRCDIR/unifont-12.1.02.bdf.gz
+        - cp $SRCDIR/unifont-12.1.02.bdf unifont.bdf
+        - ./configure \
+        -     --prefix=/usr  \
+        -             --sbindir=/sbin        \
+        -             --sysconfdir=/etc      \
+        -             --disable-efiemu       \
+        -             --with-platform=efi    \
+        -             --target=x86_64        \
+        -             --program-prefix=""    \
+        -     --program-suffix="-efi" \
+        -             --with-bootdir="/boot" \
+        -             --disable-werror \
+        -     --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        -
+        - rm -r $PKGDIR/usr/share/info $PKGDIR/etc/ $PKGDIR/usr/bin $PKGDIR/sbin
+        - rm $PKGDIR/usr/share/grub/grub-mkconfig_lib
+deployment: ~

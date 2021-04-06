@@ -1,0 +1,46 @@
+---
+metadata:
+  name: "ca-certificates"
+  version: "20191213"
+  release: 1
+  description: Certificate Authority certificates
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://hg.mozilla.org/releases/mozilla-release/raw-file/default/security/nss/lib/ckfw/builtins/certdata.txt"
+        save_as: certdata.txt-20191213
+        extract: false
+        extract_to: ""
+      - address: "http://www.cacert.org/certs/root.crt"
+        extract: false
+        save_as: root.crt
+        extract_to: ""
+      - address: "http://www.cacert.org/certs/class3.crt"
+        save_as: class3.crt
+        extract: false
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - install -d $PKGDIR/usr/sbin \
+        -            $PKGDIR/etc/ssl/local
+        - cp $SRCDIR/certdata.txt-$PKGVER $PKGDIR/etc/ssl/certdata.txt
+        - 'openssl x509 -in $SRCDIR/root.crt -text -fingerprint -setalias "CAcert Class 1 root" -addtrust serverAuth -addtrust emailProtection -addtrust codeSigning > $PKGDIR/etc/ssl/local/CAcert_Class_1_root.pem'
+
+        - 'openssl x509 -in $SRCDIR/class3.crt -text -fingerprint -setalias "CAcert Class 3 root" addtrust serverAuth -addtrust emailProtection -addtrust codeSigning > $PKGDIR/etc/ssl/local/CAcert_Class_3_root.pem'
+
+        - install -vm755 files/make-ca.sh $PKGDIR/usr/sbin/make-ca
+        - cp $SRCDIR/certdata.txt-$PKGVER certdata.txt
+        - $PKGDIR/usr/sbin/make-ca -D $PKGDIR
+        - ln -sv /etc/ssl/ca-bundle.crt $PKGDIR/etc/ssl/certs/ca-certificates.crt
+deployment: ~

@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "runit-bootscripts"
+  version: "20200118"
+  release: 1
+  description: Runit bootscripts
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/koompi/runit-bootscripts(folked)
+  project_ownder:
+        - emmett1
+sources:
+      - address: "http://github.com/koompi/runit-bootscripts/archive/20200118.tar.gz"
+        save_as: 20200118.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - make CC=${CC:-gcc}
+        - make CC=${CC:-gcc} DESTDIR=$PKGDIR install
+        - ln -s runit-init $PKGDIR/sbin/init
+        - for i in $(seq 6); do
+        - ln -svf /run/runit/supervise.getty-tty$i $PKGDIR/etc/sv/getty-tty$i/supervise
+        - done
+        - ln -svf /run/runit/supervise.sulogin $PKGDIR/etc/sv/sulogin/supervise
+deployment: ~

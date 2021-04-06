@@ -1,0 +1,76 @@
+---
+metadata:
+  name: "linux"
+  version: "5.11.9"
+  release: 1
+  description: Linux kernel, sources and modules
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://kernel.org/
+  project_ownder:
+        - Linus Tovald
+sources: ~
+  # - address: "http://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.11.9.tar.xz"
+  #   save_as: linux-5.11.9.tar.xz
+  #   extract: true
+  #   extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - make mrproper
+
+        - cp ../../files/koompi-config ./.config
+
+        - make olddefconfig
+
+        - 'sed "/^CONFIG_LOCALVERSION=/d" -i .config'
+        - echo 'CONFIG_LOCALVERSION="-koompi"' >> .config
+        - kernver=${PKGVER}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
+
+        - make menuconfig
+        - make olddefconfig
+        - make bzImage modules
+        - make INSTALL_MOD_PATH=$PKGDIR modules_install
+        - mkdir -p $PKGDIR/boot
+        - cp  arch/x86/boot/bzImage $PKGDIR/boot/vmlinuz-koompi
+        - echo $kernver > $PKGDIR/lib/modules/KERNELVERSION
+        - make clean
+        - make prepare
+        - rm -rf $PKGDIR/lib/firmware
+        - for file in $(ls arch); do
+        -     case $file in
+        -         x86|Kconfig) continue ;;
+        -         \*) rm -fr arch/$file ;;
+        -     esac
+        - done
+        - find . -name "*Image" -exec rm "{}" \;
+        - find . -name "*.cmd" -exec rm -f "{}" \;
+        - rm -f .*.d
+        - rm -fr firmware ipc .config.old .version .cocciconfig \
+        - .get_maintainer.ignore .gitattributes .gitignore .mailmap \
+        - COPYING CREDITS MAINTAINERS README Documentation
+        - find . -name ".gitignore" -exec rm "{}" \;
+        - for dir in block certs crypto drivers fs init kernel lib mm net samples security sound usr virt; do
+        - find $dir -type f \( -name "*.c" -o -name "*.h" \) -exec rm "{}" \;
+        - done
+        - for i in $(ls tools); do
+        - \[ "$i" = "objtool" \] || rm -fr tools/$i
+        - done
+        - for i in $(ls tools/objtool); do
+        - \[ "$i" = "objtool" \] || rm -fr tools/objtool/$i
+        - done
+        - rm $PKGDIR/lib/modules/$kernver/build \
+        -    $PKGDIR/lib/modules/$kernver/source
+        - mv $SRCDIR/linux-$PKGVER $PKGDIR/lib/modules/$kernver/build
+        - ln -sv build $PKGDIR/lib/modules/$kernver/source
+        # - # remove now broken symlinks
+        - find -L $PKGDIR/lib/modules/$kernver/build -type l -exec rm -f "{}" \;
+deployment: ~
