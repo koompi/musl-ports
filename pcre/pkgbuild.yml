@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "pcre"
+  version: "8.44"
+  release: 1
+  description: Perl Compatible Regular Expression libraries
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://ftp.pcre.org/pub/pcre/pcre-8.44.tar.bz2"
+        save_as: pcre-8.44.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          ./configure \
+          --prefix=/usr \
+          --enable-unicode-properties \
+          --enable-pcre16 \
+          --enable-pcre32 \
+          -enable-pcregrep-libz \
+          --enable-pcregrep-libbz2 \
+          --enable-pcretest-libreadline \
+          --disable-static
+          make
+          make DESTDIR=$PKGDIR install
+
+          install -d $PKGDIR/lib
+          mv -v $PKGDIR/usr/lib/libpcre.so.* $PKGDIR/lib
+          ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libpcre.so) $PKGDIR/usr/lib/libpcre.so
+deployment: ~

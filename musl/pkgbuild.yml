@@ -26,7 +26,7 @@ package:
   commands:
         - cd $SRCDIR/$PKGNAME-$PKGVER
         - ./configure --prefix/usr
-        - make -j5
+        - make
         - make DESTDIR=$PKGDIR install
         - mkdir -p $PKGDIR/usr/bin
         - mkdir -p $PKGDIR/usr/include/sys

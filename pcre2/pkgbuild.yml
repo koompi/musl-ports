@@ -24,17 +24,18 @@ build: ~
 check: ~
 package:
   commands:
-        - cd $SRCDIR/$PKGNAME-$PKGVER
-        - ./configure \
-        -    --prefix=/usr                       \
-        -            --enable-unicode                    \
-        -    --enable-jit                        \
-        -            --enable-pcre2-16                   \
-        -            --enable-pcre2-32                   \
-        -            --enable-pcre2grep-libz             \
-        -            --enable-pcre2grep-libbz2           \
-        -            --enable-pcre2test-libreadline      \
-        -            --disable-static
-        - make
-        - make DESTDIR=$PKGDIR install
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          ./configure \
+            --prefix=/usr                       \
+                    --enable-unicode                    \
+            --enable-jit                        \
+                    --enable-pcre2-16                   \
+                    --enable-pcre2-32                   \
+                    --enable-pcre2grep-libz             \
+                    --enable-pcre2grep-libbz2           \
+                    --enable-pcre2test-libreadline      \
+                    --disable-static
+         make
+         make DESTDIR=$PKGDIR install
 deployment: ~

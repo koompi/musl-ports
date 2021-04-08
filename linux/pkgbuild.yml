@@ -35,12 +35,14 @@ package:
         - echo 'CONFIG_LOCALVERSION="-koompi"' >> .config
         - kernver=${PKGVER}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
 
-        - make menuconfig
+        # - make menuconfig
         - make olddefconfig
         - make bzImage modules
-        - make INSTALL_MOD_PATH=$PKGDIR modules_install
+        # - make INSTALL_MOD_PATH=$PKGDIR modules_install
+        - make PREFIX=/usr modules_install
+        - make DESTDIR=$PKGDIR/ install
         - mkdir -p $PKGDIR/boot
-        - cp  arch/x86/boot/bzImage $PKGDIR/boot/vmlinuz-koompi
+        - cp arch/x86/boot/bzImage $PKGDIR/boot/vmlinuz-koompi
         - echo $kernver > $PKGDIR/lib/modules/KERNELVERSION
         - make clean
         - make prepare
@@ -51,7 +53,7 @@ package:
         -         \*) rm -fr arch/$file ;;
         -     esac
         - done
-        - find . -name "*Image" -exec rm "{}" \;
+        # - find . -name "*Image" -exec rm "{}" \;
         - find . -name "*.cmd" -exec rm -f "{}" \;
         - rm -f .*.d
         - rm -fr firmware ipc .config.old .version .cocciconfig \

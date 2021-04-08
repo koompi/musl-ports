@@ -27,7 +27,6 @@ dependencies:
         - tzdata
         - zlib
         - bzip2
-        - xz
         - file
         - ncurses
         - readline
@@ -93,6 +92,10 @@ dependencies:
         - runit
         - runit-bootscripts
         - ca-certificates
+        - lz4
+        - lzo
+        - zstd
+        - xz
 prepare: ~
 build: ~
 check: ~
