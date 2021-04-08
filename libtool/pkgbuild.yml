@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "libtool"
+  version: "2.4.6"
+  release: 1
+  description: The GNU generic library support script
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - The GNU generic library support script
+  project_ownder:
+        - The Gnu Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz"
+        save_as: libtool-2.4.6.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

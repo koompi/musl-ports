@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "vim"
+  version: "8.2.0356"
+  release: 1
+  description: Vi Improved, a highly configurable, improved version of the vi text editor
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.vim.org/
+  project_ownder:
+        - Bram Moolenaar
+sources:
+      - address: "http://github.com/vim/vim/archive/v8.2.0356/vim-v8.2.0356.tar.gz"
+        save_as: vim-v8.2.0356.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - echo '#define SYS_VIMRC_FILE "/etc/vimrc"' >> src/feature.h
+        - ./configure $flags \
+        - --prefix=/usr \
+        - --enable-multibyte \
+        - --disable-gui \
+        - --with-tlib=ncursesw \
+        - --without-x
+
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -pv $PKGDIR/usr/bin
+        - ln -sfv vim $PKGDIR/usr/bin/vi
+        - mkdir -pv $PKGDIR/etc
+deployment: ~

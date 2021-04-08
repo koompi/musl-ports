@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "texinfo"
+  version: "6.7"
+  release: 1
+  description: Programs for reading, writing, and converting info pages
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/texinfo/
+  project_ownder:
+        - The Gnu Team
+sources:
+      - address: "http://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz"
+        save_as: texinfo-6.7.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+      # - # Fix a file that creates a lot of failures in the regression checks
+        - sed -i '5481,5485 s/({/(\\{/' tp/Texinfo/Parser.pm
+
+        - ./configure  --prefix=/usr --disable-static --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

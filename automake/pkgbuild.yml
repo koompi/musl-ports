@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "automake"
+  version: "1.16.1"
+  release: 1
+  description: Programs for generating Makefiles for use with Autoconf
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/autoconf
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://ftp.gnu.org/gnu/automake/automake-1.16.1.tar.xz"
+        save_as: automake-1.16.1.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

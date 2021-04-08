@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "grub"
+  version: "2.04"
+  release: 1
+  description: The GRand Unified Bootloader
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/grub/
+  project_ownder:
+        - The GNU Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/grub/grub-2.04.tar.xz"
+        save_as: grub-2.04.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        # - # fix os name
+        - sed 's|GNU/Linux|Linux|' -i "util/grub.d/10_linux.in"
+
+        - ./configure \
+        -     --prefix=/usr \
+        -             --sbindir=/sbin \
+        -             --sysconfdir=/etc \
+        -             --disable-efiemu \
+        -             --disable-werror \
+        -     --enable-grub-mount \
+        -     --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        -
+        # - # borrow from Arch
+        - install -D -m0644 ../../files/grub.default $PKGDIR/etc/default/grub
+deployment: ~

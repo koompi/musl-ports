@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "psmisc"
+  version: "23.3"
+  release: 1
+  description: Programs for displaying information about running processes
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/sed/
+  project_ownder:
+        - Stallman
+sources: ~
+      # - address: "https://fossies.org/linux/misc/legacy/psmisc-23.3.tar.xz"
+      #   save_as: psmisc-23.33.tar.xz
+      #   extract: true
+      #   extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -p $PKGDIR/bin
+        - mv -v $PKGDIR/usr/bin/fuser   $PKGDIR/bin
+        - mv -v $PKGDIR/usr/bin/killall $PKGDIR/bin
+deployment: ~

@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "mkinitramfs"
+  version: "20200118"
+  release: 1
+  description: Modular initramfs image creation utility
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "https://github.com/venomlinux/mkinitramfs/archive/refs/tags/20200118.tar.gz"
+        save_as: mkinitramfs-20200118.tar.gz
+        extract: true
+        extract_to: ""
+
+      - address: "http://github.com/venomlinux/mkinitramfs/commit/2b323335ff368f0bbd40ed7cd907648b2e35bcc1.patch"
+        save_as: 2b323335ff368f0bbd40ed7cd907648b2e35bcc1.patch
+        extract: false
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - patch -Np1 -i $SRCDIR/2b323335ff368f0bbd40ed7cd907648b2e35bcc1.patch
+        - DESTDIR=$PKGDIR ./INSTALL.sh
+        - mkdir -pv $PKGDIR/etc
+        - install -m644 ../../files/mkinitramfs.conf $PKGDIR/etc
+deployment: ~

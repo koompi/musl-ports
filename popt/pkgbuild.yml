@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "popt"
+  version: "1.16"
+  release: 1
+  description: Popt libraries which are used by some programs to parse command-line options
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://rpm5.org/
+  project_ownder:
+        - Erik Troan and Marc Ewing
+sources:
+      - address: "http://ftp.rpm.org/mirror/popt/popt-1.16.tar.gz"
+        save_as: popt-1.16.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-static --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

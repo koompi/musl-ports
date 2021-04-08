@@ -1,0 +1,49 @@
+---
+metadata:
+  name: "e2fsprogs"
+  version: "1.45.6"
+  release: 1
+  description: utilities for handling the ext2, ext3 and ext4 file system
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://e2fsprogs.sourceforge.net/
+  project_ownder:
+        - The E2fsprogs Team
+sources:
+      - address: "http://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.6/e2fsprogs-1.45.6.tar.xz"
+        save_as: e2fsprogs-1.45.6.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - mkdir -v build
+        - cd build
+
+        - ../configure \
+        -      --prefix=/usr           \
+        -              --bindir=/bin           \
+        -              --with-root-prefix=""   \
+        -              --enable-elf-shlibs     \
+        -              --disable-libblkid      \
+        -              --disable-libuuid       \
+        -              --disable-uuidd         \
+        -              --disable-fsck          \
+        -      --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        - make DESTDIR=$PKGDIR install-libs
+
+        - for i in libcom_err libe2p libext2fs libss; do
+        -     chmod -v u+w $PKGDIR/usr/lib/${i}.a
+        - done
+deployment: ~

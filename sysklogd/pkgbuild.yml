@@ -1,0 +1,46 @@
+---
+metadata:
+  name: "sysklogd"
+  version: "1.5.1"
+  release: 1
+  description: Logging system messages, such as those given by the kernel
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.infodrom.org/projects/sysklogd/
+  project_ownder:
+        - Infodrom Projects
+sources:
+      - address: "http://www.infodrom.org/projects/sysklogd/download/sysklogd-1.5.1.tar.gz"
+        save_as: sysklog-1.5.1.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - patch -Np1 -i ../../files/fix-includes.patch
+
+        - sed -i '/Error loading kernel symbols/{n;n;d}' ksym_mod.c
+        - sed -i 's/union wait/int/' syslogd.c
+
+        - mkdir -p \
+        - $PKGDIR/sbin \
+        - $PKGDIR/etc \
+        - $PKGDIR/usr/share/man/man5 \
+        - $PKGDIR/usr/share/man/man8
+        - make CC=${CC:-gcc}
+        - make CC=${CC:-gcc} BINDIR=$PKGDIR/sbin MANDIR=$PKGDIR/usr/share/man install
+
+        - cp ../../files/syslog.conf $PKGDIR/etc/
+        # - # runit service
+        - install -Dm755 ../../files/run $PKGDIR/etc/sv/sysklogd/run
+        - ln -s /run/runit/supervise.$PKGNAME $PKGDIR/etc/sv/sysklogd/supervise
+deployment: ~

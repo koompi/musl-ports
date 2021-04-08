@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "musl"
+  version: "1.2.2"
+  release: 1
+  description: Lightweight implementation of C standard library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - musl-libc.org
+  project_ownder:
+        - Rich Felker
+sources:
+  - address: "http://www.musl-libc.org/releases/musl-1.2.2.tar.gz"
+    save_as: musl-1.2.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix/usr
+        - make -j5
+        - make DESTDIR=$PKGDIR install
+        - mkdir -p $PKGDIR/usr/bin
+        - mkdir -p $PKGDIR/usr/include/sys
+        - ln -sf ../lib/libc.so $PKGDIR/usr/bin/ldd
+        - mkdir -p $PKGDIR/sbin
+        - ln -sv /bin/true $PKGDIR/sbin/ldconfig
+        - for i in getent getconf iconv; do
+        -        ${CC:-gcc} $CFLAGS $LDFLAGS -fpie ../../files/$i.c -o $PKGDIR/usr/bin/$i
+        - done
+        - mkdir -p $PKGDIR/usr/share/man/man1
+        - install -m644 ../../files/getconf.1 $PKGDIR/usr/share/man/man1
+        - install -m644 ../../files/getent.1 $PKGDIR/usr/share/man/man1
+
+        # -  bsdcompat headers
+        - for h in tree.h queue.h cdefs.h; do
+        -        install -D ../../files/$h $PKGDIR/usr/include/sys/
+        - done
+deployment: ~

@@ -1,0 +1,27 @@
+---
+metadata:
+  name: "runit-koompi"
+  version: "0.1.0"
+  release: 0
+  description: KOOMPI Linux runit scripts
+  architecture:
+        - x86_64
+  licenses:
+        - GPL-3.0
+  project_url:
+        - https://github.com/koompi/pi
+  project_ownder:
+        - KOOMPI Organization
+sources:
+  - address: "git://github.com/koompi/koompi-runit"
+    save_as: koompi-runit
+    extract: false
+    extract_to: ~
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands: []
+deployment: ~

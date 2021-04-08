@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "sed"
+  version: "4.8"
+  release: 1
+  description: GNU stream editor
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/sed/
+  project_ownder:
+        - Stallman
+sources:
+      - address: "http://ftp.gnu.org/gnu/sed/sed-4.8.tar.xz"
+        save_as: sed-4.8.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - set -e
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --bindir=/bin --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "attr"
+  version: "2.4.48"
+  release: 1
+  description: Utilities to administer the extended attributes on filesystem objects
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - http://savannah.nongnu.org/projects/attr
+  project_ownder:
+        - Andreas Gruenbacher
+        - Brandon Philips
+sources:
+      - address: "http://download.savannah.gnu.org/releases/attr/attr-2.4.48.tar.gz"
+        save_as: attr-2.4.48.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --bindir=/bin --disable-static --sysconfdir=/etc --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+        - chmod -v 755 $PKGDIR/usr/lib/libattr.so
+
+        - mkdir -p $PKGDIR/lib
+        - mv -v $PKGDIR/usr/lib/libattr.so.* $PKGDIR/lib
+        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libattr.so) $PKGDIR/usr/lib/libattr.so
+deployment: ~

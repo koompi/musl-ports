@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "pkgconf"
+  version: "1.7.3"
+  release: 1
+  description: Package compiler and linker metadata toolkit
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/pkgconf/pkgconf
+  project_ownder:
+        - Wilcox and the others
+sources:
+      - address: "http://distfiles.dereferenced.org/pkgconf/pkgconf-1.7.3.tar.xz"
+        save_as: pkgconf-1.7.3.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure \
+        -       --prefix=/usr \
+        -       --sysconfdir=/etc \
+        -       --with-pkg-config-dir="/usr/lib/pkgconfig:/usr/share/pkgconfig" \
+        -       --with-system-libdir="/lib:/usr/lib" \
+        -       --with-system-includedir="/usr/include"
+        - make
+        - make DESTDIR=$PKGDIR install
+        - ln -sf pkgconf "$PKGDIR"/usr/bin/pkg-config
+deployment: ~

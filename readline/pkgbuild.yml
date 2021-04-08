@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "readline"
+  version: "8.0"
+  release: 1
+  description: Set of libraries that offers command-line editing and history capabilities
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://tiswww.case.edu/php/chet/readline/rltop.html
+  project_ownder:
+        - Stallman
+sources:
+      - address: "http://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz"
+        save_as: readline-8.0.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - sed -i '/MV.*old/d' Makefile.in
+        - sed -i '/{OLDSUFF}/c:' support/shlib-install
+        - ./configure --prefix=/usr --disable-static
+        - make SHLIB_LIBS="-lncursesw"
+        - make SHLIB_LIBS="-lncursesw" DESTDIR=$PKGDIR install
+        - mkdir -p $PKGDIR/lib
+        - mv -v $PKGDIR/usr/lib/libreadline.so.* $PKGDIR/lib
+        - mv -v $PKGDIR/usr/lib/libhistory.so.* $PKGDIR/lib
+        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libreadline.so) $PKGDIR/usr/lib/libreadline.so
+        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libhistory.so ) $PKGDIR/usr/lib/libhistory.so
+deployment: ~

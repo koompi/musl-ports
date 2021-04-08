@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "grep"
+  version: "3.4"
+  release: 1
+  description: Programs for searching through files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/grep/
+  project_ownder:
+        - Stallman
+sources:
+      - address: "http://ftp.gnu.org/gnu/grep/grep-3.4.tar.xz"
+        save_as: grep-3.4.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - set -e
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - ./configure --prefix=/usr --bindir=/bin --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

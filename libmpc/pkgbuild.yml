@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "libmpc"
+  version: "1.2.1"
+  release: 1
+  description: A library for the arithmetic of complex numbers with arbitrarily high precision and correct rounding of the result
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.multiprecision.org/
+  project_ownder:
+        - The Mpfr Team
+sources:
+      - address: "http://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz"
+        save_as: mpc-1.2.1.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/mpc-$PKGVER
+        - ./configure --prefix=/usr --disable-static
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "zstd"
+  version: "1.4.4"
+  release: 1
+  description: Zstandard is a real-time compression algorithm, providing high compression ratios.
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://facebook.github.io/zstd/
+  project_ownder:
+        - Facebook's Developer
+sources:
+      - address: "http://github.com/facebook/zstd/releases/download/v1.4.4/zstd-1.4.4.tar.gz"
+        save_as: zstd-1.4.4.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

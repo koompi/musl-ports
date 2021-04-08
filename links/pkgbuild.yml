@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "links"
+  version: "2.20.2"
+  release: 1
+  description: Text and graphics mode WWW browser
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://links.twibright.com/
+  project_ownder:
+        - The Links Developers
+sources:
+      - address: "http://links.twibright.com/download/links-2.20.2.tar.bz2"
+        save_as: links-2.20.2.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --mandir=/usr/share/man
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

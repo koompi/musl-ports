@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "iproute2"
+  version: "5.5.0"
+  release: 1
+  description: Programs for basic and advanced IPV4-based networking
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.linuxfoundation.org/collaborate/workgroups/networking/iproute2
+  project_ownder:
+        - Linux Foundation Team
+sources:
+      - address: "http://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.5.0.tar.xz"
+        save_as: iproute2-5.5.0.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - cp ../../files/xtables-version.h include
+        - ./configure --prefix=/usr
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

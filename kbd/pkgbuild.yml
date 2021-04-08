@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "kbd"
+  version: "2.2.0"
+  release: 1
+  description: Key-table files, console fonts, and keyboard utilities
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.kbd-project.org/
+  project_ownder:
+        - The KBD Projects
+sources:
+      - address: "http://www.kernel.org/pub/linux/utils/kbd/kbd-2.2.0.tar.xz"
+        save_as: kbd-2.2.0.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+
+        - patch -Np1 -i ../../files/kmod-backspace-1.patch
+
+        - sed -i 's/\(RESIZECONS_PROGS=\)yes/\1no/g' configure
+        - sed -i 's/resizecons.8 //' docs/man/man8/Makefile.in
+
+        - ./configure --prefix=/usr --disable-vlock --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+
+        - mkdir -p $PKGDIR/bin
+        - for i in dumpkeys kbd_mode loadkeys setfont; do
+        -   mv -v $PKGDIR/usr/bin/$i $PKGDIR/bin
+        - done
+deploymen t: ~

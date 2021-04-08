@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "man-db"
+  version: "2.9.1"
+  release: 1
+  description: Programs for finding and viewing man pages
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.nongnu.org/man-db/
+  project_ownder:
+        - Non Gnu Team
+sources:
+      - address: "http://savannah.nongnu.org/download/man-db/man-db-2.9.1.tar.xz"
+        save_as: man-db-2.9.1.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure \
+        -     --prefix=/usr \
+        -             --sysconfdir=/etc \
+        -     --libexecdir=/usr/lib \
+        -             --disable-setuid \
+        -             --enable-cache-owner=bin \
+        -             --with-browser=/usr/bin/lynx \
+        -             --with-vgrind=/usr/bin/vgrind \
+        -             --with-grap=/usr/bin/grap \
+        -             --with-systemdtmpfilesdir=no \
+        -     --with-systemdsystemunitdir=no \
+        -     --disable-nls
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

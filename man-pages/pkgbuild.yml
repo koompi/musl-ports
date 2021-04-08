@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "man-pages"
+  version: "5.10"
+  release: 1
+  description: Linux man pages
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://kernel.org
+  project_ownder:
+        - AT&T
+sources:
+  - address: "http://github.com/hangsiahong/ports/releases/download/5.10/man-pages-5.10.tar.xz"
+    save_as: man-pages-5.10.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - make DESTDIR=$PKGDIR install
+        # ship with tzdata
+        # - rm $PKG/usr/share/man/man5/tzfile.5
+        # - rm $PKG/usr/share/man/man8/zic.8
+        # - rm $PKG/usr/share/man/man8/tzselect.8
+        # - rm $PKG/usr/share/man/man8/zdump.8
+deployment: ~

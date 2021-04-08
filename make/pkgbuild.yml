@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "make"
+  version: "4.3"
+  release: 1
+  description: Program for compiling packages
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/make
+  project_ownder:
+        - The Gnu Team
+sources:
+      - address: "http://ftp.gnu.org/gnu/make/make-4.3.tar.gz"
+        save_as: make-4.3.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-nls --without-guile
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

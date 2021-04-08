@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "openssl"
+  version: "1.1.1j"
+  release: 1
+  description: Toolkit for Transport Layer Security (TLS)
+  architecture:
+        - x86_64
+  licenses:
+        - BSD3
+  project_url:
+        - https://www.openssl.org/
+  project_ownder:
+        - The OpenSSL Project
+sources:
+      - address: "https://www.openssl.org/source/openssl-1.1.1j.tar.gz"
+        save_as: openssl-1.1.1j.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - patch -Np0 -i ../../files/man-section.patch
+        - patch -Np0 -i ../../files/ppc64.patch
+
+        - perl ./config --prefix=/usr \
+        -   --libdir=lib \
+        -   --openssldir=/etc/ssl \
+        - shared no-zlib $_optflags \
+        - no-async no-comp no-idea no-mdc2 no-rc5 no-ec2m \
+        - no-sm2 no-sm4 no-ssl2 no-ssl3 no-seed \
+        - no-weak-ssl-ciphers \
+        - -Wa,--noexecstack
+        - make
+        - make DESTDIR="$PKGDIR" install
+        # - # remove the script c_rehash
+        - rm "$PKGDIR"/usr/bin/c_rehash
+
+
+deployment: ~

@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "inetutils"
+  version: "1.9.4"
+  release: 1
+  description: Programs for basic networkinng
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.gnu.org/software/inetutils/
+  project_ownder:
+        - The Gnu Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz"
+        save_as: inetutils-1.9.4.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - patch -Np1 -i ../../files/fix-build.patch
+        - ./configure \
+        - 	--prefix=/usr \
+        - 	--libexecdir=/usr/sbin \
+        - 	--localstatedir=/var \
+        - 	--disable-logger \
+        - 	--disable-whois \
+        - 	--disable-rcp \
+        - 	--disable-rexec \
+        - 	--disable-rlogin \
+        - 	--disable-rsh \
+        - 	--disable-servers
+        - make
+        - make DESTDIR=$PKGDIR install
+        - mkdir -pv $PKGDIR/bin $PKGDIR/sbin
+        - for i in hostname ping ping6 traceroute; do
+        - 	mv -v $PKGDIR/usr/bin/$i $PKGDIR/bin
+        - done
+        - mv -v $PKGDIR/usr/bin/ifconfig $PKGDIR/sbin
+deployment: ~

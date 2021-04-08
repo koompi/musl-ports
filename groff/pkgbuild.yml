@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "groff"
+  version: "1.22.4"
+  release: 1
+  description: Programs for processing and formatting text
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - www.gnu.org/software/groff
+  project_ownder:
+        - The GNU Projects
+sources:
+      - address: "http://ftp.gnu.org/gnu/groff/groff-1.22.4.tar.gz"
+        save_as: groff-1.22.4.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --with-doc=no --with-uchardet=no
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

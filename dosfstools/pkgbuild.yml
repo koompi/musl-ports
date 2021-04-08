@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "dosfstools"
+  version: "4.2"
+  release: 1
+  description: Various utilities for use with the FAT family of file systems
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/dosfstools
+  project_ownder:
+        - The Dosfstools Developer
+sources:
+      - address: "https://github.com/dosfstools/dosfstools/releases/download/v4.2/dosfstools-4.2.tar.gz"
+        save_as: dosfstools-4.2.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/               \
+        -             --enable-compat-symlinks \
+        -             --mandir=/usr/share/man  \
+        -     --docdir=/usr/share/doc/$PKGNAME
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~
