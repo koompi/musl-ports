@@ -20,7 +20,10 @@ sources:
 security: ~
 dependencies:
         run_dependencies:
-                - libmpc mpfr gmp zlib
+                - libmpc
+                - mpfr
+                - gmp
+                - zlib
 prepare: ~
 build: ~
 check: ~

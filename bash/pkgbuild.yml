@@ -20,7 +20,8 @@ sources:
 security: ~
 dependencies:
         run_dependencies:
-                - readline ncurses
+                - readline
+                - ncurses
 prepare: ~
 build: ~
 check: ~

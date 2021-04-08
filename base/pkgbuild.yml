@@ -19,8 +19,80 @@ sources: ~
   #   extract_to: ~
 security: ~
 dependencies:
-     run_dependencies:
-              - filesystem linux-api-headers man-pages musl tzdata zlib bzip2 xz file ncurses readline m4 bc binutils gmp mpfr libmpc attr acl shadow gcc pkgconf libcap sed psmisc iana-etc bison flex grep bash libtool gdbm gperf expat inetutils perl autoconf automake kmod gettext libuargp musl-fts elfutils libressl coreutils diffutils gawk findutils groff less gzip iproute2 kbd libpipeline make patch man-db tar texinfo vim procps-ng pcre2 util-linux e2fsprogs sysklogd eudev dhcpcd libarchive curl httpup scratchpkg runit runit-bootscripts ca-certificates
+    run_dependencies:
+        - filesystem
+        - linux-headers
+        - man-pages
+        - musl
+        - tzdata
+        - zlib
+        - bzip2
+        - xz
+        - file
+        - ncurses
+        - readline
+        - m4
+        - bc
+        - binutils
+        - gmp
+        - mpfr
+        - libmpc
+        - attr
+        - acl
+        - shadow
+        - gcc
+        - pkgconf
+        - libcap
+        - sed
+        - psmisc
+        - iana-etc
+        - bison
+        - flex
+        - grep
+        - bash
+        - libtool
+        - gdbm
+        - gperf
+        - expat
+        - inetutils
+        - perl
+        - autoconf
+        - automake
+        - kmod
+        - gettext
+        - libuargp
+        - musl-fts
+        - elfutils
+        - openssl
+        - coreutils
+        - diffutils
+        - gawk
+        - findutils
+        - groff
+        - less
+        - gzip
+        - iproute2
+        - kbd
+        - libpipeline
+        - make
+        - patch
+        - man-db
+        - tar
+        - texinfo
+        - vim
+        - procps-ng
+        - pcre2
+        - util-linux
+        - e2fsprogs
+        - sysklogd
+        - eudev
+        - dhcpcd
+        - libarchive
+        - curl
+        - httpup
+        - runit
+        - runit-bootscripts
+        - ca-certificates
 prepare: ~
 build: ~
 check: ~
