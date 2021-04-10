@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "mtools"
+  version: "4.0.26"
+  release: 1
+  description: Programs for compressing and decompressing files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://ftp.gnu.org/gnu/mtools/mtools-4.0.26.tar.bz2"
+        save_as: mtools-4.0.26.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          ./configure --prefix=/usr \
+                    --sysconfdir=/etc \
+                    --disable-floppyd
+          make
+          sed -i Makefile -e 's|install-scripts install-info|install-scripts|'
+          export MAKEFLAGS="-j1"
+          make prefix=$PKGDIR/usr install
+deployment: ~

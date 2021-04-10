@@ -1,0 +1,48 @@
+---
+metadata:
+  name: "nghttp2"
+  version: "1.43.0"
+  release: 1
+  description: Experimental HTTP/2 client, server and proxy
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "https://github.com/nghttp2/nghttp2/releases/download/v1.43.0/nghttp2-1.43.0.tar.xz"
+        save_as: nghttp2-1.43.0.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          patch -Np1 -i ../../files/remove-mruby-tests.patch
+          patch -Np1 -i ../../files/disable-failing-musl-unittest.patch
+          autoreconf -vif
+          ./configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --mandir=/usr/share/man \
+          --infodir=/usr/share/info \
+          --localstatedir=/var \
+          --without-libxml2 \
+          --without-neverbleed \
+          --without-jemalloc \
+          --disable-python-bindings \
+          --disable-examples \
+          --enable-static \
+          --without-libsystemd \
+          --enable-app
+          make
+          make DESTDIR=$PKGDIR install
+deployment: ~

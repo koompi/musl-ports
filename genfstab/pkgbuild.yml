@@ -1,0 +1,29 @@
+---
+metadata:
+  name: "genfstab"
+  version: "0.1"
+  release: 1
+  description: Program for generate filesystem table
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/glacion/genfstab
+  project_ownder:
+        - Arch Linux
+sources:
+      - address: "https://raw.githubusercontent.com/glacion/genfstab/master/genfstab"
+        save_as: genfstab
+        extract: false
+        extract_to: ~
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - mkdir -pv $PKGDIR/usr/bin
+        - install -Dm755 $SRCDIR/genfstab $PKGDIR/usr/bin
+deployment: ~

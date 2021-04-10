@@ -44,4 +44,5 @@ package:
         - 	mv -v $PKGDIR/usr/bin/$i $PKGDIR/bin
         - done
         - mv -v $PKGDIR/usr/bin/ifconfig $PKGDIR/sbin
+        - chmod +x $PKGDIR/bin/*
 deployment: ~

@@ -12,11 +12,11 @@ metadata:
         - http://github.com/koompi/runit-bootscripts(folked)
   project_ownder:
         - emmett1
-sources:
-      - address: "http://github.com/koompi/runit-bootscripts/archive/20200118.tar.gz"
-        save_as: 20200118.tar.gz
-        extract: true
-        extract_to: ""
+sources: ~
+      # - address: "http://github.com/koompi/runit-bootscripts/archive/20200118.tar.gz"
+      #   save_as: 20200118.tar.gz
+      #   extract: true
+      #   extract_to: ""
 security: ~
 dependencies: ~
 prepare: ~
