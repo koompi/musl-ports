@@ -29,8 +29,11 @@ package:
         - make
         - make DESTDIR=$PKGDIR install
         - mkdir -p $PKGDIR/usr/bin
+        - mkdir -p $PKGDIR/bin
         - mkdir -p $PKGDIR/usr/include/sys
-        - ln -sf ../lib/libc.so $PKGDIR/usr/bin/ldd
+        - ln -sf $PKGDIR/lib/ld-musl-x86_64.so.1 $PKGDIR/lib/libc.so
+        - ln -sf $PKGDIR/lib/libc.so $PKGDIR/usr/bin/ldd
+        - ln -sf $PKGDIR/usr/bin/ldd $PKGDIR/bin/ldd
         - mkdir -p $PKGDIR/sbin
         - ln -sv /bin/true $PKGDIR/sbin/ldconfig
         - for i in getent getconf iconv; do

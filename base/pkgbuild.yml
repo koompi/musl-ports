@@ -96,6 +96,14 @@ dependencies:
         - lzo
         - zstd
         - xz
+        - dosfstools
+        - efivars
+        - efibootmgr
+        - mtools
+        - links
+        - pi
+        - intel-ucode
+        - linux-firmware
 prepare: ~
 build: ~
 check: ~
