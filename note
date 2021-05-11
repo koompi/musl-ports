@@ -3,3 +3,11 @@ add PATH
 chmod failed (ping)
 free command not found
 curl library
+
+
+error  musl need to link /lib/libc.so to /bin/ldd
+
+
+error EFI cannot make EFI
+error privilege PING command
+cannot go su | might need to use sudo instead

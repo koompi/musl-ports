@@ -81,6 +81,7 @@ dependencies:
         - vim
         - procps-ng
         - pcre2
+        - pcre
         - util-linux
         - e2fsprogs
         - sysklogd
@@ -97,12 +98,16 @@ dependencies:
         - zstd
         - xz
         - dosfstools
-        - efivars
+        - efivar
+        - squashfs-tools
         - efibootmgr
         - mtools
         - links
         - pi
         - intel-ucode
+        - grub
+        - grub-efi
+        - mkinitramfs
         - linux-firmware
 prepare: ~
 build: ~
