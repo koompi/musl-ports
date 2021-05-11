@@ -1,0 +1,53 @@
+---
+metadata:
+  name: "pam"
+  version: "1.5.1"
+  release: 1
+  description: Pluggable Authentication Modules used to enable the local system administrator to choose how applications authenticate users
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://github.com/linux-pam/
+  project_ownder:
+        - Andrew G. Morgan and the others
+sources:
+      - address: "https://github.com/linux-pam/linux-pam/releases/download/v1.5.1/Linux-PAM-1.5.1.tar.xz"
+        save_as: Linux-PAM-1.5.1.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/Linux-PAM-1.5.1
+          ./configure \
+              --prefix=/usr                    \
+                      --sysconfdir=/etc                \
+                      --libdir=/usr/lib                \
+                      --disable-regenerate-docu        \
+                      --disable-nls                    \
+                      --enable-securedir=/lib/security
+          make
+          make DESTDIR=$PKGDIR install
+          mkdir -p $PKGDDIR/sbin
+          chmod -v 4755 $PKGDIR/sbin/unix_chkpwd
+
+          for file in pam pam_misc pamc
+          do
+            mv -v $PKGDIR/usr/lib/lib${file}.so.* $PKGDIR/lib
+            ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/lib${file}.so) $PKGDIR/usr/lib/lib${file}.so
+          done
+
+          mkdir -pv $PKGDIR/etc
+          mkdir -m 755 $PKGDIR/etc/pam.d
+          install -D -m 644 -o root -g root ../../files/other $PKGDIR/etc/pam.d/other
+          install -D -m 644 -o root -g root ../../files/system-auth $PKGDIR/etc/pam.d/system-auth
+
+          rm -r $PKGDIR/usr/share/doc
+deployment: ~
