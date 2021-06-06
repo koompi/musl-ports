@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "libunistring"
+  version: "0.9.10"
+  release: 1
+  description: Library for manipulating Unicode strings and C strings
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "https://ftp.gnu.org/gnu/libunistring/libunistring-0.9.10.tar.xz"
+        save_as: libunistring-0.9.10.tar.xz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-static
+        - make
+        - make DESTDIR=$PKGDIR install
+        - rm -r $PKGDIR/usr/share
+deployment: ~

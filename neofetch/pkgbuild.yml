@@ -1,0 +1,28 @@
+---
+metadata:
+  name: neofetch
+  version: 7.1.0
+  release: 1
+  description: A CLI system information tool written in BASH that supports displaying images.
+  architecture:
+    - x86_64
+  licenses:
+    - MIT
+  project_url:
+    - https://github.com/dylanaraps/neofetch
+  project_ownder: []
+sources:
+  - address: "git://github.com/dylanaraps/neofetch"
+    save_as: neofetch
+    extract: false
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - cd "${SRCDIR}/${PKGNAME}"
+    - make DESTDIR=${PKGDIR} install
+deployment: ~

@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "scratchpkg"
+  version: "0.6"
+  release: 1
+  description: A simple package manager
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "http://github.com/venomlinux/scratchpkg/archive/0.6/scratchpkg-0.6.tar.gz"
+        save_as: scratchpkg-0.6.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          mkdir -pv $PKGDIR/etc
+          DESTDIR=$PKGDIR ./INSTALL.sh
+          install -m755 ../../xrevdep $PKGDIR/usr/bin/
+          install -m755 ../../xdepends $PKGDIR/usr/bin/
+          install -m755 ../../xrebuild $PKGDIR/usr/bin/
+          install -m755 ../../xbase $PKGDIR/usr/bin/
+          install -m644 ../../repo $PKGDIR/etc/scratchpkg.repo
+          install -m644 ../../scratchpkg.alias $PKGDIR/etc/scratchpkg.alias
+          install -m644 ../../scratchpkg.conf $PKGDIR/etc/scratchpkg.conf
+          rm $PKGDIR/usr/bin/revdep
+deployment: ~

@@ -1,0 +1,30 @@
+---
+metadata:
+  name: "lz4"
+  version: "1.9.2"
+  release: 1
+  description: Extremely fast compression algorithm
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://github.com/lz4
+  project_ownder:
+        - The Lz4 community
+sources:
+      - address: "http://github.com/lz4/lz4/archive/v1.9.2/lz4-1.9.2.tar.gz"
+        save_as: lz4-1.9.2.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - make --PREFIX=/usr
+        - make DESTDIR=$PKGDIR install
+deployment: ~

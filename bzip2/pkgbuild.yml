@@ -25,27 +25,40 @@ check: ~
 package:
   commands:
         - cd $SRCDIR/$PKGNAME-$PKGVER
-        - CFLAGS="-O2 -march=x86-64 -pipe"
-        - AR="x86_64-linux-musl-ar"
-        - sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
-        - sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile
-        - sed -i "/^all:/s/ test//" Makefile
-        # -  use our optimization
-        - \[ ${CFLAGS} \] && sed -i "s|-O2|${CFLAGS}|g" Makefile
-        - \[ ${CFLAGS} \] && sed -i "s|-O2|${CFLAGS}|g" Makefile-libbz2_so
-
-        - make -f Makefile-libbz2_so
-        - make
-        - make PREFIX=$PKGDIR/usr install
-        - mkdir -pv $PKGDIR/bin $PKGDIR/lib $PKGDIR/usr/lib
-        - cp bzip2-shared $PKGDIR/bin/bzip2
-        - ln -s ../../lib/libbz2.so.1.8 $PKGDIR/usr/lib/libbz2.so
-
-        - rm $PKGDIR/usr/bin/bunzip2 \
-        -    $PKGDIR/usr/bin/bzcat \
-        -    $PKGDIR/usr/bin/bzip2
-        - ln -s bzip2 $PKGDIR/bin/bunzip2
-        - ln -s bzip2 $PKGDIR/bin/bzcat
+        - CPPFLAGS="-D_FORTIFY_SOURCE=2"
+        - CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"
+        - CXXFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt"
+        - LDFLAGS="-Wl,-O1,--sort-common,--as-needed,-z,relro,-z,now"
+        - cp ../../files/bzip2.pc bzip2.pc
+        - sed "s|@VERSION@|$PKGVER|" -i bzip2.pc
 
 
+        - make -f Makefile-libbz2_so CC="gcc $CFLAGS $CPPFLAGS $LDFLAGS"
+        - make bzip2 bzip2recover CC="gcc $CFLAGS $CPPFLAGS $LDFLAGS"
+
+
+        - install -dm755 $PKGDIR/usr/bin
+        - install -dm755 $PKGDIR/usr/lib
+        - install -dm755 $PKGDIR/usr/include
+        - install -dm755 $PKGDIR/usr/share/man/man1
+        # - mkdir -pv $PKGDIR/usr/\{bin,lib,include,share/man/man1\}
+
+        - install -m755 bzip2-shared "$PKGDIR"/usr/bin/bzip2
+        - install -m755 bzip2recover bzdiff bzgrep bzmore "$PKGDIR"/usr/bin
+        - ln -sf bzip2 "$PKGDIR"/usr/bin/bunzip2
+        - ln -sf bzip2 "$PKGDIR"/usr/bin/bzcat
+
+        - cp -a libbz2.so* "$PKGDIR"/usr/lib
+        - ln -s libbz2.so.$PKGVER "$PKGDIR"/usr/lib/libbz2.so
+        - ln -s libbz2.so.$PKGVER "$PKGDIR"/usr/lib/libbz2.so.1 # For compatibility with some other distros
+
+        - install -m644 bzlib.h "$PKGDIR"/usr/include/
+
+        - install -m644 bzip2.1 "$PKGDIR"/usr/share/man/man1/
+        - ln -sf bzip2.1 "$PKGDIR"/usr/share/man/man1/bunzip2.1
+        - ln -sf bzip2.1 "$PKGDIR"/usr/share/man/man1/bzcat.1
+        - ln -sf bzip2.1 "$PKGDIR"/usr/share/man/man1/bzip2recover.1
+
+        - install -Dm644 bzip2.pc -t "$PKGDIR"/usr/lib/pkgconfig
+        - install -Dm644 LICENSE "$PKGDIR"/usr/share/licenses/${PKGNAME}/LICENSE
 deployment: ~

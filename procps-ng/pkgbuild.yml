@@ -1,45 +1,53 @@
 ---
 metadata:
-  name: "procps-ng"
-  version: "3.3.16"
-  release: 1
-  description: Programs for monitoring processes
-  architecture:
+    name: "procps-ng"
+    version: "3.3.16"
+    release: 1
+    description: Programs for monitoring processes
+    architecture:
         - x86_64
-  licenses:
+    licenses:
         - GPL
-  project_url:
+    project_url:
         - http://gitlab.com/procps-ng/procps
-  project_ownder:
+    project_ownder:
         - The Procpes-Ng Team
-sources: ~
-      # - address: "https://gitlab.com/procps-ng/procps/-/archive/master/procps-master.tar.gz"
-      #   save_as: procps-master.tar.gz
-      #   extract: true
-      #   extract_to: ""
+sources:
+    - address: "https://nchc.dl.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.17.tar.xz"
+      save_as: procps-ng-3.3.17.tar.xz
+      extract: true
+      extract_to: ""
 security: ~
 dependencies: ~
 prepare: ~
 build: ~
 check: ~
 package:
-  commands:
-        - set +e
-        - cd $SRCDIR/$PKGNAME-$PKGVER
-
-          # - sed -i '/AC_FUNC_MALLOC/d' procps-master/configure.ac
-        - autoreconf -fiv
-        - ./configure \
-        -     --prefix=/usr \
-        -             --exec-prefix= \
-        -             --libdir=/usr/lib \
-        -             --disable-static \
-        -             --disable-kill \
-        -     --disable-nls
-        - make
-        - make DESTDIR=$PKGDIR install
-        - mkdir -pv $PKGDIR/usr/lib
-        - mkdir -pv $PKGDIR/lib
-        - mv -v $PKGDIR/usr/lib/libprocps.so.* $PKGDIR/lib
-        - ln -sfv ../../lib/$(readlink $PKGDIR/usr/lib/libprocps.so) $PKGDIR/usr/lib/libprocps.so
+    commands:
+        #   - cd $SRCDIR
+        #   - curl -L https://nchc.dl.sourceforge.net/project/procps-ng/Production/procps-ng-3.3.17.tar.xz -O
+        #   - tar -xf procps-ng-3.3.17.tar.xz
+        - |
+          sudo mv /usr/include/error.h /usr/include/error.h_bk
+          cd $SRCDIR/procps-3.3.17
+          mkdir -pv $PKGDIR/etc
+          cp ../../files/sysctl.conf $PKGDIR/etc
+          sed -i 's,ncursesw/ncurses.h,ncurses.h,g' watch.c
+          sed -i '1i#include <utmp.h>' w.c
+          sed -i '1i#include <langinfo.h>' proc/escape.c
+          sed 's:<ncursesw/:<:g' -i watch.c
+          autoreconf -fi
+          ./configure \
+          --exec-prefix=/ \
+          --bindir=/usr/bin \
+          --sbindir=/usr/bin \
+          --libdir=/usr/lib \
+          --disable-kill \
+          --enable-watch8bit \
+          --disable-modern-top \
+          --wno-error-all \
+          --without-systemd
+          make -k -i
+          make DESTDIR=$PKGDIR install
+          sudo mv /usr/include/error.h_bk /usr/include/error.h
 deployment: ~

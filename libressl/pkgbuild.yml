@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "libressl"
+  version: "3.1.1"
+  release: 1
+  description: FREE version of the SSL/TLS protocol forked from OpenSSL
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://www.libressl.org/
+  project_ownder:
+        - Libressel Developer
+sources:
+      - address: "https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.1.1.tar.gz"
+        save_as: libressel-3.1.1.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          autoreconf -fi
+          ./configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --with-openssldir=/etc/ssl
+          make
+          make DESTDIR=$PKGDIR install
+
+          install -m755 ../../files/cert-update $PKGDIR/usr/bin/cert-update
+deployment: ~

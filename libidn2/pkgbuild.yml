@@ -1,0 +1,31 @@
+---
+metadata:
+  name: "libidn2"
+  version: "2.3.0"
+  release: 1
+  description: Free software implementation of IDNA2008, Punycode and TR46
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://gondor.apana.org.au/~herbert/dash/
+  project_ownder:
+        - Kenneth Almquist
+sources:
+      - address: "https://ftp.gnu.org/gnu/libidn/libidn2-2.3.0.tar.gz"
+        save_as: libidn2-2.3.0.tar.gz
+        extract: true
+        extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr --disable-nls --disable-doc
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

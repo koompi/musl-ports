@@ -27,7 +27,6 @@ dependencies:
         - tzdata
         - zlib
         - bzip2
-        - xz
         - file
         - ncurses
         - readline
@@ -82,6 +81,7 @@ dependencies:
         - vim
         - procps-ng
         - pcre2
+        - pcre
         - util-linux
         - e2fsprogs
         - sysklogd
@@ -93,6 +93,24 @@ dependencies:
         - runit
         - runit-bootscripts
         - ca-certificates
+        - lz4
+        - lzo
+        - zstd
+        - xz
+        - dosfstools
+        - efivar
+        - squashfs-tools
+        - efibootmgr
+        - mtools
+        - links
+        - pi
+        - intel-ucode
+        - grub
+        - grub-efi
+        - mkinitramfs
+        - linux-firmware
+        - pam
+        - sudo
 prepare: ~
 build: ~
 check: ~
