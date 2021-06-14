@@ -51,6 +51,7 @@ package:
           mkdir -m 755 $PKGDIR/etc/pam.d
           install -D -m 644 -o root -g root ../../files/sudo $PKGDIR/etc/pam.d/sudo
           sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' $PKGDIR/etc/sudoers
+          # chown root:root $PKGDIR/usr/local/bin/sudo && chmod 4755 $PKGDIR/usr/local/bin/sudo
           rm -fr $PKGDIR/var/run
           rm -fr $PKGDIR/run/sudo
 deployment: ~
