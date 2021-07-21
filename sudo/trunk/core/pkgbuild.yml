@@ -32,29 +32,24 @@ package:
           cd $SRCDIR/$PKGNAME-$PKGVER
           ./configure \
               --prefix=/usr \
-              --with-ignore-dot \
-              --with-insults=disabled \
-              --with-all-insults \
-              --with-env-editor \
-              --enable-shell-sets-home \
-              --enable-noargs-shell \
-              --without-sendmail \
-              --with-logfac=auth \
-              --disable-root-mailer \
-              --enable-pie \
-              --with-mdoc \
-              --sbindir=/usr/bin \
-              --disable-log-server
-          make
-          make DESTDIR=$PKGDIR install
-          # ln -sfv libsudo_util.so.0.0.0 $PKGDIR/usr/lib/sudo/libsudo_util.so.0
-          mkdir -p $PKGDIR/etc
-          mkdir -m 755 $PKGDIR/etc/pam.d
-          install -D -m 644 -o root -g root ../../files/sudo $PKGDIR/etc/pam.d/sudo
-          sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' $PKGDIR/etc/sudoers
-           # chown root:root $PKGDIR/usr/local/bin/sudo && chmod 4755 $PKGDIR/usr/local/bin/sudo
+                      --libexecdir=/usr/lib \
+                      --with-secure-path \
+                      --with-all-insults \
+                      --with-env-editor \
+              --disable-nls
+                     # --with-passprompt="[sudo] password for %p: "
+              make
+              make DESTDIR=$PKGDIR install
 
-           chown root:root $PKGDIR/etc/sudoers.d && chmod 4755 $PKGDIR/etc/sudoers.d
+              ln -sfv libsudo_util.so.0.0.0 $PKGDIR/usr/lib/sudo/libsudo_util.so.0
+
+              mkdir -m 755 $PKGDIR/etc/pam.d
+              install -D -m 644 -o root -g root ../../files/sudo $PKGDIR/etc/pam.d/sudo
+
+              sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' $PKGDIR/etc/sudoers
+
           rm -fr $PKGDIR/var/run
           rm -fr $PKGDIR/run/sudo
+          install -Dm4755 $PKGDIR/usr/bin/sudo $PKGDIR/usr/sbin
+          # chown root:root /usr/bin/sudo && chmod 4755 /usr/bin/sudo
 deployment: ~
