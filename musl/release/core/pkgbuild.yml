@@ -12,11 +12,11 @@ metadata:
         - musl-libc.org
   project_ownder:
         - Rich Felker
-sources:
-  - address: "http://www.musl-libc.org/releases/musl-1.2.2.tar.gz"
-    save_as: musl-1.2.2.tar.gz
-    extract: true
-    extract_to: ""
+sources: ~
+  # - address: "http://www.musl-libc.org/releases/musl-1.2.2.tar.gz"
+  #   save_as: musl-1.2.2.tar.gz
+  #   extract: true
+  #   extract_to: ""
 security: ~
 dependencies: ~
 prepare: ~
@@ -25,7 +25,7 @@ check: ~
 package:
   commands:
         - cd $SRCDIR/$PKGNAME-$PKGVER
-        - ./configure --prefix/usr
+        - ./configure --prefix=/usr
         - make
         - make DESTDIR=$PKGDIR install
         - mkdir -p $PKGDIR/usr/bin

@@ -37,7 +37,7 @@ package:
                       --with-all-insults \
                       --with-env-editor \
               --disable-nls
-                     # --with-passprompt="[sudo] password for %p: "
+              --with-passprompt=\"[sudo] password for %p: \"
               make
               make DESTDIR=$PKGDIR install
 
