@@ -1,0 +1,60 @@
+---
+metadata:
+  name: "xorg"
+  version: "1.2"
+  release: 1
+  description: Meta Port for Xorg
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://x.org
+  project_ownder:
+        - The X.Org Foundation
+sources: ~
+      # - address: ""
+      #   save_as:
+      #   extract: true
+      #   extract_to: ""
+security: ~
+dependencies:
+  run_dependencies:
+    - util-macros
+    - xorgproto
+    - libxau
+    - libxdmcp
+    - xorg-libraries
+    - xcb-util
+    - xcb-util-image
+    - xcb-util-keysyms
+    - xcb-util-renderutil
+    - xcb-util-wm
+    - xcb-util-cursor
+    - mesa
+    - xbitmaps
+    - xorg-applications
+    - xcursor-themes
+    - xorg-fonts
+    - xkeyboard-config
+    - xorg-server
+    - xf86-input-evdev
+    - libinput
+    - twm
+    - xterm
+    - xclock
+    - xinit
+    - dejavu-fonts
+    - xinit
+    - xinput
+    - xkill
+    - xsel
+    - xset
+    - xhost
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - mkdir -pv $PKGDIR/etc
+deployment: ~

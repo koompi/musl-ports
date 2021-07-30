@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "xorgproto"
+  version: "2021.4"
+  release: 1
+  description: Combined X.Org X11 Protocol headers
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+      - address: "https://xorg.freedesktop.org/archive/individual/proto/xorgproto-2021.4.tar.bz2"
+        save_as: xorgproto-2021.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies:
+   run_dependencies:
+    - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - |
+          cd $SRCDIR/$PKGNAME-$PKGVER
+          mkdir build
+          cd build
+          meson --prefix=/usr
+          ninja
+          DESTDIR=$PKGDIR ninja install
+
+          rm -f "$PKGDIR"/usr/include/X11/extensions/vldXvMC.h
+          rm -f "$PKGDIR"/usr/include/X11/extensions/XKBgeom.h
+
+deployment: ~
