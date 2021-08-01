@@ -1,0 +1,61 @@
+---
+metadata:
+  name: "xorg-libraries"
+  version: "1.0"
+  release: 1
+  description: Meta port for Xorg libraries
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://github.com/koompi/
+  project_ownder:
+        - KOOMPI Organization
+sources: ~
+      # - address: ""
+      #   save_as:
+      #   extract: true
+      #   extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xtrans
+      - libx11
+      - libxext
+      - libfs
+      - libice
+      - libsm
+      - libxscrnsaver
+      - libxt
+      - libxmu
+      - libxpm
+      - libxaw
+      - libxfixes
+      - libxcomposite
+      - libxrender
+      - libxcursor
+      - libxdamage
+      - libfontenc
+      - libxfont2
+      - libxft
+      - libxi
+      - libxinerama
+      - libxrandr
+      - libxres
+      - libxtst
+      - libxv
+      - libxvmc
+      - libxxf86dga
+      - libxxf86vm
+      - libdmx
+      - libpciaccess
+      - libxkbfile
+      - libxshmfence
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - mkdir -pv $PKGDIR/etc
+deployment: ~

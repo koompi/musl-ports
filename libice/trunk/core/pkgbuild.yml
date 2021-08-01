@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libice"
+  version: "1.0.10"
+  release: 1
+  description: X11 Inter-Client Exchange library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libICE-1.0.10.tar.gz"
+    save_as: libICE-1.0.10.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xorgproto
+      - xtrans
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libICE-$PKGVER
+      ./configure \
+                --prefix=/usr \
+                --sysconfdir=/etc \
+                --localstatedir=/var \
+                --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+      rm -rf $PKGDIR/usr/share/doc
+
+deployment: ~

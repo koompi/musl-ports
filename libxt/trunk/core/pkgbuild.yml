@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "libxt"
+  version: "1.2.1"
+  release: 1
+  description: X11 toolkit intrinsics library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+    - address: "http://ftp.x.org/pub/individual/lib/libXt-1.2.1.tar.bz2"
+      save_as: libXt-1.2.1.tar.bz2
+      extract: true
+      extract_to: ""
+      security: ~
+dependencies:
+    run_dependencies:
+      - libsm
+      - libice
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXt-$PKGVER
+      ./configure \
+          --prefix=/usr \
+                  --sysconfdir=/etc \
+                  --localstatedir=/var \
+                  --disable-static \
+          --with-appdefaultdir=/etc/X11/app-defaults
+      make
+      make DESTDIR=$PKGDIR install
+      rm -r $PKGDIR/usr/share/doc
+
+deployment: ~

@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "meson"
+  version: "0.58.2"
+  release: 1
+  description: High productivity build system
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/mesonbuid/
+  project_ownder:
+        - Meson Team
+sources:
+  - address: "https://github.com/mesonbuild/meson/releases/download/0.58.2/meson-0.58.2.tar.gz"
+    save_as: meson-0.58.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - python-setuptools
+      - ninja
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/meson-$PKGVER
+      python3 setup.py build
+      python3 setup.py install --prefix=/usr --root="$PKGDIR" --optimize=1
+
+      cp ../../files/script "$PKGDIR"/usr/bin/koompi-meson
+
+      if [ "$USEBOOTSTRAP" = "yes" ]; then
+       local py="$(which python3)"
+        sed -i "s|$py|/usr/bin/python3|" "$PKGDIR"/usr/bin/meson
+      fi
+
+deployment: ~

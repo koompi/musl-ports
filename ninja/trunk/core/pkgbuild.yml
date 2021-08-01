@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "ninja"
+  version: "1.10.2"
+  release: 1
+  description: Small build system with a focus on speed
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/ninja-build/
+  project_ownder:
+        - Ninja Team
+sources:
+  - address: "https://github.com/ninja-build/ninja/archive/refs/tags/v1.10.2.tar.gz"
+    save_as: v1.10.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - python3
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      python3 ./configure.py --bootstrap
+      install -Dm755 ninja $PKGDIR/usr/bin/ninja
+deployment: ~
