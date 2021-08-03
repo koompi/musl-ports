@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "libxkbfile"
+  version: "1.1.0"
+  release: 1
+  description: X11 keyboard file manipulation library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libxkbfile-1.1.0.tar.gz"
+    save_as: libxkbfile-1.1.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+        --prefix=/usr \
+                    --sysconfdir=/etc \
+                    --localstatedir=/var \
+                    --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

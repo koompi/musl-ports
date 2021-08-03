@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libxvmc"
+  version: "1.0.12"
+  release: 1
+  description: X11 Video Motion Compensation extension library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libXvMC-1.0.12.tar.gz"
+    save_as: libXvMC-1.0.12.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+      - libxext
+      - libxv
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXvMC-$PKGVER
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+      rm -r $PKGDIR/usr/share/doc
+deployment: ~
