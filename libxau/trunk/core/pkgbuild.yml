@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "libxau"
+  version: "1.0.9"
+  release: 1
+  description: X11 Authorisation library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+      - address: "https://www.x.org/pub/individual/lib/libXau-1.0.9.tar.bz2"
+        save_as: libXau-1.0.9.tar.bz2
+        extract: true
+        extract_to: ""
+security: ~
+dependencies:
+run_dependencies:
+  - xorgproto
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/libXau-$PKGVER
+        - ./configure --prefix=/usr \
+        -   --sysconfdir=/etc
+        - make
+        - make DESTDIR=$PKGDIR install
+deployment: ~

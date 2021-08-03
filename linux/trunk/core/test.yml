@@ -1,0 +1,63 @@
+---
+metadata:
+  name: "linux"
+  # version: "5.12.14"
+  version: "5.11.9"
+  release: 1
+  description: Linux kernel, sources and modules
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - http://kernel.org/
+  project_ownder:
+        - Linus Tovald
+sources: ~
+  # - address: "http://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.11.9.tar.xz"
+  #   save_as: linux-5.11.9.tar.xz
+  #   extract: true
+  #   extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      make mrproper
+      cp ../../files/config-5.12.14_1 ./.config
+      make olddefconfig
+
+      sed "/^CONFIG_LOCALVERSION=/d" -i .config
+      echo 'CONFIG_LOCALVERSION="-koompi"' >> .config
+
+      make olddefconfig
+      # make
+      make bzImage modules
+      make INSTALL_MOD_PATH="$PKGDIR"/usr modules_install
+      depmod -a -b "$PKGDIR"/usr ${PKGVER}-koompi
+      # make INSTALL_DTBS_PATH="$PKGDIR"/boot/dtbs dtbs_install
+      mkdir -p "$PKGDIR"/boot
+      cp arch/x86/boot/bzImage $PKGDIR/boot/vmlinuz-koompi
+      cp .config "$PKGDIR"/boot/config
+
+      for dir in block certs crypto drivers fs init kernel lib mm net samples security sound usr virt; do
+          find $dir -type f \( -name "*.c" -o -name "*.h" \) -exec rm -fr "{}" \;
+          # find $dir -type f ( -name "*.c" -o -name "*.h" ) -exec rm -rf "{}" \;
+      done
+
+      for i in $(ls tools); do
+        [ "$i" = "objtool" ] || rm -fr tools/$i
+      done
+
+      for i in $(ls tools/objtool); do
+        [ "$i" = "objtool" ] || rm -fr tools/objtool/$i
+      done
+
+      rm -rf "$PKGDIR"/usr/lib/modules/${PKGVER}-koompi/source
+      rm -rf "$PKGDIR"/usr/lib/modules/${PKGVER}-koompi/build
+      echo "Finished compiling Linux kernel"
+deployment: ~

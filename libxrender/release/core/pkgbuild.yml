@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "libxrender"
+  version: "0.9.10"
+  release: 1
+  description: X Rendering Extension client library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/lib/libXrender-0.9.10.tar.gz"
+    save_as: libxrender-0.9.10.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXrender-$PKGVER
+
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+      rm -r $PKGDIR/usr/share/doc
+
+deployment: ~

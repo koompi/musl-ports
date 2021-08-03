@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "musl"
+  version: "1.2.2"
+  release: 1
+  description: Lightweight implementation of C standard library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - musl-libc.org
+  project_ownder:
+        - Rich Felker
+sources:
+  - address: "http://www.musl-libc.org/releases/musl-1.2.2.tar.gz"
+    save_as: musl-1.2.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+        - cd $SRCDIR/$PKGNAME-$PKGVER
+        - ./configure --prefix=/usr \
+        -   --syslibdir=/usr/lib \
+        -   --enable-optimize=size
+        - make
+        - make DESTDIR=$PKGDIR install
+        - install -d $PKGDIR/usr/bin
+        - ln -sf ../lib/libc.so $PKGDIR/usr/bin/ldd
+deployment: ~

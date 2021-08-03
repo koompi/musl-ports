@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "xcb-proto"
+  version: "1.14.1"
+  release: 1
+  description: XML-XCB protocol descriptions
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-1.14.1.tar.xz"
+    save_as: xcb-proto-1.14.1.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxml2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

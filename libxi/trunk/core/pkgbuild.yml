@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "libxi"
+  version: "1.7.10"
+  release: 1
+  description: X11 Input extension library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/lib/libXi-1.7.10.tar.bz2"
+    save_as: libXi-1.7.10.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+      - libxext
+      - libxfixes
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXi-$PKGVER
+
+      ./configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --mandir=/usr/share/man \
+          --localstatedir=/var \
+          --with-xmlto \
+          --without-fop \
+          --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+deployment: ~

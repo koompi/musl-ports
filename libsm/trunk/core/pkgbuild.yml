@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libsm"
+  version: "1.2.3"
+  release: 1
+  description: X11 Inter-Client Exchange library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libSM-1.2.3.tar.gz"
+    save_as: libSM-1.2.3.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libice
+      - util-linux
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libSM-$PKGVER
+      ./configure \
+                --prefix=/usr \
+                --sysconfdir=/etc \
+                --localstatedir=/var \
+                --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+      rm -rf $PKGDIR/usr/share/doc
+
+deployment: ~

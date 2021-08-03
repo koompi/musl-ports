@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "libxrandr"
+  version: "1.5.2"
+  release: 1
+  description: X11 RandR extension library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
+    save_as: libXrandr-1.5.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxext
+      - libxrendr
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXrandr-$PKGVER
+      ./configure --prefix=/usr \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

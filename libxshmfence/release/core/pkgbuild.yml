@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "libxshmfence"
+  version: "1.3"
+  release: 1
+  description: A library that exposes a event API on top of Linux futexes
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libxshmfence-1.3.tar.gz"
+    save_as: libxshmfence-1.3.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xorgproto
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

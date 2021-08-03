@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "xtrans"
+  version: "1.4.0"
+  release: 1
+  description: X transport library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/xtrans-1.4.0.tar.bz2"
+    save_as: xtrans-1.4.0.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - util-macros
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "libxml2"
+  version: "2.9.12"
+  release: 2
+  description: XML parsing library, version 2
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xmlsoft.org
+  project_ownder:
+        - XML
+sources:
+  - address: "http://xmlsoft.org/sources/libxml2-2.9.12.tar.gz"
+    save_as: libxml2-2.9.12.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - zlib
+      - readline
+      - xz
+      - python3
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      patch -Np1 -i ../../files/libxml2-2.9.8-python3-unicode-errors.patch
+      ./configure  \
+      --prefix=/usr \
+      --with-history \
+      --with-python=/usr/bin/python3 \
+      --with-threads \
+      --without-icu
+
+      sed -i 's/ -shared / -Wl,--as-needed\0/g' libtool
+      make
+      make DESTDIR="$PKGDIR" install
+
+deployment: ~

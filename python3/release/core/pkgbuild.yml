@@ -1,0 +1,50 @@
+---
+metadata:
+  name: "python3"
+  version: "3.8.11"
+  release: 1
+  description: Next generation of the python high-level scripting language
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.python.org/ftp/python/3.8.11/Python-3.8.11.tar.xz"
+    save_as: Python-3.8.11.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - expat
+      - zlib
+      - readline
+      - libffi
+      - gdbm
+      - ncurses
+      - sqlite
+      - libressl
+      - xz
+      - bzip2
+      - util-linux
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/Python-$PKGVER
+      CXX="/usr/bin/g++"              \
+      ./configure --prefix=/usr       \
+                  --enable-shared     \
+                  --with-system-expat \
+                  --with-system-ffi   \
+                  --without-ensurepip
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

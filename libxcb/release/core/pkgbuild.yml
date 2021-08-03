@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "libxcb"
+  version: "1.14"
+  release: 1
+  description: X11 client-side library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://xcb.freedesktop.org/dist/libxcb-1.14.tar.xz"
+    save_as: libxcb-1.1.4.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+    - util-macros
+    - xcb-proto
+    - libxau
+    - libxdmcp
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i "s/pthread-stubs//" configure
+      ./configure \
+      --prefix=/usr \
+      --without-doxygen \
+      --enable-xinput \
+      --enable-xkb
+      make
+      make DESTDIR="$PKGDIR" install
+
+deployment: ~

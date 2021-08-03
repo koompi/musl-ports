@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "libxpm"
+  version: "3.5.13"
+  release: 1
+  description: X11 pixmap library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libXpm-3.5.13.tar.bz2"
+    save_as: libXpm-3.15.13.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxt
+      - libxext
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXpm-$PKGVER
+
+
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

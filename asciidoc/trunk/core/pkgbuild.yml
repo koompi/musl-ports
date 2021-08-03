@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "asciidoc"
+  version: "8.6.9"
+  release: 1
+  description: Text document format for short documents, articles, books and UNIX man pages
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://asciidoctor.org
+  project_ownder:
+        - Stuart Rackham
+sources:
+  - address: "https://downloads.sourceforge.net/asciidoc/asciidoc-8.6.9.tar.gz"
+    save_as: asciidoc-8.6.9.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - docbook-xml
+      - python2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure --prefix=/usr --sysconfdir=/etc
+      make
+      make DESTDIR=$PKGDIR install
+deployment: ~
