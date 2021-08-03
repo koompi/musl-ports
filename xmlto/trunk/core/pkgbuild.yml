@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "xmlto"
+  version: "0.0.28"
+  release: 1
+  description: Front-end to an XSL toolchain
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://pagure.io/xmlto/
+  project_ownder:
+        - Pagure
+sources:
+  - address: "https://releases.pagure.org/xmlto/xmlto-0.0.28.tar.bz2"
+    save_as: xmlto-0.0.28.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      LINKS="/usr/bin/links"
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+deployment: ~

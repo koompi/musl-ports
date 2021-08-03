@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libxcursor"
+  version: "1.2.0"
+  release: 1
+  description: X cursor management library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/lib/libXcursor-1.2.0.tar.gz"
+    save_as: libXcursor-1.2.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxrender
+      - libxfixes
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXcursor-$PKGVER
+
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

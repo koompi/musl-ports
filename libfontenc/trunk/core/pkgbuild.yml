@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libfontenc"
+  version: "1.1.4"
+  release: 1
+  description: X11 font encoding library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/lib/libfontenc-1.1.4.tar.gz"
+    save_as: libfontenc-1.1.4.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - zlib
+      - font-util
+      - xorgproto
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

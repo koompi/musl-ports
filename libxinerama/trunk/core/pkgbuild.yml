@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "libxinerama"
+  version: "1.1.4"
+  release: 1
+  description: X11 Xinerama extension library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/lib/libXinerama-1.1.4.tar.gz"
+    save_as: libXinerama-1.1.4.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+      - libxext
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libXinerama-$PKGVER
+      ./configure \
+        --prefix=/usr \
+              --sysconfdir=/etc \
+              --localstatedir=/var \
+              --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~
