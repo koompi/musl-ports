@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "xcb-util-cursor"
+  version: "0.1.3"
+  release: 1
+  description: XCB cursor library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://xorg.freedesktop.org/archive/individual/xcb/xcb-util-cursor-0.1.3.tar.bz2"
+    save_as: xcb-util-cursor-0.1.3.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xcb-util-renderutill
+      - libxcb
+      - xcb-util-image
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

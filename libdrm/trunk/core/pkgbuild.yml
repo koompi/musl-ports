@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "libdrm"
+  version: "2.4.107"
+  release: 1
+  description: Provides a user space library for accessing the DRM, direct rendering manager, on operating systems that support the ioctl interface
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://dri.freedesktop.org/libdrm/libdrm-2.4.107.tar.xz"
+    save_as: libdrm-2.4.107.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - meson
+      - libpciaccess
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir build
+      cd build
+      meson --prefix=/usr -Dudev=false
+      ninja
+      DESTDIR=$PKGDIR ninja install
+deployment: ~

@@ -1,0 +1,68 @@
+---
+metadata:
+  name: "libx11"
+  version: "1.7.2"
+  release: 1
+  description: Mesa DRI OpenGL Library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libX11-1.7.2.tar.gz"
+    save_as: libX11-1.7.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libdrm
+      - libxext
+      - libxdamage
+      - libxcb
+      - libxshmfence
+      - bison
+      - eudev
+      - expat
+      - findutils
+      - flex
+      - gettext
+      - elfutils
+      - libtool
+      - libxfixes
+      - libva
+      - libvdpau
+      - libx11
+      - libxrandr
+      - libxt
+      - libxvmc
+      - libxxf86vm
+      - llvm
+      - makedepend
+      - meson
+      - py3-mako
+      - py3-libxml2
+      - python3
+      - talloc
+      - wayland
+      - wayland-protocols
+      - xorgproto
+      - zlib
+      - zstd
+      - glslang
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libX11-$PKGVER
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~
