@@ -1,7 +1,7 @@
 ---
 metadata:
-  name: "libx11"
-  version: "1.7.2"
+  name: "mesa"
+  version: "21.2.0"
   release: 1
   description: Mesa DRI OpenGL Library
   architecture:
@@ -13,8 +13,8 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/archive//individual/lib/libX11-1.7.2.tar.gz"
-    save_as: libX11-1.7.2.tar.gz
+  - address: "https://github.com/mesa3d/mesa/archive/refs/tags/mesa-21.2.0.tar.gz"
+    save_as: mesa-21.2.0.tar.gz
     extract: true
     extract_to: ""
 security: ~
@@ -44,8 +44,8 @@ dependencies:
       - llvm
       - makedepend
       - meson
-      - py3-mako
-      - py3-libxml2
+      - python3-mako
+      # - python3-libxml2
       - python3
       - talloc
       - wayland
@@ -60,9 +60,51 @@ check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libX11-$PKGVER
-      ./configure --prefix=/usr
-      make
-      make DESTDIR=$PKGDIR install
+      cd $SRCDIR/mesa-mesa-$PKGVER
+      mkdir -pv include/bits
+      cp ../../files/wordsize.h include/bits/
+
+      patch -Np1 -i ../../files/adjust-cache-deflate-buffer.patch
+      patch -Np1 -i ../../files/musl-fix-includes.patch
+      patch -Np1 -i ../../files/add-use-elf-tls.patch
+      patch -Np1 -i ../../files/disable-rgb10-by-default.patch
+      patch -Np1 -i ../../files/0001-radeonsi-On-Aarch64-force-persistent-buffers-to-GTT.patch
+
+      export CFLAGS="$CFLAGS -D_XOPEN_SOURCE=700"
+
+      python3 bin/git_sha1_gen.py --output include/git_sha1.h
+
+      mkdir build && cd build
+
+
+      meson --prefix=/usr \
+            --sysconfdir=/etc \
+            -Dgallium-drivers=r300,r600,svga,swrast,radeonsi,nouveau \
+            -Ddri-drivers=i915,i965,nouveau \
+            -Dvulkan-drivers=intel \
+            -Dplatforms=x11,wayland \
+            -Dllvm=true \
+            -Dshared-llvm=true \
+            -Dshared-glapi=true \
+            -Dgbm=true \
+            -Dglx=dri \
+            -Dopengl=true \
+            -Dosmesa=true \
+            -Dgles1=false \
+            -Dgles2=true \
+            -Degl=true \
+            -Dgallium-xa=enabled \
+            -Dgallium-vdpau=enabled \
+            -Dgallium-va=enabled \
+            -Dgallium-xvmc=disabled \
+            -Dgallium-nine=false \
+            -Db_ndebug=true \
+            -Dglx-read-only-text=true \
+            -Dasm=false \
+            ..
+
+
+      ninja
+      DESTDIR=$PKGDIR ninja install
 
 deployment: ~

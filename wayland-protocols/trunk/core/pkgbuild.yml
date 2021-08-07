@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "wayland-protocols"
+  version: "1.21"
+  release: 1
+  description: Additional Wayland protocols that add functionality outside of protocols already in the Wayland core
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://wayland.freedesktop.org
+  project_ownder:
+        - Kristian Høgsberg
+sources:
+  - address: "https://wayland.freedesktop.org/releases/wayland-protocols-1.21.tar.xz"
+    save_as: wayland-protocols-1.21.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - wayland
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "docbook-xsl"
+  version: "1.79.2"
+  release: 1
+  description: XML stylesheets for Docbook-xml transformations
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://docbook.org/
+  project_ownder:
+        - Docbook
+sources:
+  - address: "https://github.com/docbook/xslt10-stylesheets/releases/download/release/1.79.2/docbook-xsl-nons-1.79.2.tar.bz2"
+    save_as: docbook-xsl-nons-1.79.2.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-nons-$PKGVER
+      patch -Np1 -i ../../files/docbook-xsl-stack_fix-1.patch
+
+      for i in xsl-stylesheets xsl-stylesheets-nons; do
+        install -v -m755 -d $PKGDIR/usr/share/xml/docbook/$i-1.79.2
+        cp -v -R VERSION assembly common eclipse epub epub3 extensions fo        \
+                 highlighting html htmlhelp images javahelp lib manpages params  \
+                 profiling roundtrip slides template tests tools webhelp website \
+               xhtml xhtml-1_1 xhtml5                                          \
+            $PKGDIR/usr/share/xml/docbook/$i-1.79.2
+        ln -s VERSION $PKGDIR/usr/share/xml/docbook/$i-1.79.2/VERSION.xsl
+      done
+
+      install -v -m755 -d $PKGDIR/etc/xml
+deployment: ~

@@ -1,7 +1,7 @@
 ---
 metadata:
   name: "python3"
-  version: "3.8.11"
+  version: "3.9.6"
   release: 1
   description: Next generation of the python high-level scripting language
   architecture:
@@ -13,8 +13,8 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.python.org/ftp/python/3.8.11/Python-3.8.11.tar.xz"
-    save_as: Python-3.8.11.tar.xz
+  - address: "https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tar.xz"
+    save_as: Python-3.9.6.tar.xz
     extract: true
     extract_to: ""
 security: ~

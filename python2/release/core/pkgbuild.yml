@@ -1,42 +1,54 @@
 ---
 metadata:
-  name: "libfs"
-  version: "1.0.8"
+  name: "python2"
+  version: "2.7.17"
   release: 1
-  description: X11 Font Services Library
+  description: Next generation of the python high-level scripting language
   architecture:
         - x86_64
   licenses:
-        - MIT
+        - PSF
   project_url:
-        - https://xorg.freedesktop.org
+        - https://www.python.org/
   project_ownder:
-        - Xorg Foundation
+        - Guido van Rossum
 sources:
-  - address: "https://www.x.org/archive//individual/lib/libFS-1.0.8.tar.gz"
-    save_as: libFS-1.0.8.tar.gz
+  - address: "https://www.python.org/ftp/python/2.7.17/Python-2.7.17.tar.xz"
+    save_as: Python-2.7.17.tar.xz
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - xorgproto
-      - xtrans
+      - libressl
+      - gdbm
+      - zlib
+      - libffi
+      - expat
+      - readline
+      - bzip2
+      - ncurses
+      - sqlite
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libFS-$PKGVER
-      ./configure \
-                --prefix=/usr \
-                --sysconfdir=/etc \
-                --localstatedir=/var \
-                --disable-static
+      cd $SRCDIR/Python-$PKGVER
+      sed -i '/#SSL/,+3 s/^#//' Modules/Setup.dist
+
+      ./configure --prefix=/usr       \
+                --enable-shared     \
+                --with-system-expat \
+                --with-system-ffi   \
+                --enable-unicode=ucs4
       make
       make DESTDIR=$PKGDIR install
 
-      rm -rf $PKGDIR/usr/share/doc
+      # conflict with python3
+      rm $PKGDIR/usr/bin/2to3
+
+      chmod -v 755 $PKGDIR/usr/lib/libpython2.7.so.1.0
 
 deployment: ~

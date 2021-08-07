@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "libx11"
+  version: "1.7.2"
+  release: 1
+  description: X11 client-side library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/archive//individual/lib/libX11-1.7.2.tar.gz"
+    save_as: libX11-1.7.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxcb
+      - xtrans
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/libX11-$PKGVER
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

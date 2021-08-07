@@ -20,7 +20,7 @@ sources:
 security: ~
 dependencies:
     run_dependencies:
-      - mesa
+      # - mesa
       - libdrm
       - meson
 prepare: ~
