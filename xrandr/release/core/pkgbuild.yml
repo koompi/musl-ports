@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "xrandr"
+  version: "1.5.1"
+  release: 1
+  description: Primitive command line interface to RandR extension
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/xrandr-1.5.1.tar.xz"
+    save_as: xrandr-1.5.1.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+      - libxrandr
+      - libxrendr
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

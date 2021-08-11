@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "mkfontscale"
+  version: "1.2.1"
   release: 1
-  description: X11 RandR extension library
+  description: Create an index of scalable font files for X
   architecture:
         - x86_64
   licenses:
@@ -13,24 +13,24 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/mkfontscale-1.2.1.tar.bz2"
+    save_as: mkfontscale-1.2.1.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxext
-      - libxrender
-      - libx11
+      - libfontenc
+      - freetype2
+      - zlib
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \

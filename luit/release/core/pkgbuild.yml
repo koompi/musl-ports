@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "luit"
+  version: "1.1.1"
   release: 1
-  description: X11 RandR extension library
+  description: Filter that can be run between an arbitrary application and a UTF-8 terminal emulator
   architecture:
         - x86_64
   licenses:
@@ -13,28 +13,30 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/luit-1.1.1.tar.bz2"
+    save_as: luit-1.1.1.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxext
-      - libxrender
-      - libx11
+      - libfontenc
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i -e "/D_XOPEN/s/5/6/" configure
+
+      ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
         --disable-static
+
       make
       make DESTDIR=$PKGDIR install
 

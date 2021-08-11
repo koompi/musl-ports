@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "x11perf"
+  version: "1.6.1"
   release: 1
-  description: X11 RandR extension library
+  description: Simple X server performance benchmarker
   architecture:
         - x86_64
   licenses:
@@ -13,28 +13,30 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/x11perf-1.6.1.tar.bz2"
+    save_as: x11perf-1.6.1.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
       - libxext
+      - libxft
       - libxrender
       - libx11
+      - libxmu
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
-        --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+         --prefix=/usr \
+         --sysconfdir=/etc \
+         --localstatedir=/var \
+         --disable-static
       make
       make DESTDIR=$PKGDIR install
 

@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "xkbcomp"
+  version: "1.4.4"
   release: 1
-  description: X11 RandR extension library
+  description: X Keyboard description compiler
   architecture:
         - x86_64
   licenses:
@@ -13,28 +13,27 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/xkbcomp-1.4.4.tar.bz2"
+    save_as: xkbcomp-1.4.4.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxext
-      - libxrender
       - libx11
+      - libxkbfile
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
-        --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
       make
       make DESTDIR=$PKGDIR install
 

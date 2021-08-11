@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "xwd"
+  version: "1.0.7"
   release: 1
-  description: X11 RandR extension library
+  description: X Window System image dumping utility
   architecture:
         - x86_64
   licenses:
@@ -13,28 +13,27 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/xwd-1.0.7.tar.bz2"
+    save_as: xwd-1.0.7.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxext
-      - libxrender
       - libx11
+      - libxkbfiole
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
-        --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
       make
       make DESTDIR=$PKGDIR install
 

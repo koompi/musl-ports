@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "xhost"
+  version: "1.0.8"
   release: 1
-  description: X11 RandR extension library
+  description: Server access control program for X
   architecture:
         - x86_64
   licenses:
@@ -13,15 +13,14 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/xhost-1.0.8.tar.bz2"
+    save_as: xhost-1.0.8.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxext
-      - libxrender
+      - libxmu
       - libx11
 prepare: ~
 build: ~
@@ -29,12 +28,14 @@ check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
         --disable-static
+
       make
       make DESTDIR=$PKGDIR install
 

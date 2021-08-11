@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libxrandr"
-  version: "1.5.2"
+  name: "xcursorgen"
+  version: "1.0.7"
   release: 1
-  description: X11 RandR extension library
+  description: Create an X cursor file from PNG images
   architecture:
         - x86_64
   licenses:
@@ -13,24 +13,25 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/releases/individual/lib/libXrandr-1.5.2.tar.gz"
-    save_as: libXrandr-1.5.2.tar.gz
+  - address: "http://ftp.x.org/pub/individual/app/xcursorgen-1.0.7.tar.bz2"
+    save_as: xcursorgen-1.0.7.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxext
-      - libxrender
       - libx11
+      - libxcursor
+      - libpng
+      - zlib
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libXrandr-$PKGVER
-      ./configure --prefix=/usr \
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
         --localstatedir=/var \
