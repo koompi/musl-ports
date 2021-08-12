@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "font-adobe-utopia-type1"
+  version: "1.0.4"
+  release: 1
+  description: X.org Type1 fonts
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/font/font-adobe-utopia-type1-1.0.4.tar.bz2"
+    save_as: font-adobe-utopia-type1-1.0.4.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - util-macros
+      - mkfontscale
+      - font-util
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

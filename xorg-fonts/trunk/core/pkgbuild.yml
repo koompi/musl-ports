@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "xorg-fonts"
+  version: "1.0"
+  release: 1
+  description: Meta port for Xorg fonts
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+security: ~
+dependencies:
+    run_dependencies:
+      - font-util
+      - encodings
+      - font-alias
+      - font-adobe-utopia-type1
+      - font-bh-ttf
+      - font-bh-type1
+      - font-ibm-type1
+      - font-misc-ethiopic
+      - font-xfree86-type1
+      - font-adobe-100dpi
+      - font-adobe-75dpi
+      - font-daewoo-misc
+      - font-isas-misc
+      - font-jis-misc
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      mkdir -pv $PKGDIR/etc
+
+deployment: ~
