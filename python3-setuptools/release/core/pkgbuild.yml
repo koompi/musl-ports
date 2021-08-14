@@ -1,36 +1,35 @@
 ---
 metadata:
-  name: "libx11"
-  version: "1.7.2"
+  name: "python3-setuptools"
+  version: "57.4.0"
   release: 1
-  description: X11 client-side library
+  description: Easily download, build, install, upgrade, and uninstall Python packages
   architecture:
         - x86_64
   licenses:
         - MIT
   project_url:
-        - https://xorg.freedesktop.org
+        - https://github.com/pypa
   project_ownder:
-        - Xorg Foundation
+        - pypa
 sources:
-  - address: "https://www.x.org/archive//individual/lib/libX11-1.7.2.tar.gz"
-    save_as: libX11-1.7.2.tar.gz
+  - address: "https://github.com/pypa/setuptools/archive/refs/tags/v57.4.0.tar.gz"
+    save_as: v57.4.0.tar.gz
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libxcb
-      - xtrans
+      - python3
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libX11-$PKGVER
-      ./configure --prefix=/usr
-      make
-      make DESTDIR=$PKGDIR install
-
+      cd $SRCDIR/setuptools-$PKGVER
+      export SETUPTOOLS_INSTALL_WINDOWS_SPECIFIC_FILES=0
+      python3 bootstrap.py
+      python3 setup.py build
+      python3 setup.py install --prefix=/usr --root="$PKGDIR" --optimize=1 --skip-build
 deployment: ~

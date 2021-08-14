@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "libx11"
-  version: "1.7.2"
+  name: "mesa"
+  version: "21.2.0"
   release: 1
-  description: X11 client-side library
+  description: Mesa DRI OpenGL Library
   architecture:
         - x86_64
   licenses:
@@ -13,24 +13,94 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://www.x.org/archive//individual/lib/libX11-1.7.2.tar.gz"
-    save_as: libX11-1.7.2.tar.gz
+  - address: "https://github.com/mesa3d/mesa/archive/refs/tags/mesa-21.2.0.tar.gz"
+    save_as: mesa-21.2.0.tar.gz
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
+      - libdrm
+      - libxext
+      - libxdamage
       - libxcb
-      - xtrans
+      - libxshmfence
+      - bison
+      - eudev
+      - expat
+      - findutils
+      - flex
+      - gettext
+      - elfutils
+      - libtool
+      - libxfixes
+      - libva
+      - libvdpau
+      - libx11
+      - libxrandr
+      - libxt
+      - libxvmc
+      - libxxf86vm
+      - llvm
+      - makedepend
+      - meson
+      - python3-mako
+      # - python3-libxml2
+      - python3
+      - talloc
+      - wayland
+      - wayland-protocols
+      - xorgproto
+      - zlib
+      - zstd
+      - glslang
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/libX11-$PKGVER
-      ./configure --prefix=/usr
-      make
-      make DESTDIR=$PKGDIR install
+      cd $SRCDIR/mesa-mesa-$PKGVER
+      mkdir -pv include/bits
+      cp ../../files/wordsize.h include/bits/
 
+      patch -Np1 -i ../../files/adjust-cache-deflate-buffer.patch
+      patch -Np1 -i ../../files/musl-fix-includes.patch
+      patch -Np1 -i ../../files/add-use-elf-tls.patch
+      patch -Np1 -i ../../files/disable-rgb10-by-default.patch
+      patch -Np1 -i ../../files/0001-radeonsi-On-Aarch64-force-persistent-buffers-to-GTT.patch
+
+      export CFLAGS="$CFLAGS -D_XOPEN_SOURCE=700"
+
+      python3 bin/git_sha1_gen.py --output include/git_sha1.h
+
+      mkdir build && cd build
+
+
+      meson --prefix=/usr \
+            --sysconfdir=/etc \
+              -Dgallium-drivers=r300,r600,svga,swrast,radeonsi,nouveau \
+              -Ddri-drivers=i915,i965,nouveau \
+              -Degl=enabled \
+              -Delf-use-tls=false \
+              -Dvulkan-drivers=intel \
+              -Dgbm=enabled \
+              -Dgles1=enabled \
+              -Dgles2=enabled \
+              -Dglvnd=true \
+              -Dglx=dri \
+              -Dllvm=enabled \
+              -Dlmsensors=enabled \
+              -Dosmesa=true \
+              -Dplatforms=x11,wayland \
+              -Dshared-glapi=enabled \
+              -Dshared-llvm=enabled \
+              -Dvalgrind=disabled \
+              ..
+
+
+
+      ninja
+      DESTDIR=$PKGDIR ninja install
+      # ln -sf libGLX_mesa.so.0 "$PKGDIR"/usr/lib/libGLX_indirect.so.0
 deployment: ~

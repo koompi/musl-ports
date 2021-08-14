@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "freetype2"
+  version: "2.10.4"
+  release: 1
+  description: Font rasterization library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+  # - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
+  #   save_as: xinput-1.6.3.tar.bz2
+  #   extract: true
+  #   extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libpng
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/freetype-$PKGVER
+
+      sed -ri "s:.*(AUX_MODULES.*valid):\1:" modules.cfg
+
+      sed -r "s:.*(#.*SUBPIXEL_RENDERING) .*:\1:" \
+          -i include/freetype/config/ftoption.h
+
+      ./configure --prefix=/usr --enable-freetype-config --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

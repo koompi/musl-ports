@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "libgcrypt"
+  version: "1.9.2"
+  release: 1
+  description: General purpose cryptographic library based on the code from GnuPG
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://www.gnupg.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-1.9.2.tar.bz2"
+    save_as: libgcrypt-1.9.2.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libgpg-error
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

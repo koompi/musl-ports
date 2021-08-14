@@ -79,32 +79,28 @@ package:
 
       meson --prefix=/usr \
             --sysconfdir=/etc \
-            -Dgallium-drivers=r300,r600,svga,swrast,radeonsi,nouveau \
-            -Ddri-drivers=i915,i965,nouveau \
-            -Dvulkan-drivers=intel \
-            -Dplatforms=x11,wayland \
-            -Dllvm=true \
-            -Dshared-llvm=true \
-            -Dshared-glapi=true \
-            -Dgbm=true \
-            -Dglx=dri \
-            -Dopengl=true \
-            -Dosmesa=true \
-            -Dgles1=false \
-            -Dgles2=true \
-            -Degl=true \
-            -Dgallium-xa=enabled \
-            -Dgallium-vdpau=enabled \
-            -Dgallium-va=enabled \
-            -Dgallium-xvmc=disabled \
-            -Dgallium-nine=false \
-            -Db_ndebug=true \
-            -Dglx-read-only-text=true \
-            -Dasm=false \
-            ..
+              -Dgallium-drivers=r300,r600,svga,swrast,radeonsi,nouveau \
+              -Ddri-drivers=i915,i965,nouveau \
+              -Degl=enabled \
+              -Delf-use-tls=false \
+              -Dvulkan-drivers=intel \
+              -Dgbm=enabled \
+              -Dgles1=enabled \
+              -Dgles2=enabled \
+              -Dglvnd=true \
+              -Dglx=dri \
+              -Dllvm=enabled \
+              -Dlmsensors=enabled \
+              -Dosmesa=true \
+              -Dplatforms=x11,wayland \
+              -Dshared-glapi=enabled \
+              -Dshared-llvm=enabled \
+              -Dvalgrind=disabled \
+              ..
+
 
 
       ninja
       DESTDIR=$PKGDIR ninja install
-
+      # ln -sf libGLX_mesa.so.0 "$PKGDIR"/usr/lib/libGLX_indirect.so.0
 deployment: ~

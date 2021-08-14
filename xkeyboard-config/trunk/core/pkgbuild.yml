@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "xkeyboard-config"
+  version: "2.31"
+  release: 1
+  description: Keyboard configuration database for the X Window System
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://xorg.freedesktop.org/archive/individual/data/xkeyboard-config/xkeyboard-config-2.31.tar.bz2"
+    save_as: xkeyboard-config-2.31.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xorgproto
+      - libx11
+      - xkbcomp
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static \
+        --with-xkb-rules-symlink=xorg \
+        --disable-nls
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~
