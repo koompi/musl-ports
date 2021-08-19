@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "xrandr"
-  version: "1.5.1"
+  name: "xclock"
+  version: "1.0.9"
   release: 1
-  description: Primitive command line interface to RandR extension
+  description: Simple clock application which is used in the default xinit configuration
   architecture:
         - x86_64
   licenses:
@@ -13,16 +13,20 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xrandr-1.5.1.tar.xz"
-    save_as: xrandr-1.5.1.tar.xz
+  - address: "http://ftp.x.org/pub/individual/app/xclock-1.0.9.tar.bz2"
+    save_as: xclock-1.0.9.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
+      - libxaw
+      - libxmu
+      - libxt
       - libx11
-      - libxrandr
       - libxrender
+      - libxft
+      - libxkbfile
 prepare: ~
 build: ~
 check: ~

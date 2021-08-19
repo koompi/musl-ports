@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "xrandr"
-  version: "1.5.1"
+  name: "libevdev"
+  version: "1.11.0"
   release: 1
-  description: Primitive command line interface to RandR extension
+  description: Common functions for Xorg input drivers
   architecture:
         - x86_64
   licenses:
@@ -13,16 +13,12 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xrandr-1.5.1.tar.xz"
-    save_as: xrandr-1.5.1.tar.xz
+  - address: "https://www.freedesktop.org/software/libevdev/libevdev-1.11.0.tar.xz"
+    save_as: libevdev-1.11.0.tar.xz
     extract: true
     extract_to: ""
 security: ~
-dependencies:
-    run_dependencies:
-      - libx11
-      - libxrandr
-      - libxrender
+dependencies: ~
 prepare: ~
 build: ~
 check: ~

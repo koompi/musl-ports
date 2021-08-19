@@ -1,27 +1,24 @@
 ---
 metadata:
-  name: "xwd"
-  version: "1.0.7"
+  name: "mtdev"
+  version: "1.1.6"
   release: 1
-  description: X Window System image dumping utility
+  description: Multitouch Protocol Translation Library which is used to transform all variants of kernel MT (Multitouch) events to the slotted type B protocol
   architecture:
         - x86_64
   licenses:
         - MIT
   project_url:
-        - https://xorg.freedesktop.org
+        - http://bitmath.org/code/
   project_ownder:
-        - Xorg Foundation
+        - BItMath
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xwd-1.0.7.tar.bz2"
-    save_as: xwd-1.0.7.tar.bz2
+  - address: "http://bitmath.org/code/mtdev/mtdev-1.1.6.tar.bz2"
+    save_as: mtdev-1.1.6.tar.bz2
     extract: true
     extract_to: ""
 security: ~
-dependencies:
-    run_dependencies:
-      - libx11
-      - libxkbfile
+dependencies: ~
 prepare: ~
 build: ~
 check: ~
@@ -29,10 +26,9 @@ package:
   commands:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
+
       ./configure \
             --prefix=/usr \
-            --sysconfdir=/etc \
-            --localstatedir=/var \
             --disable-static
       make
       make DESTDIR=$PKGDIR install

@@ -1,0 +1,48 @@
+---
+metadata:
+  name: "libinput"
+  version: "1.17.0"
+  release: 1
+  description: library that handles input devices for display servers and other applications that need to directly deal with input device
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.freedesktop.org/software/libinput/libinput-1.17.0.tar.xz"
+    save_as: libinput-1.17.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - eudev
+      - libevdev
+      - mtdev
+      - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir build
+      cd build
+
+      meson --prefix /usr \
+            --libexecdir=/usr/lib \
+            -Dudev-dir=/lib/udev \
+            -Ddebug-gui=false \
+            -Dtests=false \
+            -Ddocumentation=false \
+            -Dlibwacom=false
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

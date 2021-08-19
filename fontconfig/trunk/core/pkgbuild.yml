@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "fontconfig"
+  version: "2.13.1"
+  release: 1
+  description: A library and support programs used for configuring and customizing font access
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.13.1.tar.bz2"
+    save_as: fontconfig-2.13.1.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - freetype2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      # make sure the system regenerates src/fcobjshash.h
+      rm -f src/fcobjshash.h
+
+      ./configure --prefix=/usr        \
+                  --sysconfdir=/etc    \
+                  --localstatedir=/var \
+                  --disable-nls        \
+                  --disable-docs \
+          --with-default-fonts=/usr/share/fonts
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

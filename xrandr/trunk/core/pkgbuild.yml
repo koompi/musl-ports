@@ -22,7 +22,7 @@ dependencies:
     run_dependencies:
       - libx11
       - libxrandr
-      - libxrendr
+      - libxrender
 prepare: ~
 build: ~
 check: ~

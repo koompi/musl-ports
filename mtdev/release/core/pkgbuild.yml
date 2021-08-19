@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "xcb-util-cursor"
-  version: "0.1.3"
+  name: "xinput"
+  version: "1.6.3"
   release: 1
-  description: XCB cursor library
+  description: Small commandline tool to configure devices
   architecture:
         - x86_64
   licenses:
@@ -13,16 +13,18 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://xorg.freedesktop.org/archive/individual/xcb/xcb-util-cursor-0.1.3.tar.bz2"
-    save_as: xcb-util-cursor-0.1.3.tar.bz2
+  - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
+    save_as: xinput-1.6.3.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - xcb-util-renderutil
-      - libxcb
-      - xcb-util-image
+      - libx11
+      - libxext
+      - libxi
+      - libxrandr
+      - libxinerama
 prepare: ~
 build: ~
 check: ~
@@ -31,10 +33,10 @@ package:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
       ./configure \
-        --prefix=/usr \
-        --sysconfdir=/etc \
-        --localstatedir=/var \
-        --disable-static
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
       make
       make DESTDIR=$PKGDIR install
 

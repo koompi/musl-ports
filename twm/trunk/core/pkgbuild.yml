@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "xrandr"
-  version: "1.5.1"
+  name: "twm"
+  version: "1.0.11"
   release: 1
-  description: Primitive command line interface to RandR extension
+  description: A very minimal window manager
   architecture:
         - x86_64
   licenses:
@@ -13,16 +13,19 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xrandr-1.5.1.tar.xz"
-    save_as: xrandr-1.5.1.tar.xz
+  - address: "https://www.x.org/pub/individual/app/twm-1.0.11.tar.xz"
+    save_as: twm-1.0.11.tar.xz
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
       - libx11
-      - libxrandr
-      - libxrender
+      - libxext
+      - libxt
+      - libice
+      - libsm
+      - libxmu
 prepare: ~
 build: ~
 check: ~
@@ -30,6 +33,8 @@ package:
   commands:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i -e '/^rcdir =/s,^\(rcdir = \).*,\1/etc/X11/app-defaults,' src/Makefile.in
       ./configure \
             --prefix=/usr \
             --sysconfdir=/etc \
