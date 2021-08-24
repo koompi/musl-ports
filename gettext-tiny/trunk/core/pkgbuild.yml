@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "gettext-tiny"
+  version: "0.3.2"
+  release: 1
+  description: An internationalisation and localisation system
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/sabotage-linux/gettext-tiny
+  project_ownder:
+        - Sabotage-Linux
+sources:
+  - address: "http://github.com/sabotage-linux/gettext-tiny/archive/v0.3.2.tar.gz"
+    save_as: v0.3.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i 's,#!/bin/sh,#!/usr/bin/bash,g' src/autopoint.in
+
+      make CFLAGS="$CFLAGS" LIBINTL=MUSL prefix=/usr
+      make CFLAGS="$CFLAGS" LIBINTL=MUSL prefix=/usr DESTDIR="$PKGDIR" install
+
+deployment: ~

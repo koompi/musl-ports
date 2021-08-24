@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "jasper"
+  version: "2.0.33"
+  release: 1
+  description: Open-source initiative to provide a free software-based reference implementation of the JPEG-2000 codec
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/jasper-software
+  project_ownder:
+        - Jasper Community Developers
+sources:
+  - address: "https://github.com/jasper-software/jasper/archive/version-2.0.33/jasper-2.0.33.tar.gz"
+    save_as: jasper-2.0.33.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libjpeg-turbo
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-version-$PKGVER
+      mkdir BUILD
+      cd    BUILD
+
+      cmake -DCMAKE_INSTALL_PREFIX=/usr    \
+            -DCMAKE_BUILD_TYPE=Release     \
+            -DCMAKE_SKIP_INSTALL_RPATH=YES \
+            -DJAS_ENABLE_DOC=NO            \
+            ..
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

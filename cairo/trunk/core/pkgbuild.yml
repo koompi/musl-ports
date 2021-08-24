@@ -1,0 +1,51 @@
+---
+metadata:
+  name: "cairo"
+  version: "1.17.4"
+  release: 1
+  description: 2D graphics library with support for multiple output devices
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.cairographics.org/snapshots/cairo-1.17.4.tar.xz"
+    save_as: cairo-1.17.4.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - pixman
+      - fontconfig
+      - freetype2
+      - libpng
+      - libxcb
+      - libxrender
+      - libx11
+      - libxext
+      - lzo
+      - zlib
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      ./configure --prefix=/usr    \
+      	    --disable-static \
+                  --enable-tee
+      make
+      make DESTDIR=$PKGDIR install
+
+      rm -r $PKGDIR/usr/share/gtk-doc
+
+deployment: ~

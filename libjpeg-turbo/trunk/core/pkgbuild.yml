@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "libjpeg-turbo"
+  version: "2.1.1"
+  release: 1
+  description: A fork of the original IJG libjpeg which uses SIMD to accelerate baseline JPEG compression and decompression
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+  #  - address: "https://downloads.sourceforge.net/libjpeg-turbo/libjpeg-turbo-2.1.1.tar.gz"
+  #    save_as: libjpeg-turbo-2.1.1.tar.gz
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir build
+      cd    build
+
+      cmake -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_BUILD_TYPE=RELEASE \
+            -DENABLE_STATIC=FALSE \
+            -DWITH_JPEG8=1 \
+            -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib  \
+            ..
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

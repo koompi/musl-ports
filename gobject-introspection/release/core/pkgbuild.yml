@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "gobject-introspection"
+  version: "1.68.0"
+  release: 1
+  description: Used to describe the program APIs and collect them in a uniform, machine readable format
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://gnome.org
+  project_ownder:
+        - GNOME Developers
+sources:
+  - address: "https://download.gnome.org/sources/gobject-introspection/1.68/gobject-introspection-1.68.0.tar.xz"
+    save_as: gobject-introspection-1.68.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+      - python3
+      - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir build
+      cd build
+
+      meson --prefix=/usr
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

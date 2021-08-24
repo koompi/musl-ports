@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "perl-xml-parser"
+  version: "2.46"
+  release: 1
+  description: Expat-based XML parser module for perl
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://cpan.metacpan.org
+  project_ownder:
+        - Todd Rinaldo
+sources:
+  - address: "https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz"
+    save_as: XML-Parser-2.46.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - expat
+      - perl
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/XML-Parser-$PKGVER
+      perl Makefile.PL
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~
