@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "gdk-pixbuf"
-  version: "2.42.6"
+  name: "at-spi2-core"
+  version: "2.40.3"
   release: 1
-  description: Toolkit for image loading and pixel buffer manipulation
+  description: Small commandline tool to configure devices
   architecture:
         - x86_64
   licenses:
@@ -13,8 +13,8 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.6.tar.xz"
-    save_as: gdk-pixbuf-2.42.6.tar.xz
+  - address: "https://download.gnome.org/sources/at-spi2-core/2.40/at-spi2-core-2.40.3.tar.xz"
+    save_as: at-spi2-core-2.40.3.tar.xz
     extract: true
     extract_to: ""
 security: ~
@@ -22,14 +22,9 @@ dependencies:
     run_dependencies:
       - gobject-introspection
       - glib
+      - dbus
       - libx11
-      - libpng
-      - zlib
-      - libjpeg-turbo
-      - jasper
-      - libtiff
-      - shared-mime-info
-      - meson
+      - libxtst
 prepare: ~
 build: ~
 check: ~
@@ -38,10 +33,15 @@ package:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
 
-      mkdir build
-      cd build
 
-      meson --prefix=/usr --libexecdir=/usr/lib/$name -Djasper=true ..
+      mkdir build
+      cd    build
+
+      meson --prefix=/usr --sysconfdir=/etc --libdir=/usr/lib --libexecdir=/usr/lib/$name ..
       ninja
       DESTDIR=$PKGDIR ninja install
+
+      # remove junk files
+      rm -fr $PKGDIR/usr/lib/systemd/
+
 deployment: ~

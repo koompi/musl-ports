@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "harfbuzz"
+  version: "2.8.2"
+  release: 1
+  description: Small commandline tool to configure devices
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/harfbuzz/
+  project_ownder:
+        - harfbuzz
+sources:
+  - address: "https://github.com/harfbuzz/harfbuzz/releases/download/2.8.2/harfbuzz-2.8.2.tar.xz"
+    save_as: harfbuzz-2.8.2.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+      - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir build
+      cd build
+
+      meson --prefix=/usr ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

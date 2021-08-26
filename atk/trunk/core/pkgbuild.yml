@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "atk"
+  version: "2.36.0"
+  release: 1
+  description: Provides the set of accessibility interfaces that are implemented by other toolkits and applications
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://gnome.org
+  project_ownder:
+        - GNOME Developer
+sources:
+  - address: "https://download.gnome.org/sources/atk/2.36/atk-2.36.0.tar.xz"
+    save_as: atk-2.36.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gobject-introspection
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir build
+      cd    build
+
+      meson --prefix=/usr --libdir=/usr/lib
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

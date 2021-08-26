@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "fribidi"
+  version: "1.0.9"
+  release: 1
+  description: Implementation of the Unicode Bidirectional Algorithm (BIDI)
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/fribidi
+  project_ownder:
+        - Fribidi
+sources:
+  - address: "https://github.com/fribidi/fribidi/releases/download/v1.0.9/fribidi-1.0.9.tar.xz"
+    save_as: fribidi-1.0.9.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+      - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir build
+      cd build
+
+      meson --prefix=/usr ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

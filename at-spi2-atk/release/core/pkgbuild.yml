@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "at-spi2-atk"
+  version: "2.38.0"
+  release: 1
+  description: Library that bridges ATK to At-Spi2 D-Bus service
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://gnome.org
+  project_ownder:
+        - GNOME Developer
+sources:
+  - address: "https://download.gnome.org/sources/at-spi2-atk/2.38/at-spi2-atk-2.38.0.tar.xz"
+    save_as: at-spi2-atk-2.38.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+      - dbus
+      - at-spi2-core
+      - atk
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      mkdir build
+      cd build
+
+      meson --prefix=/usr --libdir=/usr/lib ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

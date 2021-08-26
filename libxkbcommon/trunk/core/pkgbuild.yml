@@ -1,0 +1,46 @@
+---
+metadata:
+  name: "libxkbcommon"
+  version: "1.3.0"
+  release: 1
+  description: keymap compiler and support library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xkbcommon.org/
+  project_ownder:
+        - zeising
+sources:
+  - address: "https://xkbcommon.org/download/libxkbcommon-1.3.0.tar.xz"
+    save_as: libxkbcommon-1.3.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xkeyboard-config
+      - libxcb
+      - meson
+      - libxml2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      mkdir build
+      cd build
+
+      meson --prefix=/usr \
+            --libexecdir=lib \
+            -Denable-wayland=false \
+            -Denable-docs=false
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

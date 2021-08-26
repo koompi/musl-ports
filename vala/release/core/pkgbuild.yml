@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "vala"
+  version: "0.52.5"
+  release: 1
+  description: New programming language that aims to bring modern programming language features to GNOME developers
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://gnome.org
+  project_ownder:
+        - Gnome Project
+sources:
+  - address: "https://download.gnome.org/sources/vala/0.52/vala-0.52.5.tar.xz"
+    save_as: vala-0.52.5.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure --prefix=/usr --disable-valadoc
+      make
+      make DESTDIR=$PKGDIR install
+deployment: ~

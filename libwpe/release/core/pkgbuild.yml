@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "libwpe"
+  version: "1.10.1"
+  release: 1
+  description: General-purpose library for WPE WebKit
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://wpewebkit.org
+  project_ownder:
+        - WPEWEBKIT
+sources:
+  - address: "https://wpewebkit.org/releases/libwpe-1.10.1.tar.xz"
+    save_as: libwpe-1.10.1.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxkbcommon
+      - cmake
+      - mesa
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cmake -H/$SRCDIR/$PKGNAME-$PKGVER -Bbuild \
+      	    -DCMAKE_BUILD_TYPE=Plain \
+      	    -DCMAKE_INSTALL_PREFIX=/usr \
+      	    -DCMAKE_INSTALL_LIBDIR=/usr/lib
+      	cmake --build build
+      	DESTDIR=$PKGDIR cmake --build build --target install
+
+deployment: ~
