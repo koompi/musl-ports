@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "bubblewrap"
+  version: "0.5.0"
+  release: 1
+  description: Unprivileged sandboxing tool
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://github.com/projectatomic/bubblewrap
+  project_ownder:
+        - Projectatomic
+sources:
+  - address: "https://github.com/projectatomic/bubblewrap/releases/download/v0.5.0/bubblewrap-0.5.0.tar.xz"
+    save_as: bubblewrap-0.5.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libcap
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      NOCONFIGURE=1 ./autogen.sh
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

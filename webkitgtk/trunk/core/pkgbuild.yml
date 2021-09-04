@@ -86,6 +86,7 @@ package:
             -DUSE_LIBHYPHEN=OFF \
             -DENABLE_MINIBROWSER=ON \
             -DUSE_WOFF2=OFF \
+            -DUSE_SYSTEMD=OFF           \
             -DENABLE_GEOLOCATION=OFF \
             -Wno-dev -G Ninja ..
       ninja

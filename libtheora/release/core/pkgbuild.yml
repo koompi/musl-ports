@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "libtheora"
+  version: "1.1.1"
+  release: 1
+  description: Reference implementation of the Theora video compression format
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://downloads.xiph.org/
+  project_ownder:
+        - theora
+sources:
+  - address: "https://downloads.xiph.org/releases/theora/libtheora-1.1.1.tar.xz"
+    save_as: libtheora-1.1.1.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libogg
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i 's/png_\(sizeof\)/\1/g' examples/png2theora.c
+
+      ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+      rm -r $PKGDIR/usr/share
+deployment: ~

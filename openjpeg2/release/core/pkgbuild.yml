@@ -1,0 +1,46 @@
+---
+metadata:
+  name: "openjpeg2"
+  version: "2.4.0"
+  release: 1
+  description: Open-source implementation of the JPEG-2000 standard, version 2.3.0
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://github.com/uclouvain/openjpeg/
+  project_ownder:
+        - Uclouvain
+sources:
+  - address: "https://github.com/uclouvain/openjpeg/archive/v2.4.0/openjpeg-2.4.0.tar.gz"
+    save_as: openjpeg-2.4.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libpng
+      - zlib
+      - libtiff
+      - lcms2
+      - libxinerama
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/openjpeg-$PKGVER
+
+      mkdir -v build
+      cd       build
+
+      cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DBUILD_SHARED_LIBS=ON \
+            -DBUILD_STATIC_LIBS=OFF ..
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

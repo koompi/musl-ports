@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "xdg-dbus-proxy"
+  version: "0.1.2"
+  release: 1
+  description: D-Bus proxy
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://github.com/flatpak/xdg-dbus-proxy/
+  project_ownder:
+        - Flatpak
+sources:
+  - address: "https://github.com/flatpak/xdg-dbus-proxy/releases/download/0.1.2/xdg-dbus-proxy-0.1.2.tar.xz"
+    save_as: xdg-dbus-proxy-0.1.2.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      patch -Np0 -i $BASEDIR/files/musl.patch
+
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

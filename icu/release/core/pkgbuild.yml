@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "icu"
+  version: ""
+  release: 1
+  description: Small commandline tool to configure devices
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+  # - address: "https://github.com/unicode-org/icu/releases/download/release-69-1/icu4c-69_1-src.tgz"
+  #   save_as: xinput-1.6.3.tar.bz2
+  #   extract: true
+  #   extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME/source
+
+      # icu tries to use clang by default
+      [ "$CC" ] || export CC=gcc
+      [ "$CXX" ] || export CXX=g++
+
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

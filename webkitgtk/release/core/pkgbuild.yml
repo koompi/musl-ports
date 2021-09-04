@@ -1,30 +1,66 @@
 ---
 metadata:
-  name: "xinput"
-  version: "1.6.3"
+  name: "webkitgtk"
+  version: "2.32.3"
   release: 1
-  description: Small commandline tool to configure devices
+  description: Portable web rendering engine WebKit to the GTK+ 3 and GTK+ 2 platforms
   architecture:
         - x86_64
   licenses:
-        - MIT
+        - GPL
   project_url:
-        - https://xorg.freedesktop.org
+        - https://webkitgtk.org
   project_ownder:
-        - Xorg Foundation
+        - community
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
-    save_as: xinput-1.6.3.tar.bz2
+  - address: "https://webkitgtk.org/releases/webkitgtk-2.32.3.tar.xz"
+    save_as: webkitgtk-2.32.3.tar.xz
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
+      - gobject-introspection
+      - gtk3
+      - pango
+      - harfbuzz
+      - atk
+      - cairo
+      - gdk-pixbuf
+      - glib
+      - libwpe
+      - wpebackend-fdo
+      - libglvnd
+      - libnotify
+      - sqlite
+      - libxml2
+      - libxslt
+      - icu
+      - harfbuzz-icu
+      - fontconfig
+      - freetype2
+      - libgcrypt
+      - gst-plugins-base
+      - gstreamer
+      - libjpeg-turbo
+      - libpng
+      - openjpeg2
+      - libwebp
+      - libsoup
+      - enchant
+      - libseccomp
+      - libsecret
+      - libtasn1
       - libx11
-      - libxext
-      - libxi
-      - libxrandr
-      - libxinerama
+      - libxcomposite
+      - libxdamage
+      - libxrender
+      - libxt
+      - zlib
+      - wayland
+      - ruby
+      - bubblewrap
+      - xdg-dbus-proxy
 prepare: ~
 build: ~
 check: ~
@@ -32,12 +68,27 @@ package:
   commands:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
-      ./configure \
-            --prefix=/usr \
-            --sysconfdir=/etc \
-            --localstatedir=/var \
-            --disable-static
-      make
-      make DESTDIR=$PKGDIR install
+      export CXXFLAGS="$CXXFLAGS -g1"
 
+      patch -Np1 -i $BASEDIR/files/fix-fast-memory-disabled.patch
+      patch -Np1 -i $BASEDIR/files/musl-fixes.patch
+
+
+      mkdir -vp build
+      cd        build
+
+      cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_SKIP_RPATH=ON \
+            -DPORT=GTK \
+            -DLIB_INSTALL_DIR=/usr/lib \
+            -DCMAKE_INSTALL_LIBEXECDIR:PATH=/usr/lib \
+            -DUSE_LIBHYPHEN=OFF \
+            -DENABLE_MINIBROWSER=ON \
+            -DUSE_WOFF2=OFF \
+            -DUSE_SYSTEMD=OFF           \
+            -DENABLE_GEOLOCATION=OFF \
+            -Wno-dev -G Ninja ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
 deployment: ~

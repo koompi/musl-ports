@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "libseccomp"
+  version: "2.5.1"
+  release: 1
+  description: Enhanced seccomp library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/seccomp/libseccomp
+  project_ownder:
+        - seccomp
+sources:
+  - address: "https://github.com/seccomp/libseccomp/releases/download/v2.5.1/libseccomp-2.5.1.tar.gz"
+    save_as: libseccomp-2.5.1.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

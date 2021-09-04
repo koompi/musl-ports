@@ -12,3 +12,4 @@ error EFI cannot make EFI
 error privilege PING command
 cannot go su | might need to use sudo instead
 test
+libsoup

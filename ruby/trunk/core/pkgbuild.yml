@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "ruby"
+  version: "3.0.2"
+  release: 1
+  description: Ruby development environment
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://www.ruby-lang.org/en/
+  project_ownder:
+        - Ruby
+sources:
+  - address: "https://cache.ruby-lang.org/pub/ruby/3.0/ruby-3.0.2.tar.xz"
+    save_as: ruby-3.0.2.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - zlib
+      - gmp
+      - libressl
+      - libffi
+      - readline
+      - ncurses
+      - gdbm
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr   \
+          --enable-shared \
+          --disable-install-doc
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

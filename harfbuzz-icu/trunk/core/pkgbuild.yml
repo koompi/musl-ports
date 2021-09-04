@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "harfbuzz-icu"
+  version: "2.8.2"
+  release: 1
+  description: OpenType text shaping engine (ICU integration)
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/harfbuzz/
+  project_ownder:
+        - harfbuzz
+sources:
+  - address: "https://github.com/harfbuzz/harfbuzz/releases/download/2.8.2/harfbuzz-2.8.2.tar.xz"
+    save_as: harfbuzz-2.8.2.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - icu
+      - harfbuzz
+      - glib
+      - freetype2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/harfbuzz-$PKGVER
+
+      mkdir build &&
+      cd    build &&
+
+      meson --prefix=/usr        \
+            --buildtype=release  \
+            -Dgraphite=enabled   \
+            -Dbenchmark=disabled &&
+      ninja
+      DESTDIR=$PKGDIR ninja install
+deployment: ~
