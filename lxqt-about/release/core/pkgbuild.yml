@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "lxqt-about"
+  version: "0.17.0"
+  release: 1
+  description: LXQt about dialog
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://github.com/lxqt/lxqt-about
+  project_ownder:
+        - LXQT
+sources:
+  - address: "https://github.com/lxqt/lxqt-about/releases/download/0.17.0/lxqt-about-0.17.0.tar.xz"
+    save_as: lxqt-about-0.17.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - liblxqt
+      - libqtxdg
+      - lxqt-build-tools
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir -p build
+      cd build
+      cmake "$SRCDIR/$PKGNAME-$PKGVER" \
+              -DCMAKE_INSTALL_PREFIX=/usr
+      make
+      make DESTDIR="$PKGDIR" install
+
+deployment: ~

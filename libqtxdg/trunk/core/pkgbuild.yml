@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "libqtxdg"
+  version: "3.7.1"
+  release: 1
+  description: Library providing freedesktop.org XDG specs implementations for Qt
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://github.com/lxqt
+  project_ownder:
+        - LXQT
+sources:
+  - address: "https://github.com/lxqt/libqtxdg/releases/download/3.7.1/libqtxdg-3.7.1.tar.xz"
+    save_as: libqtxdg-3.7.1.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - kwindowsystem
+      - libqtxdg
+      - libxscrnsaver
+      - polkit-qt
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+
+      cmake -B build -S "$SRCDIR/$PKGNAME-$PKGVER" \
+         -DCMAKE_INSTALL_PREFIX=/usr \
+         -DCMAKE_BUILD_TYPE=None
+      make -C build
+      cd build
+      make DESTDIR="$PKGDIR" install
+
+deployment: ~

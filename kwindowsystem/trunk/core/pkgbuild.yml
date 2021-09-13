@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "kwindowsystem"
+  version: "5.43.0"
+  release: 1
+  description: Access to the windowing system
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://community.kde.org/Frameworks
+  project_ownder:
+        - KDE
+sources:
+    - address: "http://download.kde.org/stable/frameworks/5.43/kwindowsystem-5.43.0.tar.xz"
+      save_as: kwindowsystem-5.43.0.tar.xz
+      extract: true
+      extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - qt5-x11extras
+      - extra-cmake-modules
+      - qt5-tools
+      - qt5-doc
+      - doxygen
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir -v build &&
+      cd       build &&
+
+      cmake -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_BUILD_TYPE=Release          \
+            -DBUILD_TESTING=OFF                 \
+            -Wno-dev ..                         &&
+      make
+      make DESTDIR="PKGDIR" install
+
+
+deployment: ~

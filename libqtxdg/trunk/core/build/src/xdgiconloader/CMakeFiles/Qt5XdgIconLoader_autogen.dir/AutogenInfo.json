@@ -1,0 +1,106 @@
+{
+	"BUILD_DIR" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/Qt5XdgIconLoader_autogen",
+	"CMAKE_BINARY_DIR" : "/works/packages/libqtxdg/trunk/core/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/xdgiconloader",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/xdgiconloader/CMakeLists.txt",
+		"/usr/share/cmake-3.21/Modules/exportheader.cmake.in",
+		"/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/xdgiconloader_export.h"
+	],
+	"CMAKE_SOURCE_DIR" : "/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : 
+	[
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/xdgiconloader/xdgiconloader_p.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgiconloader_p.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/Qt5XdgIconLoader_autogen/include",
+	"MOC_COMPILATION_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/Qt5XdgIconLoader_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_CAST_FROM_ASCII",
+		"QT_NO_CAST_FROM_BYTEARRAY",
+		"QT_NO_CAST_TO_ASCII",
+		"QT_NO_DEBUG",
+		"QT_NO_FOREACH",
+		"QT_NO_KEYWORDS",
+		"QT_NO_URL_CAST_FROM_STRING",
+		"QT_SVG_LIB",
+		"QT_USE_QSTRINGBUILDER",
+		"QT_WIDGETS_LIB",
+		"Qt5XdgIconLoader_EXPORTS"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/xdgiconloader",
+		"/works/packages/libqtxdg/trunk/core/build/InTreeBuild/include/qt5xdgiconloader",
+		"/works/packages/libqtxdg/trunk/core/build/InTreeBuild/include",
+		"/works/packages/libqtxdg/trunk/core/build/InTreeBuild/include/qt5xdgiconloader/3.7.1",
+		"/usr/include/qt5/QtGui/5.15.2",
+		"/usr/include/qt5/QtGui/5.15.2/QtGui",
+		"/usr/include/qt5/QtCore/5.15.2",
+		"/usr/include/qt5/QtCore/5.15.2/QtCore",
+		"/usr/include/qt5",
+		"/usr/include/qt5/QtGui",
+		"/usr/include/qt5/QtCore",
+		"/usr/lib/qt5/mkspecs/linux-g++",
+		"/usr/include/qt5/QtSvg",
+		"/usr/include/qt5/QtWidgets",
+		"/usr/include/c++/10.2.1",
+		"/usr/include/c++/10.2.1/x86_64-linux-musl",
+		"/usr/include/c++/10.2.1/backward",
+		"/usr/local/include",
+		"/usr/include",
+		"/usr/lib64/gcc/x86_64-linux-musl/10.2.1/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/Qt5XdgIconLoader_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/CMakeFiles/Qt5XdgIconLoader_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/xdgiconloader/CMakeFiles/Qt5XdgIconLoader_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/xdgiconloader/xdgiconloader.cpp",
+			"Mu",
+			null
+		]
+	],
+	"VERBOSITY" : 0
+}
