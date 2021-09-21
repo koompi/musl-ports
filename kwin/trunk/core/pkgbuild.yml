@@ -1,0 +1,52 @@
+---
+metadata:
+  name: "kwin"
+  version: "5.22.90"
+  release: 1
+  description: An easy to use, but flexible, composited Window Manager
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://kde.org/plasma-desktop/
+  project_ownder:
+        - KDE
+sources:
+  - address: "https://github.com/KDE/kwin/archive/refs/tags/v5.22.90.tar.gz"
+    save_as: kwin-5.22.90.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - kscreenlocker
+      - xcb-util-cursor
+      - plasma-framework
+      - kcmutils
+      - kwayland-server
+      - breeze
+      - qt5-script
+      - pipewire
+      - libqaccessibilityclient
+      - lcms2
+      - extra-cmake-modules
+      - qt5-tools
+      - kdoctools
+      - krunner
+      - qt5-virtualkeyboard
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/
+      cmake -B build -S $PKGNAME-$PKGVER \
+        -DCMAKE_INSTALL_LIBEXECDIR=lib \
+        -DBUILD_TESTING=OFF
+
+      cmake --build build
+      DESTDIR="$PKGDIR" cmake --install build
+
+deployment: ~

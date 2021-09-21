@@ -1,0 +1,14 @@
+when try to isntall openbox and webkitgtk:
+
+"http://localhost:3690/core/"
+thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: CycleDetected', src/bin_database.rs:101:51
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+also this:
+thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error("unexpected end of input while parsing minor version number")', src/bin_database.rs:265:81
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Custom { kind: UnexpectedEof, error: "incomplete frame" }', src/bin_database.rs:151:54
+note: run with `RUST_BACKTRACE=1` environment varia

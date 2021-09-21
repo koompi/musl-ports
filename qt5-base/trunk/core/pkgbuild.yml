@@ -23,7 +23,7 @@ dependencies:
       - libjpeg-turbo
       - xcb-util-keysyms
       - xcb-util-renderutil
-      - libgl
+      - libglvnd
       - fontconfig
       - xdg-utils
       - shared-mime-info
@@ -37,17 +37,17 @@ dependencies:
       - libinput
       - libxkbcommon
       - libproxy
-      - libcups
+      - cups
       - double-conversion
       - md4c
       - libfbclient
-      - mariadb-libs
+      - mariadb
       - sqlite
       - unixodbc
       - postgresql-libs
       - alsa-lib
       - gst-plugins-base-libs
-      - gtk3
+      - gtk+3
       - libpulse
       - cups
       - freetds
@@ -60,7 +60,7 @@ dependencies:
       - unixodbc
       - libfclient
       - freetds
-      - gtk3
+      - gtk+3
       - perl
 prepare: ~
 build: ~

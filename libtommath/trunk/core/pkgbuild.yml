@@ -1,0 +1,32 @@
+---
+metadata:
+  name: "libtommath"
+  version: "1.2.0"
+  release: 1
+  description: Highly optimized and portable routines for integer based number theoretic applications
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - http://www.libtom.org/
+  project_ownder:
+        - libtom
+sources:
+  - address: "https://github.com/libtom/libtommath/releases/download/v1.2.0/ltm-1.2.0.tar.xz"
+    save_as: ltm-1.2.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      make -f makefile.shared IGNORE_SPEED=1
+      make -f makefile.shared PREFIX=/usr DESTDIR="$PKGDIR" INSTALL_GROUP=root install
+      install -Dm644 LICENSE "${PKGDIR}/usr/share/licenses/${PKGNAME}/LICENSE"
+deployment: ~

@@ -1,0 +1,71 @@
+---
+metadata:
+  name: "libfbclient"
+  version: "4.0.0.2496"
+  release: 1
+  description: Client library for Firebird
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://www.firebirdsql.org/
+  project_ownder:
+        - Firebird
+sources:
+  - address: "https://github.com/FirebirdSQL/firebird/releases/download/v4.0.0/Firebird-4.0.0.2496-0.tar.xz"
+    save_as: Firebird-4.0.0.2496-0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libtommath
+      - libtomcrypt
+      - re2
+      - editline
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/
+      patch -d Firebird-$PKGVER-0 -p1 < $BASEDIR/files/shared-re2.patch
+      patch -d Firebird-$PKGVER-0 -p1 < $BASEDIR/files/update-re2.patch
+
+      # Ensure system libs are used
+      rm -r Firebird-$PKGVER-0/extern/editline
+      rm -r Firebird-$PKGVER-0/extern/libtommath
+      rm -r Firebird-$PKGVER-0/extern/libtomcrypt
+      rm -r Firebird-$PKGVER-0/extern/zlib
+      cd Firebird-$PKGVER-0
+
+      ./configure --prefix=/usr \
+        --without-fbsbin --without-fbconf --without-fbdoc --without-fbsample \
+        --without-fbsample-db --without-fbintl --without-fbmisc --without-fbhelp \
+        --without-fbsecure-db --with-fbmsg=/usr/share/firebird --without-fblog \
+        --without-fbglock --without-fbplugins --without-fbtzdata --with-system-editline
+
+      make
+
+      mkdir -p "$PKGDIR"/usr/bin
+      mkdir -p "$PKGDIR"/usr/share/licenses/$PKGNAME
+      mkdir -p "$PKGDIR"/usr/share/firebird
+
+
+
+      cp -R gen/Release/firebird/lib "$PKGDIR"/usr
+      cp -R gen/Release/firebird/include "$PKGDIR"/usr
+      rm -f "$PKGDIR"/usr/lib/{libdecFloat.a,libedit.a}
+
+      install -m644 gen/Release/firebird/*.msg "$PKGDIR"/usr/share/firebird
+      install -m755 gen/Release/firebird/bin/fb_config "$PKGDIR"/usr/bin
+      install -m644 "$BASEDIR"/files/LICENSE "$PKGDIR"/usr/share/licenses/$PKGNAME/LICENSE
+
+      # Add libgds support FS#30062 FS#30282
+      cd "$PKGDIR"/usr/lib
+      ln -s libfbclient.so libgds.so.0
+      ln -s libfbclient.so libgds.so
+
+deployment: ~

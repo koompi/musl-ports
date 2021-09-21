@@ -21,7 +21,7 @@ security: ~
 dependencies:
     run_dependencies:
       - gobject-introspection
-      - gtk3
+      - gtk+3
       - pango
       - harfbuzz
       - atk

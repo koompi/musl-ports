@@ -1,0 +1,222 @@
+---
+metadata:
+  name: "mariadb"
+  version: "10.5.10"
+  release: 1
+  description: Fast SQL database server, drop-in replacement for MySQL
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://mariadb.com
+  project_ownder:
+        - Maria Developer
+sources:
+  - address: "http://archive.mariadb.org/mariadb-10.5.10/source/mariadb-10.5.10.tar.gz"
+    save_as: mariadb-10.5.10.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - bison
+      - perl
+      - flex
+      - pkg-config
+      - ncurses
+      - gnutls
+      - libaio
+      - boost
+      - pam
+      - zlib
+      - pcre2
+      - libatomic
+      - mariadb-client
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      patch -Np1 -i $BASEDIR/files/fix-cmake.patch
+      patch -Np1 -i $BASEDIR/files/have_stacktrace.patch
+      patch -Np1 -i $BASEDIR/files/ppc-remove-glibc-dep.patch
+
+
+      cmake . \
+             -DBUILD_CONFIG=mysql_release \
+             -DCMAKE_BUILD_TYPE=None \
+             -DCMAKE_INSTALL_PREFIX=/usr \
+             -DSYSCONFDIR=/etc \
+             -DSYSCONF2DIR=/etc/my.cnf.d \
+             -DMYSQL_DATADIR=/var/lib/mysql \
+             -DMYSQL_UNIX_ADDR=/run/mysqld/mysqld.sock \
+             -DDEFAULT_CHARSET=utf8mb4 \
+             -DDEFAULT_COLLATION=utf8mb4_general_ci \
+             -DENABLED_LOCAL_INFILE=ON \
+             -DINSTALL_INFODIR=share/info \
+             -DINSTALL_MANDIR=share/man \
+             -DINSTALL_PLUGINDIR=lib/$PKGNAME/plugin \
+             -DINSTALL_SCRIPTDIR=bin \
+             -DINSTALL_INCLUDEDIR=include/mysql \
+             -DINSTALL_DOCREADMEDIR=share/doc/$PKGNAME \
+             -DINSTALL_SUPPORTFILESDIR=share/$PKGNAME \
+             -DINSTALL_MYSQLSHAREDIR=share/$PKGNAME \
+             -DINSTALL_DOCDIR=share/doc/$PKGNAME \
+             -DTMPDIR=/var/tmp \
+             -DCONNECT_WITH_MYSQL=ON \
+             -DCONNECT_WITH_LIBXML2=system \
+             -DCONNECT_WITH_ODBC=NO \
+             -DCONNECT_WITH_JDBC=NO \
+             -DPLUGIN_ARCHIVE=YES \
+             -DPLUGIN_ARIA=YES \
+             -DPLUGIN_BLACKHOLE=YES \
+             -DPLUGIN_CASSANDRA=NO \
+             -DPLUGIN_CSV=YES \
+             -DPLUGIN_MYISAM=YES \
+             -DPLUGIN_MROONGA=NO \
+             -DPLUGIN_OQGRAPH=NO \
+             -DPLUGIN_PARTITION=YES \
+             -DPLUGIN_ROCKSDB=$_enable_rocksdb \
+             -DPLUGIN_SPHINX=NO \
+             -DPLUGIN_TOKUDB=NO \
+             -DPLUGIN_AUTH_GSSAPI=NO \
+             -DPLUGIN_AUTH_GSSAPI_CLIENT=OFF \
+             -DPLUGIN_CRACKLIB_PASSWORD_CHECK=NO \
+             -DWITH_ASAN=OFF \
+             -DWITH_EMBEDDED_SERVER=ON \
+             -DWITH_EXTRA_CHARSETS=complex \
+             -DWITH_INNODB_BZIP2=OFF \
+             -DWITH_INNODB_LZ4=OFF \
+             -DWITH_INNODB_LZMA=ON \
+             -DWITH_INNODB_LZO=OFF \
+             -DWITH_INNODB_SNAPPY=OFF \
+             -DWITH_ROCKSDB_BZIP2=OFF \
+             -DWITH_ROCKSDB_JEMALLOC=OFF \
+             -DWITH_ROCKSDB_LZ4=OFF \
+             -DWITH_ROCKSDB_ZSTD=OFF \
+             -DWITH_ROCKSDB_SNAPPY=OFF \
+             -DWITH_JEMALLOC=NO \
+             -DWITH_LIBARCHIVE=system \
+             -DWITH_LIBNUMA=NO \
+             -DWITH_LIBWRAP=OFF \
+             -DWITH_LIBWSEP=OFF \
+             -DWITH_MARIABACKUP=ON \
+             -DWITH_PCRE=system \
+             -DWITH_READLINE=ON \
+             -DWITH_SYSTEMD=no \
+             -DWITH_SSL=system \
+             -DWITH_VALGRIND=OFF \
+             -DWITH_ZLIB=system \
+             -DSKIP_TESTS=ON
+
+             #cmake -L
+      make
+      make DESTDIR="$PKGDIR" install
+
+      mkdir -pv $PKGDIR/usr/bin
+      install -Dm 755 $BASEDIR/files/$PKGNAME.initd \
+              "$PKGDIR"/etc/init.d/$PKGNAME
+      mkdir -p "$PKGDIR"/etc/my.cnf.d
+
+      # mysql-test includes one executable that doesn't belong under
+      # /usr/share, so move it and provide a symlink
+      mv "$PKGDIR"/usr/mysql-test/lib/My/SafeProcess/my_safe_process \
+              "$PKGDIR"/usr/bin
+      ln -s ../../../../bin/my_safe_process \
+              "$PKGDIR"/usr/mysql-test/lib/My/SafeProcess/my_safe_process
+
+
+      # remove files provided by mariadb-connector-c
+      rm -rf \
+              "$PKGDIR"/usr/bin/mariadb_config \
+              "$PKGDIR"/usr/bin/mysql_config \
+              "$PKGDIR"/usr/include/mysql/errmsg.h \
+              "$PKGDIR"/usr/include/mysql/ma_list.h \
+              "$PKGDIR"/usr/include/mysql/ma_pvio.h \
+              "$PKGDIR"/usr/include/mysql/ma_tls.h \
+              "$PKGDIR"/usr/include/mysql/mariadb/ma_io.h \
+              "$PKGDIR"/usr/include/mysql/mariadb_com.h \
+              "$PKGDIR"/usr/include/mysql/mariadb_ctype.h \
+              "$PKGDIR"/usr/include/mysql/mariadb_dyncol.h \
+              "$PKGDIR"/usr/include/mysql/mariadb_stmt.h \
+              "$PKGDIR"/usr/include/mysql/mariadb_version.h \
+              "$PKGDIR"/usr/include/mysql/mysql.h \
+              "$PKGDIR"/usr/include/mysql/mysql/client_plugin.h \
+              "$PKGDIR"/usr/include/mysql/mysql/plugin_auth.h \
+              "$PKGDIR"/usr/include/mysql/mysql/plugin_auth_common.h \
+              "$PKGDIR"/usr/include/mysql/mysql_version.h \
+              "$PKGDIR"/usr/include/mysql/mysqld_error.h \
+              "$PKGDIR"/usr/lib/$PKGNAME/plugin/dialog.so \
+              "$PKGDIR"/usr/lib/$PKGNAME/plugin/mysql_clear_password.so \
+              "$PKGDIR"/usr/lib/$PKGNAME/plugin/sha256_password.so \
+              "$PKGDIR"/usr/lib/$PKGNAME/plugin/caching_sha2_password.so \
+              "$PKGDIR"/usr/lib/$PKGNAME/plugin/client_ed25519.so \
+              "$PKGDIR"/usr/lib/libmysqlclient.so \
+              "$PKGDIR"/usr/lib/libmysqlclient_r.so \
+              "$PKGDIR"/usr/lib/libmariadb.so* \
+              "$PKGDIR"/usr/lib/pkgconfig/libmariadb.pc
+
+      cat >"$PKGDIR"/etc/my.cnf<<-EOF
+      # This group is read both both by the client and the server
+      # use it for options that affect everything
+      [client-server]
+
+      # This group is read by the server
+      [mysqld]
+
+      # Disabling symbolic-links is recommended to prevent assorted security risks
+      symbolic-links=0
+
+      # include all files from the config directory
+      !includedir /etc/my.cnf.d
+      EOF
+
+      cat >"$PKGDIR"/etc/my.cnf.d/mariadb-server.cnf<<-EOF
+      #
+      # These groups are read by MariaDB server.
+      # Use it for options that only the server (but not clients) should see
+
+      # this is read by the standalone daemon and embedded servers
+      [server]
+
+      # this is only for the mysqld standalone daemon
+      [mysqld]
+      skip-networking
+
+      # Galera-related settings
+      [galera]
+      # Mandatory settings
+      #wsrep_on=ON
+      #wsrep_provider=
+      #wsrep_cluster_address=
+      #binlog_format=row
+      #default_storage_engine=InnoDB
+      #innodb_autoinc_lock_mode=2
+      #
+      # Allow server to accept connections on all interfaces.
+      #
+      #bind-address=0.0.0.0
+      #
+      # Optional setting
+      #wsrep_slave_threads=1
+      #innodb_flush_log_at_trx_commit=0
+
+      # this is only for embedded server
+      [embedded]
+
+      # This group is only read by MariaDB servers, not by MySQL.
+      # If you use the same .cnf file for MySQL and MariaDB,
+      # you can put MariaDB-only options here
+      [mariadb]
+
+      # This group is only read by MariaDB-10.5 servers.
+      # If you use the same .cnf file for MariaDB of different versions,
+      # use this group for options that older servers don't understand
+      [mariadb-10.5]
+
+      EOF
+
+deployment: ~

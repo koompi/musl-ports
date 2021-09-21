@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "p11-kit"
+  version: "0.24.0"
+  release: 1
+  description: Provides a way to load and enumerate PKCS \#11 (a Cryptographic Token Interface Standard) modules
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/p11-glue/p11-kit/
+  project_ownder:
+        - P11 Team
+sources:
+  - address: "https://github.com/p11-glue/p11-kit/releases/download/0.24.0/p11-kit-0.24.0.tar.xz"
+    save_as: p11-kit-0.24.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libffi
+      - libtasn1
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib \
+        --with-trust-paths=/etc/pki/anchors
+
+      make
+      make DESTDIR=$PKGDIR install
+      rm -r $PKGDIR/usr/share/gtk-doc
+deployment: ~

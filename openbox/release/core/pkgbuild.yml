@@ -1,0 +1,60 @@
+---
+metadata:
+  name: "openbox"
+  version: "3.6.1"
+  release: 1
+  description: Highly configurable desktop window manager with extensive standards support
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://openbox.org
+  project_ownder:
+        - OpenBox
+sources:
+  - address: "http://openbox.org/dist/openbox/openbox-3.6.1.tar.gz"
+    save_as: openbox-3.6.1.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxau
+      - libsm
+      - libice
+      - libx11
+      - glib
+      - libxcursor
+      - startup-notification
+      - pango
+      - harfbuzz
+      - fontconfig
+      - freetype2
+      - libxft
+      - imlib2
+      - librsvg
+      - gdk-pixbuf
+      - cairo
+      - libxinerama
+      - libxrender
+      - libxrandr
+      - libxext
+      - libxml2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --libexecdir=/usr/lib/$name \
+        --disable-static \
+        --disable-nls
+      make
+      make DESTDIR=$PKGDIR install
+      rm -r $PKGDIR/usr/share/doc
+deployment: ~

@@ -28,7 +28,7 @@ package:
   commands:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
-      patch -Np0 -i $BASEDIR/files/musl.patch
+      patch -N1 -i $BASEDIR/files/musl.patch
 
       ./configure --prefix=/usr
       make

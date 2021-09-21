@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "lxde"
+  version: "0.1"
+  release: 1
+  description: Meta port for lxde desktop
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://lxde.org
+  project_ownder:
+        - LXDE
+sources: ~
+  #  - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
+  #    save_as: xinput-1.6.3.tar.bz2
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - lxmenu-data
+      - libfm-extra
+      - menu-cache
+      - libfm
+      - pcmanfm
+      - lxpanel
+      - lxappearance
+      - lxsession
+      - lxde-common
+      - gpicview
+      - lxappearance-obconf
+      - lxinput
+      - lxrandr
+      - lxtask
+      - lxterminal
+      - leafpad
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      mkdir -p $PKGDIR/usr
+
+deployment: ~

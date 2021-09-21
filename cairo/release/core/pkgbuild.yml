@@ -1,9 +1,9 @@
 ---
 metadata:
-  name: "xinput"
-  version: "1.6.3"
+  name: "cairo"
+  version: "1.17.4"
   release: 1
-  description: Small commandline tool to configure devices
+  description: 2D graphics library with support for multiple output devices
   architecture:
         - x86_64
   licenses:
@@ -13,18 +13,24 @@ metadata:
   project_ownder:
         - Xorg Foundation
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
-    save_as: xinput-1.6.3.tar.bz2
+  - address: "https://www.cairographics.org/snapshots/cairo-1.17.4.tar.xz"
+    save_as: cairo-1.17.4.tar.xz
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
+      - pixman
+      - fontconfig
+      - freetype2
+      - libpng
+      - libxcb
+      - libxrender
       - libx11
       - libxext
-      - libxi
-      - libxrandr
-      - libxinerama
+      - lzo
+      - zlib
+      - glib
 prepare: ~
 build: ~
 check: ~
@@ -32,12 +38,14 @@ package:
   commands:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
-      ./configure \
-            --prefix=/usr \
-            --sysconfdir=/etc \
-            --localstatedir=/var \
-            --disable-static
+
+
+      ./configure --prefix=/usr    \
+      	    --disable-static \
+                  --enable-tee
       make
       make DESTDIR=$PKGDIR install
+
+      rm -r $PKGDIR/usr/share/gtk-doc
 
 deployment: ~

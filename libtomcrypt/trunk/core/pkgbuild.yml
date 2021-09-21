@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "libtomcrypt"
+  version: "1.18.2"
+  release: 1
+  description: A fairly comprehensive, modular and portable cryptographic toolkit
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://www.libtom.net/LibTomCrypt
+  project_ownder:
+        - LibTom
+sources:
+  - address: "https://github.com/libtom/libtomcrypt/releases/download/v1.18.2/crypt-1.18.2.tar.xz"
+    save_as: crypt-1.18.2.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libtommath
+      - gmp
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      export CPPFLAGS\=" -DLTM_DESC -DGMP_DESC -DUSE_LTM"
+      export EXTRALIBS="-ltommath -lgmp"
+      make -f makefile.shared IGNORE_SPEED=1 library test
+      make -f makefile.shared DESTDIR="$PKGDIR" PREFIX="/usr" INSTALL_GROUP="root" INSTALL_OPTS="" install
+
+      install -Dm 644 LICENSE -t "$PKGDIR"/usr/share/licenses/$PKGNAME/
+deployment: ~

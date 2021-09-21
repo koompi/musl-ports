@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "imlib2"
+  version: "1.7.2"
+  release: 1
+  description: Graphics library for fast file loading, saving, rendering and manipulation
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://sourceforge.net/projects/enlightenment/
+  project_ownder:
+        - enlightenment
+sources: ~
+  #  - address: "https://downloads.sourceforge.net/enlightenment/imlib2-1.7.2.tar.bz2"
+  #    save_as: imlib2-1.7.2.tar.bz2
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxext
+      - libx11
+      - libxcb
+      - libtiff
+      - libjpeg-turbo
+      - libpng
+      - freetype2
+      - zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

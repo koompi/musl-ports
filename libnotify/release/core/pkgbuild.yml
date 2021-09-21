@@ -23,7 +23,7 @@ dependencies:
       - gobject-introspection
       - gdk-pixbuf
       - glib
-      - gtk3
+      - gtk+3
       - libxslt
       - docbook-xsl
 prepare: ~

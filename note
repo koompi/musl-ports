@@ -13,3 +13,10 @@ error privilege PING command
 cannot go su | might need to use sudo instead
 test
 libsoup
+
+
+
+
+dont forget mozjs78
+working on qt5-base
+libfbclient

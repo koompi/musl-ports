@@ -1,0 +1,75 @@
+---
+metadata:
+  name: "openldap"
+  version: "2.4.58"
+  release: 1
+  description: LDAP Server
+  architecture:
+  - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://www.openldap.org/
+  project_ownder:
+        - openldap community
+sources:
+  - address: "https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.4.58.tgz"
+    save_as: openldap-2.4.58.tgz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - openssl
+      - libsasl
+      - libltdl
+      - db
+      - e2fsprogs
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/openldap-OPENLDAP_REL_ENG_2_5
+      patch -Np1 -i $BASEDIR/files/openldap-2.4-ppolicy.patch
+      patch -Np1 -i $BASEDIR/files/openldap-2.4.11-libldap_r.patch
+      patch -Np1 -i $BASEDIR/files/openldap-mqtt-overlay.patch
+      patch -Np1 -i $BASEDIR/files/fix-manpages.patch
+      patch -Np1 -i $BASEDIR/files/cacheflush.patch
+      export MAKEFLAGS="-j4"
+      sed -i 's|#define LDAPI_SOCK LDAP_RUNDIR LDAP_DIRSEP "run" LDAP_DIRSEP "ldapi"|#define LDAPI_SOCK LDAP_DIRSEP "run" LDAP_DIRSEP "openldap" LDAP_DIRSEP "ldapi"|' include/ldap_defaults.h
+      sed -i 's|%LOCALSTATEDIR%/run|/run/openldap|' servers/slapd/slapd.conf
+      sed -i 's|%LOCALSTATEDIR%/run|/run/openldap|' servers/slapd/slapd.ldif
+      sed -i 's|-$(MKDIR) $(DESTDIR)$(localstatedir)/run|-$(MKDIR) $(DESTDIR)/run/openldap|' servers/slapd/Makefile.in
+      aclocal; autoconf; autoheader; libtoolize -f
+
+      ./configure \
+          --prefix=/usr \
+          --libexecdir=/usr/libexec \
+          --sysconfdir=/etc \
+          --localstatedir=/var/lib/openldap \
+          --sbindir=/usr/bin \
+          --enable-dynamic \
+          --enable-proctitle \
+          --with-tls \
+          --enable-ldap \
+          --enable-ipv6 \
+          --enable-local \
+          --with-cyrus-sasl  \
+          --with-threads \
+          --enable-syslog \
+          --enable-slapd \
+          --enable-crypt \
+          --enable-spasswd \
+          --enable-bdb  \
+          --enable-hdb  \
+          --enable-overlays=mod \
+          --enable-meta=mod \
+          --disable-static \
+          --with-yielding_select=yes \
+          --enable-modules
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

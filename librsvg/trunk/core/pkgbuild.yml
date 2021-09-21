@@ -23,7 +23,7 @@ dependencies:
       - gdk-pixbuf
       - libcroco
       - pango
-      - gtk3
+      - gtk+3
       - gobject-introspection
       - vala
 prepare: ~

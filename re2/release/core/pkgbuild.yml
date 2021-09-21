@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "re2"
+  version: "2021-09-01"
+  release: 1
+  description: Fast, safe, thread-friendly regular expression engine
+  architecture:
+        - x86_64
+  licenses:
+        - BSD3
+  project_url:
+        - https://github.com/google/re2
+  project_ownder:
+        - Google
+sources:
+  - address: "https://github.com/google/re2/archive/refs/tags/2021-09-01.tar.gz"
+    save_as: re2-2021-09-01.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      make
+      make prefix=/usr DESTDIR="$PKGDIR" install
+      install -Dm644 LICENSE "$PKGDIR/usr/share/licenses/re2/LICENSE"
+
+deployment: ~

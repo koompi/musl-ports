@@ -12,16 +12,16 @@ metadata:
         - https://webkitgtk.org
   project_ownder:
         - community
-sources:
-  - address: "https://webkitgtk.org/releases/webkitgtk-2.32.3.tar.xz"
-    save_as: webkitgtk-2.32.3.tar.xz
-    extract: true
-    extract_to: ""
+sources: ~
+  #  - address: "https://webkitgtk.org/releases/webkitgtk-2.32.3.tar.xz"
+  #    save_as: webkitgtk-2.32.3.tar.xz
+  #    extract: true
+  #    extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
       - gobject-introspection
-      - gtk3
+      - gtk+3 # error also when try to install gtk+3
       - pango
       - harfbuzz
       - atk

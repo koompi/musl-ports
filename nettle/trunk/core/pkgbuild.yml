@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "nettle"
+  version: "3.7.3"
+  release: 1
+  description: Low-level cryptographic library that is designed to fit easily in many contexts
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://www.lysator.liu.se/~nisse/nettle
+  project_ownder:
+        - GNU
+sources:
+  - address: "https://ftp.gnu.org/gnu/nettle/nettle-3.7.3.tar.gz"
+    save_as: nettle-3.7.3.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gmp
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr \
+      	    --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+      chmod   -v   755 $PKGDIR/usr/lib/libhogweed.so $PKGDIR/usr/lib/libnettle.so
+
+      rm -r $PKGDIR/usr/share
+
+deployment: ~

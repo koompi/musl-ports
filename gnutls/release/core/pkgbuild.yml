@@ -1,0 +1,66 @@
+---
+metadata:
+  name: "gnutls"
+  version: "3.6.16"
+  release: 1
+  description: Libraries and userspace tools which provide a secure layer over a reliable transport layer
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://gnupg.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://gnupg.org/ftp/gcrypt/gnutls/v3.6/gnutls-3.6.16.tar.xz"
+    save_as: gnutls-3.6.16.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - p11-kit
+      - libunitstring
+      - libtasn1
+      - nettle
+      - gmp
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      #export MAKEFLAGS="j1"
+      export GNUTLS_PIN=1234
+      patch -p1 -i $BASEDIR/files/tests-crq.patch
+      patch -p1 -i $BASEDIR/files/tests-certtool.patch
+      patch -Np1 -i $BASEDIR/files/tests-certtool-no-prompt.patch
+
+      #LIBS="-lgmp" ./configure --prefix=/usr \
+      #	--disable-static \
+      #	--with-idn \
+      #	--enable-openssl-compatibility \
+      #  --mandir=/usr/share/man \
+      #  --infodir=/usr/share/info \
+      #  --disable-openssl-compatibility \
+      #  --disable-rpath \
+      #  --disable-static \
+      #  --disable-guile \
+      #  --disable-valgrind-tests \
+      #	--with-default-trust-store-pkcs11="pkcs11:"
+      #sed -i -e 's/ -shared / -Wl,-O1,--as-needed\0/g' libtool
+
+      ./configure --prefix=/usr \
+       --with-zlib  \
+       --disable-guile  \
+       --disable-static \
+       --disable-valgrind-tests \
+       --disable-rpath \
+       --with-default-trust-store-file=/etc/ssl/certs/ca-certificates.crt
+      make
+      make DESTDIR="${PKGDIR}" install
+
+
+deployment: ~

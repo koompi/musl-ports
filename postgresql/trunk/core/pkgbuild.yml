@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "postsgresql"
+  version: "13.3"
+  release: 1
+  description: A sophisticated object-relational DBMS
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://postgresql.org
+  project_ownder:
+        - Postgresql
+sources:
+  - address: "https://ftp.postgresql.org/pub/source/v13.3/postgresql-13.3.tar.bz2"
+    save_as: postgresql-13.3.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - icu
+      - libxml2
+      - llvm
+      - openldap
+      - perl
+      - readline
+      - tcl
+      - util-linux
+      - zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~
