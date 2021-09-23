@@ -1,6 +1,6 @@
 ---
 metadata:
-  name: "gtk2"
+  name: "gtk+2"
   version: "2.24.33"
   release: 1
   description: GObject-based multi-platform GUI toolkit (legacy)

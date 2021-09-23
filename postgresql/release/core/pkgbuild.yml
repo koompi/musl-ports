@@ -1,43 +1,181 @@
 ---
 metadata:
-  name: "xinput"
-  version: "1.6.3"
+  name: "postgresql"
+  version: "13.3"
   release: 1
-  description: Small commandline tool to configure devices
+  description: A sophisticated object-relational DBMS
   architecture:
         - x86_64
   licenses:
-        - MIT
+        - CUSTOM
   project_url:
-        - https://xorg.freedesktop.org
+        - https://postgresql.org
   project_ownder:
-        - Xorg Foundation
+        - Postgresql
 sources:
-  - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
-    save_as: xinput-1.6.3.tar.bz2
+  - address: "https://ftp.postgresql.org/pub/source/v13.3/postgresql-13.3.tar.bz2"
+    save_as: postgresql-13.3.tar.bz2
     extract: true
     extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
-      - libx11
-      - libxext
-      - libxi
-      - libxrandr
-      - libxinerama
+      - icu
+      - libxml2
+      - llvm
+      - openldap
+      - perl
+      - readline
+      - tcl
+      - util-linux
+      - zlib
 prepare: ~
 build: ~
 check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/$PKGNAME-$PKGVER
+      cd $SRCDIR/postgresql-13.3
       ./configure \
             --prefix=/usr \
+            --mandir=/usr/share/man \
+            --datadir=/usr/share/postgresql \
             --sysconfdir=/etc \
-            --localstatedir=/var \
-            --disable-static
-      make
-      make DESTDIR=$PKGDIR install
+            --with-gssapi \
+            --with-libxml \
+            --with-openssl \
+            --with-perl \
+            --with-python \
+            --with-tcl \
+            --with-pam \
+            --with-system-tzdata=/usr/share/zoneinfo \
+            --with-uuid=e2fs \
+            --with-icu \
+            --without-systemd \
+            --with-ldap \
+            --enable-nls \
+            --enable-thread-safety \
+            --disable-rpath \
+            PYTHON=/usr/bin/python
 
+      make -C src/pl/plpython all
+      make -C contrib/hstore_plpython all
+      make -C contrib/ltree_plpython all
+
+      # save plpython3 build and Makefile.global
+      cp -rv src/pl/plpython src/pl/plpython3
+      cp -rv contrib/hstore_plpython contrib/hstore_plpython3
+      cp -rv contrib/ltree_plpython contrib/ltree_plpython3
+      cp -v src/Makefile.global src/Makefile.global.python3
+       make distclean
+
+      cd $SRCDIR/postgresql-13.3
+
+      # regular build with everything
+      ./configure \
+            --prefix=/usr \
+            --mandir=/usr/share/man \
+            --datadir=/usr/share/postgresql \
+            --sysconfdir=/etc \
+            --with-gssapi \
+            --with-libxml \
+            --with-openssl \
+            --with-perl \
+            --with-python \
+            --with-tcl \
+            --with-pam \
+            --with-system-tzdata=/usr/share/zoneinfo \
+            --with-uuid=e2fs \
+            --with-icu \
+            --without-systemd \
+            --with-ldap \
+            --enable-nls \
+            --enable-thread-safety \
+            --disable-rpath \
+        PYTHON=/usr/bin/python2
+      make world
+
+      cd $SRCDIR/postgresql-13.3
+
+      # install license
+      install -Dm 644 COPYRIGHT -t "${PKGDIR}/usr/share/licenses/${PKGNAME}"
+
+      # install libs and non-server binaries
+      for dir in src/interfaces src/bin/pg_config src/bin/pg_dump src/bin/psql src/bin/scripts; do
+        make -C ${dir} DESTDIR="${PKGDIR}" install
+      done
+
+      for util in pg_config pg_dump pg_dumpall pg_restore psql \
+          clusterdb createdb createuser dropdb dropuser pg_isready reindexdb vacuumdb; do
+        install -Dm 644 doc/src/sgml/man1/${util}.1 "${PKGDIR}"/usr/share/man/man1/${util}.1
+      done
+
+      cd src/include
+
+      install -d "${PKGDIR}"/usr/include/libpq
+      install -d "${PKGDIR}"/usr/include/postgresql/internal/libpq
+
+      # these headers are needed by the public headers of the interfaces
+      install -m 644 pg_config.h "${PKGDIR}/usr/include"
+      install -m 644 pg_config_os.h "${PKGDIR}/usr/include"
+      install -m 644 pg_config_ext.h "${PKGDIR}/usr/include"
+      install -m 644 postgres_ext.h "${PKGDIR}/usr/include"
+      install -m 644 libpq/libpq-fs.h "${PKGDIR}/usr/include/libpq"
+      install -m 644 pg_config_manual.h "${PKGDIR}/usr/include"
+
+      # these he aders are needed by the not-so-public headers of the interfaces
+      install -m 644 c.h "${PKGDIR}/usr/include/postgresql/internal"
+      install -m 644 port.h "${PKGDIR}/usr/include/postgresql/internal"
+      install -m 644 postgres_fe.h "${PKGDIR}/usr/include/postgresql/internal"
+      install -m 644 libpq/pqcomm.h "${PKGDIR}/usr/include/postgresql/internal/libpq"
+
+      # docs
+      make -C doc/src/sgml DESTDIR="${PKGDIR}" install-html
+      chown -Rv root:root "${PKGDIR}/usr/share/doc/postgresql/html"
+
+      # clean up
+      rmdir "${PKGDIR}"/usr/share/man/man1
+      rmdir "${PKGDIR}"/usr/share/man/man3
+      rmdir "${PKGDIR}"/usr/share/man/man7
+      rmdir "${PKGDIR}"/usr/share/man
+
+      cd $SRCDIR/postgresql-13.3
+      # install
+      make DESTDIR="${PKGDIR}" install
+      make -C contrib DESTDIR="${PKGDIR}" install
+      make -C doc/src/sgml DESTDIR="${PKGDIR}" install-man
+      # install plpython3
+      mv src/Makefile.global src/Makefile.global.save
+      cp src/Makefile.global.python3 src/Makefile.global
+      touch -r src/Makefile.global.save src/Makefile.global
+      make -C src/pl/plpython3 DESTDIR="${PKGDIR}" install
+      make -C contrib/hstore_plpython3 DESTDIR="${PKGDIR}" install
+      make -C contrib/ltree_plpython3 DESTDIR="${PKGDIR}" install
+      # we don't want these, they are in the -libs package
+
+      for dir in src/interfaces src/bin/pg_config src/bin/pg_dump src/bin/psql src/bin/scripts; do
+        make -C ${dir} DESTDIR="${PKGDIR}" uninstall
+      done
+
+      for util in pg_config pg_dump pg_dumpall pg_restore psql \
+          clusterdb createdb createuser dropdb dropuser pg_isready reindexdb vacuumdb; do
+        rm "${PKGDIR}"/usr/share/man/man1/${util}.1
+      done
+
+      # clean up unneeded installed items
+      rm -rf "${PKGDIR}/usr/include/postgresql/internal"
+      rm -rf "${PKGDIR}/usr/include/libpq"
+      find "${PKGDIR}/usr/include" -maxdepth 1 -type f -execdir rm -rf {} +
+      rm -rf "${PKGDIR}/usr/share/doc/postgresql/html"
+
+      install -Dm 755 "${BASEDIR}/files/postgresql-check-db-dir" -t "${PKGDIR}/usr/bin"
+      install -Dm 644 "${BASEDIR}/files/postgresql.pam" "${PKGDIR}/etc/pam.d/postgresql"
+      install -Dm 644 "${BASEDIR}/files/postgresql.logrotate" "${PKGDIR}/etc/logrotate.d/postgresql"
+      #install -Dm 644 COPYRIGHT -t "${PKGDIR}/usr/share/licenses/${PKGNAME}"
+
+      # install runit service
+      
+      install -Dm755 "$BASEDIR/files/logpostgresql.run" "$PKGDIR/etc/sv/postgresql/log/run"
+      install -Dm644 "$BASEDIR/files/postgresql.conf" "$PKGDIR/etc/sv/postgresql/conf"
+      install -Dm755 "$BASEDIR/files/postgresql.run" "$PKGDIR/etc/sv/postgresql/run"
 deployment: ~

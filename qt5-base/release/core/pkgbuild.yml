@@ -23,7 +23,7 @@ dependencies:
       - libjpeg-turbo
       - xcb-util-keysyms
       - xcb-util-renderutil
-      - libgl
+      - libglvnd
       - fontconfig
       - xdg-utils
       - shared-mime-info
@@ -37,28 +37,24 @@ dependencies:
       - libinput
       - libxkbcommon
       - libproxy
-      - libcups
+      - cups
       - double-conversion
       - md4c
       - libfbclient
-      - mariadb-libs
       - sqlite
       - unixodbc
-      - postgresql-libs
       - alsa-lib
-      - gst-plugins-base-libs
-      - gtk+3
-      - libpulse
+      - gst-plugins-base
+        # - libpulse  related to split package
       - cups
       - freetds
       - vulkan-headers
-      - qt5-svg
-      - qt5-wayland
-      - qt5-translations
-      - postresql-libs
-      - mariadb-libs
+        #- qt5-svg
+        #- qt5-wayland
+        #- qt5-translations
+      - postgresql
+        # - mariadb-libs
       - unixodbc
-      - libfclient
       - freetds
       - gtk+3
       - perl

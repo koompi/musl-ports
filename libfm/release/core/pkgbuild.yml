@@ -20,7 +20,7 @@ sources: ~
 security: ~
 dependencies:
     run_dependencies:
-      - gtk2
+      - gtk+2
       - menu-cache
       - lxmenu-data
       - libexif

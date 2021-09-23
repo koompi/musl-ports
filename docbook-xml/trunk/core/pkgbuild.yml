@@ -34,7 +34,7 @@ sources:
     extract_to: ""
 
   - address: "https://www.docbook.org/xml/4.1.2/docbkx412.zip"
-    save_as: docbook-xml-4.1.2.zip
+    save_as: docbkx412.zip
     extract: false
     extract_to: ""
 security: ~

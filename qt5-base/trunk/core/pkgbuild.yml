@@ -41,24 +41,20 @@ dependencies:
       - double-conversion
       - md4c
       - libfbclient
-      - mariadb
       - sqlite
       - unixodbc
-      - postgresql-libs
       - alsa-lib
-      - gst-plugins-base-libs
-      - gtk+3
-      - libpulse
+      - gst-plugins-base
+        # - libpulse  related to split package
       - cups
       - freetds
       - vulkan-headers
-      - qt5-svg
-      - qt5-wayland
-      - qt5-translations
-      - postresql-libs
-      - mariadb-libs
+        #- qt5-svg
+        #- qt5-wayland
+        #- qt5-translations
+      - postgresql
+        # - mariadb-libs
       - unixodbc
-      - libfclient
       - freetds
       - gtk+3
       - perl

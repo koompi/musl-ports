@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "xinput"
+  version: "1.6.3"
+  release: 1
+  description: Small commandline tool to configure devices
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://invent.kde.org/qt/qt/qtsvg/-/archive/dev/qtsvg-dev.tar.gz"
+    save_as: qtsvg-dev.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - qt5-base
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/qtsvg-dev
+      mkdir build
+      cd build
+      qmake ../
+      make INSTALL_ROOT="$PKGDIR" install
+
+      # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
+      find "$PKGDIR/usr/lib" -type f -name '*.prl' \
+         -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+      install -d "$PKGDIR"/usr/share/licenses
+      ln -s /usr/share/licenses/qt5-base "$PKGDIR"/usr/share/licenses/${PKGNAME}
+deployment: ~
