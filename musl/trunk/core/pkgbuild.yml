@@ -31,5 +31,7 @@ package:
         - make
         - make DESTDIR=$PKGDIR install
         - install -d $PKGDIR/usr/bin
+        - install -d $PKGDIR/lib
         - cp $PKGDIR/usr/lib/libc.s* $PKGDIR/usr/bin/ldd
+        - cp $PKGDIR/usr/lib/libc.s* $PKGDIR/lib/ld-musl-x86_64.so.1
 deployment: ~
