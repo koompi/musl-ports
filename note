@@ -20,3 +20,4 @@ libsoup
 dont forget mozjs78
 working on qt5-base
 libfbclient
+ libpeas, gst-libav, gcr, gst-plugins-good

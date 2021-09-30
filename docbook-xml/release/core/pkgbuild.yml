@@ -39,7 +39,7 @@ sources:
     extract_to: ""
 security: ~
 dependencies:
-    run_dependencies:
+    build_dependencies:
       - libxml2
       - sgl-common
       - Unzip

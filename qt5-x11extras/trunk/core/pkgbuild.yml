@@ -1,0 +1,50 @@
+---
+metadata:
+  name: "qt5-x11extras"
+  version: "5.15.6"
+  release: 1
+  description: Provides platform-specific APIs for X11
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://qt.org
+  project_ownder:
+        - QT
+sources: ~
+  #  - address: "https://download.qt.io/archive/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz"
+  #    save_as: qt-everywhere-src-5.15.2.tar.xz
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - qt5-base
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/qt-everywhere-src-5.15.2/qtx11extras
+
+      # mkdir -p build
+      # cd build
+
+      # qmake ../qtx11extras-everywhere-src-5.15.2
+      # qmake-qt5 ../qt-everywhere-src-5.15.2/qtx11extras
+
+      qmake-qt5
+      make
+      make INSTALL_ROOT="$PKGDIR" install
+
+
+      # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
+      find "$PKGDIR/usr/lib" -type f -name '*.prl' \
+        -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+      install -d "$PKGDIR"/usr/share/licenses
+      ln -svf /usr/share/licenses/qt5-base "$PKGDIR"/usr/share/licenses/${PKGNAME}
+
+deployment: ~

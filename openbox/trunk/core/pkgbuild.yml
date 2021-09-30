@@ -51,7 +51,7 @@ package:
       ./configure \
         --prefix=/usr \
         --sysconfdir=/etc \
-        --libexecdir=/usr/lib/$name \
+        --libexecdir=/usr/lib/$PKGNAME \
         --disable-static \
         --disable-nls
       make

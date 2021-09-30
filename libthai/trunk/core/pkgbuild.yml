@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "libthai"
+  version: "0.1.28"
+  release: 1
+  description: Thai language support routines
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://linux.thai.net/projects/libthai
+  project_ownder:
+        - THAI
+sources:
+  - address: "https://linux.thai.net/pub/thailinux/software/libthai/libthai-0.1.28.tar.xz"
+    save_as: libthai-0.1.28.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libdatrie
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

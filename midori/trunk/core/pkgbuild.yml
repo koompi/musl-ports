@@ -1,0 +1,55 @@
+---
+metadata:
+  name: "midori"
+  version: "9.0"
+  release: 1
+  description: Lightweight web browser
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://github.com/midori-browser
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://github.com/midori-browser/core/releases/download/v9.0/midori-v9.0.tar.gz"
+    save_as: midori-v9.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - cmake
+      - gcr
+      - webkitgtk
+      # - vala
+      - gtk+3
+      - libsoup
+      - sqlite
+      - libpeas
+      - gst-plugins-base
+      - gst-plugins-good
+      - gst-libav
+      # - json-glib
+      - libarchive
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-v9.0
+      mkdir build
+      cd build
+      cmake \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+          	-DCMAKE_BUILD_TYPE=Release  \
+      -DCMAKE_INSTALL_LIBDIR=lib \
+      -DCMAKE_C_FLAGS="$CFLAGS -fPIC -w" \
+      -DVALA_CFLAGS="$CFLAGS -fPIC -w" \
+          	..
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

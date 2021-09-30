@@ -21,6 +21,7 @@ security: ~
 dependencies:
     run_dependencies:
       - libdrm
+      - lm_sensors
       - libxext
       - libxdamage
       - libxcb

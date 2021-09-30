@@ -42,21 +42,21 @@ dependencies:
       - md4c
       - libfbclient
       - sqlite
-      - unixodbc
-      - alsa-lib
-      - gst-plugins-base
+      # - unixodbc
+      # - alsa-lib
+      # - gst-plugins-base
         # - libpulse  related to split package
-      - cups
-      - freetds
-      - vulkan-headers
+      # - cups
+      # - freetds
+      # - vulkan-headers
         #- qt5-svg
         #- qt5-wayland
         #- qt5-translations
-      - postgresql
+      # - postgresql
         # - mariadb-libs
       - unixodbc
       - freetds
-      - gtk+3
+      # - gtk+3
       - perl
 prepare: ~
 build: ~

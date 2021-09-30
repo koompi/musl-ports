@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "libdatrie"
+  version: "0.2.13"
+  release: 1
+  description: Implementation of double-array structure for representing trie
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://linux.thai.net/projects/datrie
+  project_ownder:
+        - THAI
+sources:
+  - address: "https://linux.thai.net/pub/ThaiLinux/software/libthai/libdatrie-0.2.13.tar.xz"
+    save_as: libdatrie-0.2.13.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

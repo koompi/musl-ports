@@ -24,7 +24,7 @@ dependencies:
       - cmake
       - python3
       - perl
-      - webkitgtk
+        #  - webkitgtk # build deps
       - git
 prepare: ~
 build: ~
