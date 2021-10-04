@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "extra-cmake-modules"
+  version: "5.86.0"
+  release: 1
+  description: Extra modules and scripts for CMake
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://kde.org
+  project_ownder:
+        - KDE
+sources:
+  - address: "https://github.com/KDE/extra-cmake-modules/archive/refs/tags/v5.86.0.tar.gz"
+    save_as: v5.86.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - cmake
+      - qt5
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      sed -i '/"lib64"/s/64//' kde-modules/KDEInstallDirs.cmake
+
+      mkdir build
+      cd    build
+
+      cmake -DCMAKE_INSTALL_PREFIX=/usr ..
+      make
+      make DESTDIR=$PKGDIR install
+deployment: ~

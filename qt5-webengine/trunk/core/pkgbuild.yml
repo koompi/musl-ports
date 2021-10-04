@@ -1,0 +1,79 @@
+---
+metadata:
+  name: "qt5-webengine"
+  version: "5.15.2"
+  release: 1
+  description: Provides support for web applications using the Chromium browser project
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://qt.org
+  project_ownder:
+        - QT
+sources:  #took the source from qt5-base
+   # - address: "https://invent.kde.org/qt/qt/qtwebengine-chromium/-/archive/0b959ee26c9e4098744021d949d0fc67cc0316d8.tar.gz"
+   #   save_as: 0b959ee26c9e4098744021d949d0fc67cc0316d8.tar.gz
+   #   extract: true
+   #   extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - nss
+      - python2
+      - libwebp
+      - libxrender
+      - libxext
+      - ninja
+      - icu
+      - ffmpeg
+      - glib
+      - alsa-lib
+      - libxcomposite
+      - gstreamer
+      - mesa
+      - gst-plugins-base
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/qtwebengine
+
+      rm -rf src/3rdparty
+      cp -r $SRCDIR/qtwebengine-chromium-0b959ee26c9e4098744021d949d0fc67cc0316d8 src/3rdparty
+
+      patch -Np1 -i $BASEDIR/files/0001-Revert-Bump-version-from-5.15.3-to-5.15.4.patch
+      patch -Np1 -i $BASEDIR/files/0010-chromium-musl-Match-syscalls-to-match-musl.patch
+      patch -Np1 -i $BASEDIR/files/musl-hacks.patch
+      patch -Np1 -i $BASEDIR/files/musl-sandbox.patch
+      patch -Np1 -i $BASEDIR/files/nasm.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-crashpad.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-elf-arm.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-execinfo.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-mallinfo.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-off_t.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-pread-pwrite.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-pvalloc.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-resolve.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-siginfo_t.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-stackstart.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-sysreg-for__WORDSIZE.patch
+      patch -Np1 -i $BASEDIR/files/qt-musl-thread-stacksize.patch
+      patch -Np1 -i $BASEDIR/files/remove-glibc-check.patch
+
+      mkdir .git src/3rdparty/chromium/.git
+      qmake-qt5 QMAKE_EXTRA_ARGS+="-system-ffmpeg -system-opus -system-webp -proprietary-codecs"
+      make
+      make install INSTALL_ROOT="$PKGDIR"
+      sed -i -e 's:-L/home[^ ]\+::g' "$PKGDIR"/usr/lib/pkgconfig/*.pc
+
+      # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
+      find "$PKGDIR/usr/lib" -type f -name '*.prl' \
+        -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+      install -d "$PKGDIR"/usr/share/licenses
+      ln -s /usr/share/licenses/qt5-base "$PKGDIR"/usr/share/licenses/$PKGNAME
+deployment: ~

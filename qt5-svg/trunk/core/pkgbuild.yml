@@ -1,22 +1,22 @@
 ---
 metadata:
-  name: "xinput"
-  version: "1.6.3"
+  name: "qt5-svg"
+  version: "5.15.2"
   release: 1
-  description: Small commandline tool to configure devices
+  description: Classes for displaying the contents of SVG files
   architecture:
         - x86_64
   licenses:
-        - MIT
+        - LGPL
   project_url:
-        - https://xorg.freedesktop.org
+        - https://qt.org
   project_ownder:
-        - Xorg Foundation
-sources:
-  - address: "https://invent.kde.org/qt/qt/qtsvg/-/archive/dev/qtsvg-dev.tar.gz"
-    save_as: qtsvg-dev.tar.gz
-    extract: true
-    extract_to: ""
+        - QT
+sources: ~ #took the source from qt5-base
+  #  - address: "https://invent.kde.org/qt/qt/qtsvg/-/archive/dev/qtsvg-dev.tar.gz"
+  #    save_as: qtsvg-dev.tar.gz
+  #    extract: true
+  #    extract_to: ""
 security: ~
 dependencies:
     run_dependencies:
@@ -27,16 +27,11 @@ check: ~
 package:
   commands:
     - |
-      cd $SRCDIR/qtsvg-dev
+      cd $SRCDIR/qtsvg
       mkdir build
       cd build
-      qmake ../
+      qmake $SRCDIR/qtsvg
       make INSTALL_ROOT="$PKGDIR" install
 
-      # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
-      find "$PKGDIR/usr/lib" -type f -name '*.prl' \
-         -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
-
-      install -d "$PKGDIR"/usr/share/licenses
-      ln -s /usr/share/licenses/qt5-base "$PKGDIR"/usr/share/licenses/${PKGNAME}
+      find "$PKGDIR"/usr/lib -name \*.prl -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
 deployment: ~

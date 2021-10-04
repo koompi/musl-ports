@@ -47,6 +47,7 @@ dependencies:
       - openjpeg2
       - libwebp
       - libsoup
+      - libffi
       - enchant
       - libseccomp
       - libsecret

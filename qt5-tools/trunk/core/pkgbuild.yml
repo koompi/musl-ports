@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "qt5-tools"
+  version: "5.15.2"
+  release: 1
+  description: A cross-platform application and UI framework (Development Tools, QtHelp)
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://qt.org
+  project_ownder:
+        - QT
+sources: ~ # I took qttool from qt5-base
+   # - address: "https://download.qt.io/official_releases/qt/5.15.2::4/5.15.2/submodules/qttools-everywhere-src-5.15.2.tar.xz"
+   #   save_as: qttools-dev.tar.gz
+   #   extract: true
+   #   extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - qt5-base
+      - hicolor-icon-theme
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/qttools
+      mkdir build
+      cd build
+      qmake $SRCDIR/qttools
+      make
+      make INSTALL_ROOT="${PKGDIR}" install
+
+      find "$PKGDIR"/usr/lib -name \*.prl -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+      mkdir -pv $PKGDIR/usr/bin
+      cp bin/* $PKGDIR/usr/bin
+
+      for b in "$PKGDIR"/usr/bin/*; do
+      	ln -sf $(basename $b) "$PKGDIR"/usr/bin/$(basename $b)-qt5
+      done
+deployment: ~

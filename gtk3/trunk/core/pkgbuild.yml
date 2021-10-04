@@ -20,9 +20,9 @@ sources:
 security: ~
 dependencies:
     run_dependencies:
-      - gobject-introspection
+      # - gobject-introspection
       - libxext
-      - glib
+      # - glib
       - pango
       - libx11
       - libxi
@@ -33,7 +33,7 @@ dependencies:
       - atk
       - at-spi2-atk
       - libxkbcommon
-      - wayland
+      # - wayland
       - libepoxy
       - fribidi
       - harfbuzz

@@ -38,11 +38,11 @@ sources:
     extract: false
     extract_to: ""
 security: ~
-dependencies:
-    run_dependencies:
-      - libxml2
-      - sgl-common
-      - Unzip
+dependencies: ~
+    # build_dependencies:
+    #   - libxml2
+    #   - sgl-common
+    #   - Unzip
 prepare: ~
 build: ~
 check: ~
