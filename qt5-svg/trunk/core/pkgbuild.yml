@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "qt5-svg"
+  version: "5.15.2"
+  release: 1
+  description: Classes for displaying the contents of SVG files
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://qt.org
+  project_ownder:
+        - QT
+sources: ~ #took the source from qt5-base
+  #  - address: "https://invent.kde.org/qt/qt/qtsvg/-/archive/dev/qtsvg-dev.tar.gz"
+  #    save_as: qtsvg-dev.tar.gz
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - qt5-base
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/qtsvg
+      mkdir build
+      cd build
+      qmake $SRCDIR/qtsvg
+      make INSTALL_ROOT="$PKGDIR" install
+
+      find "$PKGDIR"/usr/lib -name \*.prl -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+deployment: ~

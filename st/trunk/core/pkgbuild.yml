@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "st"
+  version: "20200408"
+  release: 1
+  description: Simple Terminal
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/hangsiahong/st
+  project_ownder:
+        - ST
+sources: ~
+  # - address: "git:://github.com/hangsiahong/st"
+  #   save_as: st
+  #   extract: false
+  #   extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+      - libxft
+      - libxrender
+      - fontconfig
+      - freetype2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/st
+      make
+      mkdir -pv $PKGDIR/usr/bin
+      cp st $PKGDIR/usr/bin
+
+deployment: ~

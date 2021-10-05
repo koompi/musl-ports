@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "xmessage"
+  version: "1.0.5"
+  release: 1
+  description: Display a message or query in a window
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/xmessage-1.0.5.tar.bz2"
+    save_as: xmessage-1.0.5.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxt
+      - libx11
+      - libxaw
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

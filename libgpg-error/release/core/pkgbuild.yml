@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "libgpg-error"
+  version: "1.41"
+  release: 1
+  description: Support library for libgcrypt
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://www.gnupg.org
+  project_ownder:
+        - GPG
+sources:
+  - address: "https://gnupg.org/ftp/gcrypt/libgpg-error/libgpg-error-1.41.tar.bz2"
+    save_as: libgpg-error-1.41.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      # allow building with gawk-5.0
+      sed -i 's/namespace/pkg_&/' src/Makefile.am src/Makefile.in src/mkstrtable.awk
+
+      ./configure --prefix=/usr --disable-nls
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

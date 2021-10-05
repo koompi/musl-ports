@@ -1,0 +1,94 @@
+---
+metadata:
+  name: "webkitgtk"
+  version: "2.32.3"
+  release: 1
+  description: Portable web rendering engine WebKit to the GTK+ 3 and GTK+ 2 platforms
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://webkitgtk.org
+  project_ownder:
+        - community
+sources:
+  - address: "https://webkitgtk.org/releases/webkitgtk-2.32.3.tar.xz"
+    save_as: webkitgtk-2.32.3.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gobject-introspection
+      - gtk+3
+      - pango
+      - harfbuzz
+      - atk
+      - cairo
+      - gdk-pixbuf
+      - glib
+      - libwpe
+      - wpebackend-fdo
+      - libglvnd
+      - libnotify
+      - sqlite
+      - libxml2
+      - libxslt
+      - icu
+      - harfbuzz-icu
+      - fontconfig
+      - freetype2
+      - libgcrypt
+      - gst-plugins-base
+      - gstreamer
+      - libjpeg-turbo
+      - libpng
+      - openjpeg2
+      - libwebp
+      - libsoup
+      - enchant
+      - libseccomp
+      - libsecret
+      - libtasn1
+      - libx11
+      - libxcomposite
+      - libxdamage
+      - libxrender
+      - libxt
+      - zlib
+      - wayland
+      - ruby
+      - bubblewrap
+      - xdg-dbus-proxy
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      export CXXFLAGS="$CXXFLAGS -g1"
+
+      patch -Np1 -i $BASEDIR/files/fix-fast-memory-disabled.patch
+      patch -Np1 -i $BASEDIR/files/musl-fixes.patch
+
+
+      mkdir -vp build
+      cd        build
+
+      cmake -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_SKIP_RPATH=ON \
+            -DPORT=GTK \
+            -DLIB_INSTALL_DIR=/usr/lib \
+            -DCMAKE_INSTALL_LIBEXECDIR:PATH=/usr/lib \
+            -DUSE_LIBHYPHEN=OFF \
+            -DENABLE_MINIBROWSER=ON \
+            -DUSE_WOFF2=OFF \
+            -DUSE_SYSTEMD=OFF           \
+            -DENABLE_GEOLOCATION=OFF \
+            -Wno-dev -G Ninja ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+deployment: ~

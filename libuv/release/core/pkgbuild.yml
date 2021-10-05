@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "libuv"
+  version: "1.42.0"
+  release: 1
+  description: Multi-platform support library with a focus on asynchronous I/O
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://dist.libuv.org
+  project_ownder:
+        - Node Creator
+sources:
+  - address: "https://github.com/libuv/libuv/archive/refs/tags/v1.42.0.tar.gz"
+    save_as: libuv-v1.42.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      sh autogen.sh
+      ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "xsel"
+  version: "1.2.0"
+  release: 1
+  description: command-line programm for getting and setting the contents of the X selection
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://github.com/kfish/xsel/archive/1.2.0.tar.gz"
+    save_as: 1.2.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxt
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -e 's,-Wall -Werror -g,-Wall -g,' -i configure.ac
+      autoreconf -fi
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

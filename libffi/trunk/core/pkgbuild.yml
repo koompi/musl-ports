@@ -31,4 +31,6 @@ package:
           --disable-static \
           --enable-pax_emutramp
         make
+        make DESTDIR=$PKGDIR install
+      ln -s $PKGDIR/usr/lib64/libffi.so.8 $PKGDIR/usr/lib/libffi.so.7
 deployment: ~

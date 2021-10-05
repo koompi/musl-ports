@@ -1,0 +1,53 @@
+---
+metadata:
+  name: "brave-bin"
+  version: "1.29.81"
+  release: 1
+  description: Secure, fast and private web browser with ad blocker
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://github.com/brave
+  project_ownder:
+        - Brave
+sources:
+  - address: "https://github.com/brave/brave-browser/releases/download/v1.29.81/brave-browser_1.29.81_amd64.deb"
+    save_as: brave-browser_1.29.81_amd64.deb
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xz
+      - tar
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR
+      mkdir -p $PKGDIR
+      ar x $SRCDIR/brave-browser_1.29.81_amd64.deb
+      tar xf data.tar.xz -C $PKGDIR
+
+      # Install the icons
+      for size in 24 32 48 64 128 256; do
+        # Create the brave browser xdg directory
+        mkdir -p ${PKGDIR}/usr/share/icons/hicolor/${size}x${size}/apps
+
+        # Copy the brave browser icon
+        mv ${PKGDIR}/opt/brave.com/brave/product_logo_${size}.png \
+        ${PKGDIR}/usr/share/icons/hicolor/${size}x${size}/apps/brave-browser.png
+      done
+
+      # Remove unused icons
+      rm ${PKGDIR}/opt/brave.com/brave/*.xpm
+
+      # Remove the Debian/Ubuntu crontab
+      rm -rf ${PKGDIR}/etc
+      rm -rf ${PKGDIR}/opt/brave.com/brave/cron
+
+deployment: ~

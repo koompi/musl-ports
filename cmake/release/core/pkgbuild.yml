@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "cmake"
+  version: "3.21.1"
+  release: 1
+  description: Modern toolset used for generating Makefiles
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://cmake.org
+  project_ownder:
+        - Andy Cedilnik, Bill Hoffman, Brad King, Ken Martin, Alexander Neundorf
+sources:
+  - address: "https://github.com/Kitware/CMake/releases/download/v3.21.1/cmake-3.21.1.tar.gz"
+    save_as: cmake-3.21.1.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - curl
+      - libarchive
+      - libuv
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd  $SRCDIR/$PKGNAME-$PKGVER
+      sed -i '/"lib64"/s/64//' Modules/GNUInstallDirs.cmake
+
+      ./bootstrap --prefix=/usr       \
+                  --system-libs       \
+                  --mandir=/share/man \
+                  --no-system-jsoncpp \
+                --no-system-librhash
+      make
+      make DESTDIR=$PKGDIR install
+
+      rm -r $PKGDIR/usr/doc
+
+deployment: ~

@@ -1,0 +1,48 @@
+---
+metadata:
+  name: "dejavu-fonts"
+  version: "2.37"
+  release: 1
+  description: Font family based on the Bitstream Vera Fonts with a wider range of characters
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+  #  - address: "https://downloads.sourceforge.net/dejavu/dejavu/$version/dejavu-fonts-ttf-2.37.tar.bz2"
+  #    save_as: dejavu-fonts-ttf-2.37.tar.bz2
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - fontconfig
+      - encodings
+      - mkfontscale
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/dejavu-fonts-ttf-2.37
+
+      install -dm755 $PKGDIR/etc/fonts/conf.d
+      install -dm755 $PKGDIR/etc/fonts/conf.avail
+      install -dm755 $PKGDIR/usr/share/fonts/TTF
+
+      cd $SRCDIR/dejavu-fonts-ttf-$PKGVER
+      install -m644 ttf/*.ttf $PKGDIR/usr/share/fonts/TTF/
+      install -m644 fontconfig/*.conf $PKGDIR/etc/fonts/conf.avail/
+
+      cd $PKGDIR/etc/fonts/conf.avail
+      for config in *; do
+        ln -sf ../conf.avail/${config} ../conf.d/${config}
+      done
+      cd -
+
+deployment: ~

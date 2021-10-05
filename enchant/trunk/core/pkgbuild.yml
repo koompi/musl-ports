@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "enchant"
+  version: "2.3.1"
+  release: 1
+  description: Generic interface into various existing spell checking libraries
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/AbiWord/enchant
+  project_ownder:
+        - AbiWord
+sources:
+  - address: "https://github.com/AbiWord/enchant/releases/download/v2.3.1/enchant-2.3.1.tar.gz"
+    save_as: enchant-2.3.1.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+      # Create symlinks for this package version so that other other packages
+      # can find it using the old name
+      ln -sv enchant-2 $PKGDIR/usr/include/enchant
+      ln -sv enchant-2 $PKGDIR/usr/bin/enchant
+      ln -sv libenchant-2.so $PKGDIR/usr/lib/libenchant.so
+      ln -sv enchant-2.pc $PKGDIR/usr/lib/pkgconfig/enchant.pc
+
+deployment: ~

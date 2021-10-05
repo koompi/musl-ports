@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "libevdev"
+  version: "1.11.0"
+  release: 1
+  description: Common functions for Xorg input drivers
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.freedesktop.org/software/libevdev/libevdev-1.11.0.tar.xz"
+    save_as: libevdev-1.11.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

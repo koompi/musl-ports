@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+includedir=${prefix}/include
+libdir=${exec_prefix}/lib
+
+Name: wpe-1.0
+Description: The wpe library
+Version: 1.10.1
+Requires: xkbcommon
+Cflags: -I${includedir}/wpe-1.0
+Libs: -L${libdir} -lwpe-1.0

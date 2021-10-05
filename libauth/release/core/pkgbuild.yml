@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "iceauth"
+  version: "1.0.8"
+  release: 1
+  description: ICE authority file utility
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/iceauth-1.0.8.tar.bz2"
+    save_as: iceauth-1.0.8.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libice
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

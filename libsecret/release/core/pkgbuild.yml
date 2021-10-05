@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "libsecret"
+  version: "0.20.4"
+  release: 1
+  description: GObject based library for accessing the Secret Service API
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://wiki.gnome.org/Projects/Libsecret
+  project_ownder:
+        - Gnome
+sources:
+  - address: "https://download.gnome.org/sources/libsecret/0.20/libsecret-0.20.4.tar.xz"
+    save_as: libsecret-0.20.4.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gobject-introspection
+      - vala
+      - libgcrypt
+      - libgpg-error
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --disable-static \
+            --disable-manpages \
+            --disable-nls
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

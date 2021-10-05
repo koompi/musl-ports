@@ -1,0 +1,17 @@
+/usr/lib/libwpe-1.0.so.1.5.2
+/usr/lib/libwpe-1.0.so.1
+/usr/lib/libwpe-1.0.so
+/usr/include/wpe-1.0/wpe/libwpe-version.h
+/usr/include/wpe-1.0/wpe/version.h
+/usr/include/wpe-1.0/wpe/version-deprecated.h
+/usr/include/wpe-1.0/wpe/export.h
+/usr/include/wpe-1.0/wpe/input.h
+/usr/include/wpe-1.0/wpe/keysyms.h
+/usr/include/wpe-1.0/wpe/loader.h
+/usr/include/wpe-1.0/wpe/pasteboard.h
+/usr/include/wpe-1.0/wpe/renderer-backend-egl.h
+/usr/include/wpe-1.0/wpe/renderer-host.h
+/usr/include/wpe-1.0/wpe/view-backend.h
+/usr/include/wpe-1.0/wpe/wpe-egl.h
+/usr/include/wpe-1.0/wpe/wpe.h
+/usr/lib/pkgconfig/wpe-1.0.pc

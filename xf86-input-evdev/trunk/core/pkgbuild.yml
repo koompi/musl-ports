@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "xf86-input-evdev"
+  version: "2.10.6"
+  release: 1
+  description: X.org evdev input driver
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/driver/xf86-input-evdev-2.10.6.tar.bz2"
+    save_as: xf86-input-evdev-2.10.6.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - mtdev
+      - eudev
+      - libevdev
+      - xorg-server
+      - xorgproto
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

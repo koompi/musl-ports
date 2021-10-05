@@ -1,0 +1,47 @@
+---
+metadata:
+  name: "at-spi2-core"
+  version: "2.40.3"
+  release: 1
+  description: Small commandline tool to configure devices
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://download.gnome.org/sources/at-spi2-core/2.40/at-spi2-core-2.40.3.tar.xz"
+    save_as: at-spi2-core-2.40.3.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gobject-introspection
+      - glib
+      - dbus
+      - libx11
+      - libxtst
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      mkdir build
+      cd    build
+
+      meson --prefix=/usr --sysconfdir=/etc --libdir=/usr/lib --libexecdir=/usr/lib/$name ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+      # remove junk files
+      rm -fr $PKGDIR/usr/lib/systemd/
+
+deployment: ~

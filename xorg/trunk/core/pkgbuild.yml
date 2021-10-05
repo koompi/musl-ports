@@ -24,6 +24,9 @@ dependencies:
     - xorgproto
     - libxau
     - libxdmcp
+    - libexecinfo
+    - libthai
+    - libffi
     - xorg-libraries
     - xcb-util
     - xcb-util-image

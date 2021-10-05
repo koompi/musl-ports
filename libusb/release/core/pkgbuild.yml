@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "libusb"
+  version: "1.0.24"
+  release: 1
+  description: Library used by some applications for USB device access
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - http://libusb.info/
+  project_ownder:
+        - libusb
+sources:
+  - address: "https://github.com/libusb/libusb/releases/download/v1.0.24/libusb-1.0.24.tar.bz2"
+    save_as: libusb-1.0.24.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - eudev
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      export MAKEFLAGS="-j1"
+      sed -i "s/^PROJECT_LOGO/#&/" doc/doxygen.cfg.in
+      ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

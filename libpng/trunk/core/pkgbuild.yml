@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libpng"
+  version: "1.6.37"
+  release: 1
+  description: A collection of routines used to create PNG format graphics files
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+  # - address: "https://downloads.sourceforge.net/libpng/libpng-1.6.237.tar.xz"
+  #   save_as: libpng-1.6.237.tar.xz
+  #   extract: true
+  #   extract_to: ""
+
+  # - address: "https://downloads.sourceforge.net/project/apng/libpng/libpng16/libpng-1.6.37-apng.patch.gz"
+  #   save_as: libpng-1.6.37-apng.patch.gz
+  #   extract: true
+  #   extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      # gzip -cd $SRCDIR/$PKGNAME-$PKGVER-apng.patch.gz | patch -p0
+
+      LIBS=-lpthread ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

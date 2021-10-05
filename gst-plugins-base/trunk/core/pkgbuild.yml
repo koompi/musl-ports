@@ -1,0 +1,65 @@
+---
+metadata:
+  name: "gst-plugins-base"
+  version: "1.18.4"
+  release: 1
+  description: Well-groomed and well-maintained collection of GStreamer plug-ins and elements
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://gstreamer.freedesktop.org/src/gst-plugins-base/gst-plugins-base-1.18.4.tar.xz"
+    save_as: gst-plugins-base-1.18.4.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gobject-introspection
+      - glib
+      - gstreamer
+      - libglvnd
+      - wayland
+      - libx11
+      - libxcb
+      - zlib
+      - libxext
+      - libxv
+      - libtheora
+      - pango
+      - cairo
+      - libpng
+      - libjpeg-turbo
+      - libvorbis
+      - alsa-lib
+      - libogg
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i 's|implicit_include_directories : false||' gst-libs/gst/gl/meson.build
+      mkdir build
+      cd build
+
+      patch -Np1 -i $BASEDIR/files/file.patch
+
+      meson \
+      	--prefix=/usr \
+      	--libexecdir=lib \
+      	-Dgst_debug=false \
+      	-Dgtk_doc=disabled \
+      	-Dnls=disabled \
+      	-Dpackage-name="GStreamer Base Plugins $version (KOOMPI Linux)"
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

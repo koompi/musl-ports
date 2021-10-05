@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "wayland"
+  version: "1.19.0"
+  release: 1
+  description: X11 client-side library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://wayland.freedesktop.org
+  project_ownder:
+        - Kristian Høgsberg
+sources:
+  - address: "https://wayland.freedesktop.org/releases/wayland-1.19.0.tar.xz"
+    save_as: wayland-1.19.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libffi
+      - libxml2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr    \
+                  --disable-static \
+                  --disable-documentation
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

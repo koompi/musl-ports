@@ -1,0 +1,11 @@
+-I/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg
+-I/works/packages/libqtxdg/trunk/core/build/src/qtxdg
+-DQT_USE_QSTRINGBUILDER
+-DQT_NO_CAST_FROM_ASCII
+-DQT_NO_CAST_TO_ASCII
+-DQT_NO_URL_CAST_FROM_STRING
+-DQT_NO_CAST_FROM_BYTEARRAY
+-DQT_NO_FOREACH
+-o
+/works/packages/libqtxdg/trunk/core/build/src/qtxdg/application_interface.moc
+/works/packages/libqtxdg/trunk/core/build/src/qtxdg/application_interface.h

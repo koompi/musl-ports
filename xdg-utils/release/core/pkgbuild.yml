@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "xdg-utils"
+  version: "1.1.3"
+  release: 1
+  description: Command line tools that assist applications with a variety of desktop integration tasks
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://www.freedesktop.org/wiki/Software/xdg-utils/
+  project_ownder:
+        - Free Desktop Developer
+sources:
+  - address: "https://portland.freedesktop.org/download/xdg-utils-1.1.3.tar.gz"
+    save_as: xdg-utils-1.1.3.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xmlto
+      - libxml2
+      - libxslt
+      - docbook-xsl
+      - docbook-xml
+      - lynx
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure --prefix=/usr --mandir=/usr/share/man
+
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

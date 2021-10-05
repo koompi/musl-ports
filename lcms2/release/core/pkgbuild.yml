@@ -1,0 +1,38 @@
+---
+metadata:
+  name: "lcms2"
+  version: "2.12"
+  release: 1
+  description: Small-footprint color management engine, with special focus on accuracy and performance
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://downloads.sourceforge.net/lcms/
+  project_ownder:
+        - LCMS Community
+sources: ~
+  #  - address: "https://downloads.sourceforge.net/lcms/lcms2-2.12.tar.gz"
+  #    save_as: lcms2-2.12.tar.gz
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libtiff
+      - libjpeg-turbo
+      - zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

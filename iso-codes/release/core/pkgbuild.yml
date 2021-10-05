@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "iso-codes"
+  version: "4.7.0"
+  release: 1
+  description: List of country, language and currency names
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/iso-codes-4.7.0/iso-codes-iso-codes-4.7.0.tar.gz"
+    save_as: iso-codes-iso-codes-4.7.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/iso-codes-iso-codes*
+
+      ./configure --prefix=/usr
+      make
+      make pkgconfigdir=/usr/lib/pkgconfig DESTDIR=$PKGDIR install
+deployment: ~

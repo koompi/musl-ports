@@ -1,0 +1,63 @@
+---
+metadata:
+  name: "xorg-applications"
+  version: "1.0"
+  release: 1
+  description: Meta port for Xorg applications
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+security: ~
+dependencies:
+    run_dependencies:
+      - iceauth
+      - luit
+      - mkfontscale
+      - sessreg
+      - setxkbmap
+      - smproxy
+      - x11perf
+      - xauth
+      - xbacklight
+      - xcmsdb
+      - xcursorgen
+      - xdpyinfo
+      - xdriinfo
+      - xev
+      - xgamma
+      - xhost
+      - xinput
+      - xkbcomp
+      - xkbevd
+      - xkbutils
+      - xkill
+      - xlsatoms
+      - xlsclients
+      - xmessage
+      - xmodmap
+      - xpr
+      - xprop
+      - xrandr
+      - xrdb
+      - xrefresh
+      - xset
+      - xsetroot
+      - xvinfo
+      - xwd
+      - xwininfo
+      - xwud
+
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      mkdir -pv $PKGDIR/etc
+deployment: ~

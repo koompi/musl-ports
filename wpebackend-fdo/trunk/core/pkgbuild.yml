@@ -1,0 +1,50 @@
+---
+metadata:
+  name: "wpebackend-fdo"
+  version: "1.10.0"
+  release: 1
+  description: freedesktop.org backend for WPE WebKit
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://wpewebkit.org
+  project_ownder:
+        - Developers From The webkitgtk project
+sources:
+  - address: "https://wpewebkit.org/releases/wpebackend-fdo-1.10.0.tar.xz"
+    save_as: wpebackend-fdo-1.10.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+      - libglvnd
+      - wayland
+      - libwpe
+      - libxkbcommon
+      - cmake
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir build &&
+      cd    build &&
+
+      meson --prefix=/usr --buildtype=release ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+
+
+
+
+
+deployment: ~

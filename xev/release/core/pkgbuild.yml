@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "xev"
+  version: "1.2.4"
+  release: 1
+  description: Print contents of X events
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/xev-1.2.4.tar.bz2"
+    save_as: xev-1.2.4.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libxrandr
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
+            --prefix=/usr \
+            --sysconfdir=/etc \
+            --localstatedir=/var \
+            --disable-static
+
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

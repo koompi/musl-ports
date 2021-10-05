@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "glib-networking"
+  version: "2.68.2"
+  release: 1
+  description: Network related gio modules for GLib
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://gnome.org
+  project_ownder:
+        - GNOME
+sources:
+  - address: "https://download.gnome.org/sources/glib-networking/2.68/glib-networking-2.68.2.tar.xz"
+    save_as: glib-networking-2.68.2.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+      - gnutl
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir build
+      cd build
+
+      meson --prefix=/usr            \
+            -Dlibproxy_support=false \
+            -Dpkcs11_support=true
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

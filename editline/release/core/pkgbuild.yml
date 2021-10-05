@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "editline"
+  version: "1.17.1"
+  release: 2
+  description: A readline() replacement for UNIX without termcap (ncurses)
+  architecture:
+        - x86_64
+  licenses:
+        - BSD2
+  project_url:
+        - http://troglobit.com/editline.html
+  project_ownder:
+        - Troglobit
+sources:
+  - address: "https://github.com/troglobit/editline/releases/download/1.17.1/editline-1.17.1.tar.gz"
+    save_as: editline-1.17.1.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./autogen.sh
+      ./configure --prefix=/usr
+      make
+      make DESTDIR="$PKGDIR" install
+
+      # avoid libedit conflict
+      mv "$PKGDIR"/usr/share/man/man3/editline.3 $PKGDIR/usr/share/man/man3/editline-troglobit.3
+      # license
+      install -Dm0644 LICENSE -t "$PKGDIR/usr/share/licenses/editline"
+
+      # additional documentation
+      #cp -vrt "$PKGDIR/usr/share/doc/editline" docs
+deployment: ~

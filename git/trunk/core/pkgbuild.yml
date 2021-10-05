@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "git"
+  version: "2.33.0"
+  release: 1
+  description: Version control system designed to handle everything from small to very large projects with speed and efficiency
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://www.kernel,org/pub/software/scm/git
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.kernel.org/pub/software/scm/git/git-2.33.0.tar.xz"
+    save_as: git-2.33.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - python3
+      - openssl
+      - curl
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      make prefix=/usr gitexecdir=/usr/lib/git DESTDIR="$PKGDIR" \
+      NEEDS_SSL_WITH_CURL="y" NEEDS_CRYPTO_WITH_SSL="y" NO_PERL="y" \
+            CFLAGS="$CFLAGS" \
+            MAN_BOLD_LITERAL=1 \
+            NO_TCLTK=1 \
+            NO_PYTHON=1 \
+            NO_GETTEXT=1 \
+            NO_LIBPCRE1_JIT=1 \
+            NO_REGEX=NeedsStartEnd \
+            all install
+
+deployment: ~

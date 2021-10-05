@@ -1,0 +1,49 @@
+---
+metadata:
+  name: "polkit"
+  version: "0.119"
+  release: 1
+  description: Toolkit for defining and handling authorizations
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.freedesktop.org/software/polkit/releases/polkit-0.119.tar.gz"
+    save_as: polkit-0.119.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - pam
+      - gobject-introspection
+      - glib
+      - expat
+      - mozjs78
+      - intltool
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      patch -Np0 -i $BASEDIR/files/make-innetgr-optional.patch
+
+      ./configure --prefix=/usr \
+          --sysconfdir=/etc \
+          --localstatedir=/var \
+          --disable-static \
+          --disable-libsystemd-login \
+          --with-authfw=pam \
+          --enable-libelogind=no \
+          --disable-man-pages
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

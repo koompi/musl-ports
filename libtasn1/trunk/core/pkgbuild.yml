@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "libtasn1"
+  version: "4.17.0"
+  release: 1
+  description: Highly portable C library that encodes and decodes DER/BER data following an ASN.1 schema
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://www.gnu.org/software/libtasn1/
+  project_ownder:
+        - GNU
+sources:
+  - address: "https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.17.0.tar.gz"
+    save_as: libtasn1-4.17.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+      	--prefix=/usr \
+      	--disable-static
+      make
+      make DESTDIR=$PKGDIR install
+      rm -r $PKGDIR/usr/share/info
+
+deployment: ~

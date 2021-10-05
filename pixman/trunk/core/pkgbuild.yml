@@ -1,0 +1,33 @@
+---
+metadata:
+  name: "pixman"
+  version: "0.40.0"
+  release: 1
+  description: Library that provides low-level pixel manipulation features such as image compositing and trapezoid rasterization
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://cairographics.org
+  project_ownder:
+        - Cairographic
+sources:
+  - address: "https://cairographics.org/releases/pixman-0.40.0.tar.gz"
+    save_as: pixman-0.40.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

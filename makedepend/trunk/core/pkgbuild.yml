@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "makedepend"
+  version: "1.0.6"
+  release: 1
+  description: utility for making makefile dependencies
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/releases/individual/util/makedepend-1.0.6.tar.bz2"
+    save_as: makedepend-1.0.6.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - xorgproto
+      - util-macros
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure --prefix=/usr --sysconfdir=/etc
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

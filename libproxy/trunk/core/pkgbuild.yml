@@ -1,0 +1,52 @@
+---
+metadata:
+  name: "libproxy"
+  version: "0.4.17"
+  release: 1
+  description: Automatic proxy configuration management library
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/libproxy
+  project_ownder:
+        - Communnity
+sources:
+  - address: "https://github.com/libproxy/libproxy/releases/download/0.4.17/libproxy-0.4.17.tar.xz"
+    save_as: libproxy-0.4.17.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - gcc
+      - cmake
+      - python3
+      - perl
+        #  - webkitgtk # build deps
+      - git
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      cmake -B build . \
+        -DCMAKE_BUILD_TYPE=None \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DLIBEXEC_INSTALL_DIR=lib \
+        -DMODULE_INSTALL_DIR=/usr/lib/libproxy/$pkgver/modules \
+        -DWITH_PERL=OFF \
+        -DWITH_PYTHON3=ON \
+        -DPYTHON3_EXECUTABLE=/usr/bin/python3
+      make -C build
+
+      make -C build DESTDIR="$PKGDIR" install
+
+      mkdir -p "$PKGDIR"/usr/lib
+      mv "$PKGDIR"/usr/share/cmake "$PKGDIR"/usr/lib
+
+deployment: ~

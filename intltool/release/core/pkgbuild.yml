@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "intltool"
+  version: "0.50.2"
+  release: 1
+  description: An internationalization tool used for extracting translatable strings from source files
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://launchpad.net/intltool
+  project_ownder:
+        - Intltool Developer
+sources:
+  - address: "http://launchpad.net/intltool/trunk/0.50.2/+download/intltool-0.50.2.tar.gz"
+    save_as: intltool-0.50.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - perl-xml-parser
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i 's:\\\${:\\\$\\{:' intltool-update.in
+
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+deployment: ~

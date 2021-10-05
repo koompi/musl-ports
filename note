@@ -11,3 +11,13 @@ error  musl need to link /lib/libc.so to /bin/ldd
 error EFI cannot make EFI
 error privilege PING command
 cannot go su | might need to use sudo instead
+test
+libsoup
+
+
+
+
+dont forget mozjs78
+working on qt5-base
+libfbclient
+ libpeas, gst-libav, gcr, gst-plugins-good

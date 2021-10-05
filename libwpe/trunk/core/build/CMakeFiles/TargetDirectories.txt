@@ -1,0 +1,9 @@
+/works/packages/libwpe/trunk/core/build/CMakeFiles/install/strip.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/install/local.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/install.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/list_install_components.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/rebuild_cache.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/edit_cache.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/wpe.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/distcheck.dir
+/works/packages/libwpe/trunk/core/build/CMakeFiles/dist.dir

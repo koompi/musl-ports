@@ -1,0 +1,56 @@
+---
+metadata:
+  name: "lxqt"
+  version: "0.17.0"
+  release: 1
+  description: Meta port for LXQT Desktop
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://github.com/lxqt
+  project_ownder:
+        - LXQT Community
+sources: ~
+  #  - address: "http://ftp.x.org/pub/individual/app/xinput-1.6.3.tar.bz2"
+  #    save_as: xinput-1.6.3.tar.bz2
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - lxqt-about
+      - lxqt-admin
+      - lxqt-config
+      - lxqt-globalkeys
+      - lxqt-notificationd
+      - lxqt-openssh-askpass
+      - lxqt-panel
+      - lxqt-policykit
+      - lxqt-powermanagement
+      - lxqt-qtplugin
+      - lxqt-runner
+      - lxqt-session
+      - lxqt-sudo
+      - lxqt-themes
+      - obconf-qt
+      - pcmanfm-qt
+      - lximage-qt
+      - lxmenu-data
+      - lxqt-archiver
+      - qterminal
+      - openbox
+      - breeze-icons
+      - xdg-utils
+      - elogind
+      - upower
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      mkdir -pv $PKGDIR/etc
+
+deployment: ~

@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "vulkan-headers"
+  version: "1.2.193"
+  release: 1
+  description: Vulkan header files
+  architecture:
+        - x86_64
+  licenses:
+        - CUSTOM
+  project_url:
+        - https://www.khronos.org/vulkan/
+  project_ownder:
+        - Khronos
+sources:
+  - address: "https://github.com/KhronosGroup/Vulkan-Headers/archive/refs/tags/v1.2.193.tar.gz"
+    save_as: v1.2.193.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - cmake
+      - ninja
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/Vulkan-Headers-$PKGVER
+      mkdir -p build
+      cd build
+      cmake "$SRCDIR"/Vulkan-Headers-$PKGVER \
+      -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_BUILD_TYPE=MinSizeRel \
+      -Wno-dev -G Ninja
+      ninja
+      DESTDIR="$PKGDIR" ninja install
+
+deployment: ~

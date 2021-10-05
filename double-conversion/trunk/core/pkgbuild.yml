@@ -1,0 +1,48 @@
+---
+metadata:
+  name: "double-conversion"
+  version: "3.1.5"
+  release: 1
+  description: Binary-decimal and decimal-binary routines for IEEE doubles
+  architecture:
+        - x86_64
+  licenses:
+        - BSD3
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://github.com/google/double-conversion/archive/v3.1.5/double-conversion-3.1.5.tar.gz"
+    save_as: bouble-conversion-3.1.5.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libx11
+      - libxext
+      - libxi
+      - libxrandr
+      - libxinerama
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      mkdir build
+      cd build
+      cmake .. \
+         -DBUILD_TESTING=ON \
+         -DCMAKE_INSTALL_PREFIX=/usr \
+         -DCMAKE_INSTALL_LIBDIR=lib \
+         -DBUILD_SHARED_LIBS=ON
+      make
+      make DESTDIR=$PKGDIR install
+
+
+deployment: ~

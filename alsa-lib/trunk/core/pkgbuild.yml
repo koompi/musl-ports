@@ -1,0 +1,35 @@
+---
+metadata:
+  name: "alsa-lib"
+  version: "1.2.5.1"
+  release: 1
+  description: ALSA library used by programs (including ALSA Utilities) requiring access to the ALSA sound interface
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://alsa-project.org
+  project_ownder:
+        - Alsa Developer
+sources:
+  - address: "https://www.alsa-project.org/files/pub/lib/alsa-lib-1.2.5.1.tar.bz2"
+    save_as: alsa-lib-1.2.5.1.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      ./configure
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

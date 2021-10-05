@@ -1,0 +1,34 @@
+---
+metadata:
+  name: "hicolor-icon-theme"
+  version: "0.17"
+  release: 1
+  description: Freedesktop.org Hicolor icon theme
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://www.freedesktop.org/wiki/Software/icon-theme/
+  project_ownder:
+        - Free Desktop
+sources:
+  - address: "http://icon-theme.freedesktop.org/releases/hicolor-icon-theme-0.17.tar.xz"
+    save_as: hicolor-icon-theme-0.17.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+            --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

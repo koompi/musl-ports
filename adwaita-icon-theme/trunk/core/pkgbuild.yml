@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "adwaita-icon-theme"
+  version: "40.1.1"
+  release: 1
+  description: Icon theme for Gtk+ 3 applications
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://download.gnome.org/
+  project_ownder:
+        - Gnome Developer
+sources:
+  - address: "https://download.gnome.org/sources/adwaita-icon-theme/40/adwaita-icon-theme-40.1.1.tar.xz"
+    save_as: adwaita-icon-theme-40.1.1.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - librsvg
+      - hicolor-icon-theme
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure --prefix=/usr
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

@@ -1,0 +1,339 @@
+{
+	"BUILD_DIR" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg/Qt5Xdg_autogen",
+	"CMAKE_BINARY_DIR" : "/works/packages/libqtxdg/trunk/core/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/CMakeLists.txt",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgaction.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdesktopfile.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdirs.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgicon.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenu.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenuwidget.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xmlhelper.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgautostart.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmacros.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimetype.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeapps.h",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdefaultapps.h"
+	],
+	"CMAKE_SOURCE_DIR" : "/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1",
+	"DEP_FILE" : "",
+	"DEP_FILE_RULE_NAME" : "",
+	"HEADERS" : 
+	[
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/qtxdglogging.h",
+			"Mu",
+			"EWIEGA46WW/moc_qtxdglogging.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgaction.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgaction.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgautostart.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgautostart.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdefaultapps.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgdefaultapps.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdesktopfile.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgdesktopfile.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdesktopfile_p.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgdesktopfile_p.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdirs.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgdirs.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgicon.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgicon.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmacros.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmacros.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenu.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenu.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenu_p.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenu_p.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenuapplinkprocessor.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenuapplinkprocessor.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenulayoutprocessor.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenulayoutprocessor.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenureader.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenureader.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenurules.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenurules.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenuwidget.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmenuwidget.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeapps.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmimeapps.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeapps_p.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmimeapps_p.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeappsbackendinterface.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmimeappsbackendinterface.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeappsglibbackend.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmimeappsglibbackend.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimetype.h",
+			"Mu",
+			"EWIEGA46WW/moc_xdgmimetype.cpp",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xmlhelper.h",
+			"Mu",
+			"EWIEGA46WW/moc_xmlhelper.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg/Qt5Xdg_autogen/include",
+	"MOC_COMPILATION_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg/Qt5Xdg_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QTXDG_COMPILATION=\"1\"",
+		"QTXDG_VERSION=\"3.7.1\"",
+		"QT_CORE_LIB",
+		"QT_DBUS_LIB",
+		"QT_GUI_LIB",
+		"QT_NO_CAST_FROM_ASCII",
+		"QT_NO_CAST_FROM_BYTEARRAY",
+		"QT_NO_CAST_TO_ASCII",
+		"QT_NO_DEBUG",
+		"QT_NO_FOREACH",
+		"QT_NO_KEYWORDS",
+		"QT_NO_URL_CAST_FROM_STRING",
+		"QT_SVG_LIB",
+		"QT_USE_QSTRINGBUILDER",
+		"QT_WIDGETS_LIB",
+		"QT_XML_LIB",
+		"Qt5Xdg_EXPORTS"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/works/packages/libqtxdg/trunk/core/build/src/qtxdg",
+		"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg",
+		"/usr/include/qt5/QtGui/5.15.2",
+		"/usr/include/qt5/QtGui/5.15.2/QtGui",
+		"/usr/include/qt5/QtCore/5.15.2",
+		"/usr/include/qt5/QtCore/5.15.2/QtCore",
+		"/usr/include/glib-2.0",
+		"/usr/lib64/glib-2.0/include",
+		"/usr/include/gio-unix-2.0",
+		"/works/packages/libqtxdg/trunk/core/build/InTreeBuild/include/qt5xdgiconloader",
+		"/works/packages/libqtxdg/trunk/core/build/InTreeBuild/include",
+		"/works/packages/libqtxdg/trunk/core/build/InTreeBuild/include/qt5xdgiconloader/3.7.1",
+		"/usr/include/qt5",
+		"/usr/include/qt5/QtWidgets",
+		"/usr/include/qt5/QtGui",
+		"/usr/include/qt5/QtCore",
+		"/usr/lib/qt5/mkspecs/linux-g++",
+		"/usr/include/qt5/QtXml",
+		"/usr/include/qt5/QtDBus",
+		"/usr/include/qt5/QtSvg",
+		"/usr/include/c++/10.2.1",
+		"/usr/include/c++/10.2.1/x86_64-linux-musl",
+		"/usr/include/c++/10.2.1/backward",
+		"/usr/local/include",
+		"/usr/include",
+		"/usr/lib64/gcc/x86_64-linux-musl/10.2.1/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg/Qt5Xdg_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : 
+	[
+		"/works/packages/libqtxdg/trunk/core/build/src/qtxdg/application_interface.h"
+	],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg/CMakeFiles/Qt5Xdg_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/usr/lib/qt5/bin/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/works/packages/libqtxdg/trunk/core/build/src/qtxdg/CMakeFiles/Qt5Xdg_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/qtxdglogging.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgaction.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgautostart.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdefaultapps.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdesktopfile.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgdirs.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgicon.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenu.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenuapplinkprocessor.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenulayoutprocessor.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenureader.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenurules.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmenuwidget.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeapps.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeappsbackendinterface.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimeappsglibbackend.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xdgmimetype.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/works/packages/libqtxdg/trunk/core/source/libqtxdg-3.7.1/src/qtxdg/xmlhelper.cpp",
+			"Mu",
+			null
+		]
+	],
+	"VERBOSITY" : 0
+}

@@ -1,0 +1,121 @@
+---
+metadata:
+  name: "qt5-base"
+  version: "5.15.2"
+  release: 1
+  description: A cross-platform application and UI framework
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources: ~
+  #  - address: "https://download.qt.io/archive/qt/5.15/5.15.2/single/qt-everywhere-src-5.15.2.tar.xz"
+  #    save_as: qt-everywhere-src-5.15.2.tar.xz
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libjpeg-turbo
+      - xcb-util-keysyms
+      - xcb-util-renderutil
+      - libglvnd
+      - fontconfig
+      - xdg-utils
+      - shared-mime-info
+      - xcb-util-wm
+      - libxrender
+      - libxi
+      - sqlite
+      - xcb-util-image
+      - mesa
+      - tslib
+      - libinput
+      - libxkbcommon
+      - libproxy
+      - cups
+      - double-conversion
+      - md4c
+      - libfbclient
+      - sqlite
+      - unixodbc
+      - alsa-lib
+      - gst-plugins-base
+        # - libpulse  related to split package
+      - cups
+      - freetds
+      - vulkan-headers
+        #- qt5-svg
+        #- qt5-wayland
+        #- qt5-translations
+      - postgresql
+        # - mariadb-libs
+      - unixodbc
+      - freetds
+      - gtk+3
+      - perl
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/qt-everywhere-src-5.15.2/qtbase
+      patch -p1 -i $BASEDIR/files/qt5-base-cflags.patch # Use system CFLAGS in qmake
+      patch -p1 -i $BASEDIR/files/qt5-base-nostrip.patch # Don't strip binaries with qmake
+      patch -p1 -i $BASEDIR/files/kdebug-428095.patch # Fix black border on some menus with Breeze
+
+
+      ./configure -confirm-license -opensource -v \
+        -prefix /usr \
+        -docdir /usr/share/doc/qt \
+        -headerdir /usr/include/qt \
+        -archdatadir /usr/lib/qt \
+        -datadir /usr/share/qt \
+        -sysconfdir /etc/xdg \
+        -examplesdir /usr/share/doc/qt/examples \
+        -plugin-sql-mysql \
+        -plugin-sql-odbc \
+        -plugin-sql-psql \
+        -plugin-sql-sqlite \
+        -plugin-sql-tds \
+       -system-sqlite \
+        -openssl-linked \
+        -nomake examples \
+        -no-rpath \
+        -dbus-linked \
+        -system-harfbuzz \
+        -no-mimetype-database \
+        -no-use-gold-linker \
+        -reduce-relocations \
+        -no-strip
+      make
+
+
+      pkgdesc='A cross-platform application and UI framework'
+
+      make INSTALL_ROOT=${PKGDIR} install
+
+      install -Dm644 LICENSE* -t "$PKGDIR"/usr/share/licenses/$base
+
+      # Drop QMAKE_PRL_BUILD_DIR because reference the build dir
+      find "${PKGDIR}/usr/lib" -type f -name '*.prl' \
+        -exec sed -i -e '/^QMAKE_PRL_BUILD_DIR/d' {} \;
+
+      # Fix wrong qmake path in pri file
+      sed -i "s|qt-everywhere-src-5.15.2/qtbase|/usr|" \
+        "${PKGDIR}"/usr/lib/qt/mkspecs/modules/qt_lib_bootstrap_private.pri
+
+      # Symlinks for backwards compatibility
+      for b in "${PKGDIR}"/usr/bin/*; do
+        ln -svf $(basename $b) "${PKGDIR}"/usr/bin/$(basename $b)-qt5
+      done
+
+
+      install -d -m755 "$PKGDIR"/usr/include/qtxcb-private
+      cp -r src/plugins/platforms/xcb/*.h "$PKGDIR"/usr/include/qtxcb-private/
+deployment: ~

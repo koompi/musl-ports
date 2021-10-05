@@ -1,0 +1,40 @@
+---
+metadata:
+  name: "libxcrypt"
+  version: "4.4.18"
+  release: 1
+  description: Small commandline tool to configure devices
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://github.com/besser82/libxcrypt/archive/v4.4.18/libxcrypt-4.4.18.tar.gz"
+    save_as: libxcrypt-4.4.18.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      autoreconf -fi
+      ./configure \
+      	--prefix=/usr \
+      	--disable-static \
+      	--enable-hashes=strong,musl \
+      	--enable-obsolete-api=no \
+      	--disable-failure-tokens
+
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

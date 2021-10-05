@@ -1,0 +1,48 @@
+---
+metadata:
+  name: "mariadb-connector-c"
+  version: "3.2.3"
+  release: 1
+  description: MariaDB Connector/C is used to connect applications developed in C/C++ to MariaDB and MySQL databases
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://mariadb.com/kb/en/mariadb/about-mariadb-connector-c/
+  project_ownder:
+        - MariaDB
+sources: ~
+  #  - address: "https://downloads.mariadb.org/interstitial/connector-c-3.2.3/mariadb-connector-c-3.2.3-src.tar.gz"
+  #    save_as: mariadb-connector-c-3.2.3-src.tar.gz
+  #    extract: true
+  #    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - openssl
+      - zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/mariadb-connector-c-3.2.3-src/
+      mkdir build
+      cd build
+      cmake \
+              -DCMAKE_BUILD_TYPE=RELEASE \
+              -DWITH_EXTERNAL_ZLIB=ON \
+              -DWITH_SQLITE=OFF \
+              -DWITH_OPENSSL=ON \
+              -DWITH_MYSQLCOMPAT=ON \
+              -DCMAKE_INSTALL_PREFIX=/usr \
+              -DMARIADB_UNIX_ADDR=/run/mysqld/mysqld.sock \
+              ..
+      make
+      make DESTDIR="${PKGDIR}" install
+      # for compatibility with mariadb-connector-c version 2 and other programs (e.g. teamspeak-server)
+      ln -sf /usr/lib/mariadb/libmariadb.so.3 ${PKGDIR}/usr/lib/mariadb/libmariadb.so.2
+
+deployment: ~

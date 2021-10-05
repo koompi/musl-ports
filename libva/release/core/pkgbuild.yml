@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "libva"
+  version: "2.12.0"
+  release: 1
+  description: Library which provides access to hardware accelerated video processing
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/intel/libva
+  project_ownder:
+        - Intel
+sources:
+  - address: "https://github.com/intel/libva/releases/download/2.12.0/libva-2.12.0.tar.bz2"
+    save_as: libva-2.12.0.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - mesa
+      - libdrm
+      - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir bld
+      cd bld
+
+      meson --prefix=/usr
+      ninja
+      DESTDIR=$PKGDIR ninja install
+deployment: ~

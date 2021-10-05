@@ -1,0 +1,59 @@
+---
+metadata:
+  name: "llvm"
+  version: "11.0.0"
+  release: 1
+  description: Collection of modular and reusable compiler and toolchain technologies
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://github.com/llvm
+  project_ownder:
+        - Chris Lattner
+sources:
+  - address: "https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/llvm-11.0.0.src.tar.xz"
+    save_as: llvm-11.0.0.src.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - cmake
+      - libffi
+      - python2
+      - ninja
+      - libxml2
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER.src
+      export CC=gcc
+      export CXX=g++
+
+      mkdir -v build
+      cd       build
+
+      cmake .. -G Ninja \
+            -DCMAKE_INSTALL_PREFIX=/usr           \
+            -DLLVM_ENABLE_FFI=ON                  \
+            -DCMAKE_BUILD_TYPE=Release            \
+            -DLLVM_BUILD_LLVM_DYLIB=ON            \
+                  -DLLVM_LINK_LLVM_DYLIB=ON             \
+            -DLLVM_ENABLE_RTTI=ON                 \
+            -DLLVM_TARGETS_TO_BUILD="X86;AMDGPU;BPF" \
+            -Wno-dev
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+      # multilib stub
+      mv $PKGDIR/usr/include/llvm/Config/llvm-config.h \
+        $PKGDIR/usr/include/llvm/Config/llvm-config-64.h
+        cp ../../../files/llvm-config.h \
+        $PKGDIR/usr/include/llvm/Config/llvm-config.h
+
+deployment: ~

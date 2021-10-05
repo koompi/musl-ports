@@ -1,0 +1,41 @@
+---
+metadata:
+  name: "mkfontscale"
+  version: "1.2.1"
+  release: 1
+  description: Create an index of scalable font files for X
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/mkfontscale-1.2.1.tar.bz2"
+    save_as: mkfontscale-1.2.1.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libfontenc
+      - freetype2
+      - zlib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

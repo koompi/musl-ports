@@ -1,0 +1,48 @@
+---
+metadata:
+  name: "talloc"
+  version: "2.3.2"
+  release: 1
+  description: Memory pool management library
+  architecture:
+        - x86_64
+  licenses:
+        - GPL
+  project_url:
+        - https://talloc.samba.org
+  project_ownder:
+        - Samba
+sources:
+  - address: "https://samba.org/ftp/talloc/talloc-2.3.2.tar.gz"
+    save_as: talloc-2.3.2.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - docbook-xsl
+      - libxslt
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --mandir=/usr/share/man \
+          --infodir=/usr/share/info \
+          --localstatedir=/var \
+          --bundled-libraries=NONE \
+          --builtin-libraries=replace \
+          --disable-rpath \
+          --disable-rpath-install \
+          --without-gettext
+
+          make
+          ar qf libtalloc.a bin/default/talloc.c*.o
+          make DESTDIR="$PKGDIR" install
+          install -Dm644 libtalloc.a "$PKGDIR"/usr/lib/libtalloc.a
+deployment: ~

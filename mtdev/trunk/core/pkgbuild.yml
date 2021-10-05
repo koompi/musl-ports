@@ -1,0 +1,36 @@
+---
+metadata:
+  name: "mtdev"
+  version: "1.1.6"
+  release: 1
+  description: Multitouch Protocol Translation Library which is used to transform all variants of kernel MT (Multitouch) events to the slotted type B protocol
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - http://bitmath.org/code/
+  project_ownder:
+        - BItMath
+sources:
+  - address: "http://bitmath.org/code/mtdev/mtdev-1.1.6.tar.bz2"
+    save_as: mtdev-1.1.6.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies: ~
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
+            --prefix=/usr \
+            --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

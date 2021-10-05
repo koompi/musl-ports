@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "luit"
+  version: "1.1.1"
+  release: 1
+  description: Filter that can be run between an arbitrary application and a UTF-8 terminal emulator
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/luit-1.1.1.tar.bz2"
+    save_as: luit-1.1.1.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libfontenc
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      sed -i -e "/D_XOPEN/s/5/6/" configure
+
+      ./configure \
+        --prefix=/usr \
+        --sysconfdir=/etc \
+        --localstatedir=/var \
+        --disable-static
+
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

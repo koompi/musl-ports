@@ -1,0 +1,42 @@
+---
+metadata:
+  name: "libtiff"
+  version: "4.3.0"
+  release: 1
+  description: TIFF libraries and associated utilities
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://download.osgeo.org/libtiff
+  project_ownder:
+        - Sam Leffler, Silicon Graphics
+sources:
+  - address: "https://download.osgeo.org/libtiff/tiff-4.3.0.tar.gz"
+    save_as: tiff-4.3.0.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - zlib
+      - libjpeg-turbo
+      - xz
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/tiff-$PKGVER
+
+      mkdir -p build
+      cd build
+
+      cmake -DCMAKE_INSTALL_DOCDIR=/usr/share/doc/libtiff \
+            -DCMAKE_INSTALL_PREFIX=/usr -G Ninja ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

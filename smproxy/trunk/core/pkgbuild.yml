@@ -1,0 +1,43 @@
+---
+metadata:
+  name: "smproxy"
+  version: "1.0.6"
+  release: 1
+  description: Allows X applications that do not support X11R6 session management to participate in an X11R6 session
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "http://ftp.x.org/pub/individual/app/smproxy-1.0.6.tar.bz2"
+    save_as: smproxy-1.0.6.tar.bz2
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libsm
+      - libice
+      - libxt
+      - libxmu
+      - libx11
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      ./configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --localstatedir=/var \
+          --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

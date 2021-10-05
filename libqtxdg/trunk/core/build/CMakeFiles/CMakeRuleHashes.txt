@@ -1,0 +1,7 @@
+# Hashes of file build rules.
+56f8d58622785c1b7a9c5053ccec0799 src/qtxdg/CMakeFiles/Qt5Xdg_autogen
+6e3b96b9d4104ce67283df37f4d8e52c src/qtxdg/application_interface.cpp
+f4f83440c9b2810193500bf175830299 src/qtxdg/application_interface.moc
+a7db046a8dca32bdff123d9711e143a1 src/tools/mat/CMakeFiles/qtxdg-mat_autogen
+b1fe8e49738955eee91e00dfd1b60b6b src/xdgiconloader/CMakeFiles/Qt5XdgIconLoader_autogen
+072d1400f05c8cf05cdf9775211163a2 src/xdgiconloader/plugin/CMakeFiles/Qt5XdgIconPlugin_autogen

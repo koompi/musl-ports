@@ -1,0 +1,37 @@
+---
+metadata:
+  name: "desktop-file-utils"
+  version: "0.26"
+  release: 1
+  description: Command line utilities for working with Desktop entries
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://freedesktop.org/software/
+  project_ownder:
+        - Free Desktop
+sources:
+  - address: "https://freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.26.tar.xz"
+    save_as: desktop-file-utils-0.26.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - glib
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir build-glib
+            cd    build-glib
+
+            meson --prefix=/usr ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+deployment: ~

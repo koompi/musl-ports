@@ -1,0 +1,45 @@
+---
+metadata:
+  name: "polkit-qt"
+  version: "0.114.0"
+  release: 1
+  description: A library that allows developers to access PolicyKit API with a nice Qt-style API
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://download.kde.org/stable/polkit-qt-1/polkit-qt-1-0.114.0.tar.xz"
+    save_as: polkit-qt-1-0.114.0.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - qt5
+      - polkit
+      - cmake
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/polkit-qt-1-0.114.0
+
+      mkdir build &&
+      cd    build &&
+
+      cmake -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_BUILD_TYPE=Release  \
+            -Wno-dev .. &&
+      make
+
+
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

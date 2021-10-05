@@ -1,0 +1,39 @@
+---
+metadata:
+  name: "libepoxy"
+  version: "1.5.5"
+  release: 1
+  description: Library for handling OpenGL function pointer management
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://github.com/anholt/libepoxy/releases/download/1.5.5/libepoxy-1.5.5.tar.xz"
+    save_as: libepoxy-1.5.5.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - mesa
+      - meson
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+      mkdir build
+      cd build
+
+      meson --prefix=/usr ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~

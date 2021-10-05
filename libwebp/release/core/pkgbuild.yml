@@ -1,0 +1,44 @@
+---
+metadata:
+  name: "libwebp"
+  version: "1.2.1"
+  release: 1
+  description: Library and support programs to encode and decode images in WebP format
+  architecture:
+        - x86_64
+  licenses:
+        - LGPL
+  project_url:
+        - https://developers.google.com/speed/webp/
+  project_ownder:
+        - Google
+sources:
+  - address: "http://downloads.webmproject.org/releases/webp/libwebp-1.2.1.tar.gz"
+    save_as: libwebp-1.2.1.tar.gz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - libjpeg-turbo
+      - libpng
+      - libtiff
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure --prefix=/usr           \
+                  --enable-libwebpmux     \
+                  --enable-libwebpdemux   \
+                  --enable-libwebpdecoder \
+                  --enable-libwebpextras  \
+                  --enable-swap-16bit-csp \
+                  --disable-static
+      make
+      make DESTDIR=$PKGDIR install
+
+deployment: ~

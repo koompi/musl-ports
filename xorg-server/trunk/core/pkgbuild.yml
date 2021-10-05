@@ -1,0 +1,56 @@
+---
+metadata:
+  name: "xorg-server"
+  version: "1.20.13"
+  release: 1
+  description: The core of the X Window system
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://xorg.freedesktop.org
+  project_ownder:
+        - Xorg Foundation
+sources:
+  - address: "https://www.x.org/pub/individual/xserver/xorg-server-1.20.13.tar.xz"
+    save_as: xorg-server-1.20.13.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - pixman
+      - libdrm
+      - libx11
+      - libglvnd
+      - libxkbfile
+      - libxfont2
+      - mesa
+      - libepoxy
+      - libxdmcp
+      - eudev
+      - xkeyboard-config
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+      ./configure \
+          --prefix=/usr \
+          --sysconfdir=/etc \
+          --localstatedir=/var \
+          --libexecdir=/usr/lib/$name \
+          --disable-static \
+          --enable-glamor \
+          --enable-suid-wrapper \
+          --with-xkb-output=/var/lib/xkb
+      make
+      make DESTDIR=$PKGDIR install
+      mkdir -pv $PKGDIR/etc/X11/xorg.conf.d
+
+
+deployment: ~

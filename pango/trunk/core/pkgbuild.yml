@@ -1,0 +1,51 @@
+---
+metadata:
+  name: "pango"
+  version: "1.48.9"
+  release: 1
+  description: Library for laying out and rendering of text, with an emphasis on internationalization
+  architecture:
+        - x86_64
+  licenses:
+        - MIT
+  project_url:
+        - https://gnome.org
+  project_ownder:
+        - GNOME Developers
+sources:
+  - address: "https://download.gnome.org/sources/pango/1.48/pango-1.48.9.tar.xz"
+    save_as: pango-1.48.9.tar.xz
+    extract: true
+    extract_to: ""
+security: ~
+dependencies:
+    run_dependencies:
+      - cairo
+      - harfbuzz
+      - fribidi
+      - fontconfig
+      - glib
+      - gobject-introspection
+      - meson
+      - libxft
+prepare: ~
+build: ~
+check: ~
+package:
+  commands:
+    - |
+      cd $SRCDIR/$PKGNAME-$PKGVER
+
+
+      mkdir build
+      cd    build
+
+      meson \
+      --prefix=/usr \
+      --sysconfdir=/etc \
+      --libexecdir=/usr/lib/$name \
+      ..
+      ninja
+      DESTDIR=$PKGDIR ninja install
+
+deployment: ~
