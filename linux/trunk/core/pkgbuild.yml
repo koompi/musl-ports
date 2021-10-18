@@ -1,8 +1,8 @@
 ---
 metadata:
   name: "linux"
-  # version: "5.12.14"
-  version: "5.11.9"
+  version: "5.13.19"
+  #version: "5.12.1"
   release: 1
   description: Linux kernel, sources and modules
   architecture:
@@ -27,9 +27,13 @@ package:
   commands:
     - |
       cd $SRCDIR/$PKGNAME-$PKGVER
+      patch -Np1 -i $BASEDIR/patches/decode-patch.patch
+      patch -Np1 -i $BASEDIR/patches/perf_event_patch.patch
+
       make mrproper
 
-      cp ../../files/config* ./.config
+      #cp $BASEDIR/files/config* ./.config
+      cp $BASEDIR/files/koompi* ./.config
       make olddefconfig
 
       sed '/^CONFIG_LOCALVERSION=/d' -i .config
@@ -38,7 +42,7 @@ package:
       kernver=${PKGVER}$(grep CONFIG_LOCALVERSION= .config | cut -d '"' -f2)
 
       #make menuconfig
-      make olddefconfig
+      #make olddefconfig
       make bzImage modules
       make INSTALL_MOD_PATH="$PKGDIR" modules_install
 

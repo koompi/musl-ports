@@ -1,0 +1,13 @@
+--- a/tools/objtool/arch/x86/decode.c
++++ b/tools/objtool/arch/x86/decode.c
+@@ -6,6 +6,10 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ 
++#if !defined(__GLIBC__)
++#include <linux/stddef.h>
++#endif
++
+ #define unlikely(cond) (cond)
+ #include <asm/insn.h>
+ #include "../../../arch/x86/lib/inat.c"
